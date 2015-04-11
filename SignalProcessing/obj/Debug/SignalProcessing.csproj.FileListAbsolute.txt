@@ -7,3 +7,4 @@ C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcess
 C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.csproj.GenerateResource.Cache
 C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.exe
 C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.pdb
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.SettingWindow.resources

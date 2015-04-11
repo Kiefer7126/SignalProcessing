@@ -1,0 +1,9 @@
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\bin\Debug\SignalProcessing.exe.config
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\bin\Debug\SignalProcessing.exe
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\bin\Debug\SignalProcessing.pdb
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.csprojResolveAssemblyReference.cache
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.MainWindow.resources
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.Properties.Resources.resources
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.csproj.GenerateResource.Cache
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.exe
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.pdb

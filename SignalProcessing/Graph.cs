@@ -140,7 +140,7 @@ namespace SignalProcessing
             }
         }
 
-        /*
+        /**
          * PlotWaveForm
          * 概要：時間軸のグラフを描画する
          * 引数：timeGraph 時間軸グラフを描画するPictureBox
@@ -153,5 +153,32 @@ namespace SignalProcessing
             PlotGraph(timeGraph, data.timeData, data.windowLen, 0);
         }
 
+        /**
+         * PlotdBChar
+         * 概要：dB軸のグラフを描画する
+         * 引数：samplingFreq サンプリング周波数
+         *       dbGraph      dB軸グラフを描画するPictureBox
+         *       data         グラフ描画対象データ
+         * 戻り値：なし
+         */
+
+        public void PlotdBChar(double samplingFreq, PictureBox dbGraph, DataRetention data)
+        {
+            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq);
+        }
+
+        /**
+         * PlotPhaseChar
+         * 概要：位相軸のグラフを描画する
+         * 引数：samplingFreq サンプリング周波数
+         *       phaseGraph   位相軸グラフを描画するPictureBox
+         *       data         グラフ描画の対象データ
+         * 戻り値：なし
+         */
+
+        public void PlotPhaseChar(double samplingFreq, PictureBox phaseGraph, DataRetention data)
+        {
+            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq);
+        }
     }
 }

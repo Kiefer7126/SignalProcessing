@@ -16,7 +16,8 @@ namespace SignalProcessing
         private SettingWindow dialog;
         private FileReader reader;
         private Graph graphic;
-
+        private FourierAnalysis fourier;
+        
         /**
          * MainWindow
          * 概要：コンストラクタ
@@ -29,6 +30,7 @@ namespace SignalProcessing
             this.dialog = new SettingWindow(this.data);
             this.reader = new FileReader();
             this.graphic = new Graph();
+            this.fourier = new FourierAnalysis();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,7 +55,7 @@ namespace SignalProcessing
 
         /**
          * textToolStripMenuItem_Click
-         * 概要：[File] -> [Import] -> [Text]
+         * 概要：[Frequency] -> [Import] -> [Text]
          * 引数：sender
          *          e
          * 戻り値：なし
@@ -64,6 +66,28 @@ namespace SignalProcessing
             this.data.fileFormat = DataRetention.TEXTDATA;
             this.reader.ReadFile(this.data);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+        }
+
+        /**
+         * dFTToolStripMenuItem_Click
+         * 概要：[File] -> [DFT]
+         * 引数：sender
+         *          e
+         * 戻り値：なし
+         */
+
+        private void dFTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double item;
+
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+
+            this.fourier.CalDFT(this.data);
+
+            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+
+
         }
     }
 }

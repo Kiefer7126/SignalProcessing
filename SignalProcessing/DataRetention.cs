@@ -19,5 +19,18 @@ namespace SignalProcessing
         public int originalLen;
         //WindowLength分切り取ったデータ
         public double[] timeData;
+        //フーリエ変換後の複素数データ
+        public double[] realData;
+        public double[] imagData;
+        //周波数軸グラフ(パワー)描画に用いるデータ
+        public double[] powerData;
+        //周波数軸グラフ(dB)描画に用いるデータ
+        public double[] dBData;
+        //dBの最大値
+        public double dBDataMax;
+        //周波数軸グラフ(位相)描画に用いるデータ
+        public double[] phaseData;
+        //位相の最大値
+        public double phaseDataMax;
     }
 }

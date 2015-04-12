@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataRetention.cs" />
+    <Compile Include="FileReader.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="SettingWindow.cs">
       <SubType>Form</SubType>
     </Compile>

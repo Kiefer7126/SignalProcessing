@@ -14,11 +14,12 @@ namespace SignalProcessing
     {
         public DataRetention data;
         private SettingWindow dialog;
+        private FileReader reader;
+        private Graph graphic;
 
         /**
          * MainWindow
          * 概要：コンストラクタ
-         * 
          */
 
         public MainWindow()
@@ -26,6 +27,8 @@ namespace SignalProcessing
             InitializeComponent();
             this.data = new DataRetention();
             this.dialog = new SettingWindow(this.data);
+            this.reader = new FileReader();
+            this.graphic = new Graph();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,6 +49,21 @@ namespace SignalProcessing
         {
             this.dialog.ShowDialog();
 
+        }
+
+        /**
+         * textToolStripMenuItem_Click
+         * 概要：[File] -> [Import] -> [Text]
+         * 引数：sender
+         *          e
+         * 戻り値：なし
+         */
+
+        private void textToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.data.fileFormat = DataRetention.TEXTDATA;
+            this.reader.ReadFile(this.data);
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
     }
 }

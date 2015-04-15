@@ -24,6 +24,7 @@ namespace SignalProcessing
         {
             string fileName = "";
             OpenFileDialog dialog = new OpenFileDialog();
+            dialog.ShowHelp = true;
 
             if (flag == DataRetention.TEXTDATA)
             {

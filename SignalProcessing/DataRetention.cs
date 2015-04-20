@@ -32,5 +32,20 @@ namespace SignalProcessing
         public double[] phaseData;
         //位相の最大値
         public double phaseDataMax;
+
+        //wavの実チャンクデータ
+        public byte[] orChunkId;
+        public int orChunkSize;
+        public byte[] orFormat;
+        public byte[] ofChunkId;
+        public int ofChunkSize;
+        public short ofAudio;
+        public short ofCh;
+        public int ofSmpf;
+        public int ofByteRate;
+        public short ofBlockSize;
+        public short ofBits;
+        public byte[] odChunkId;
+        public int odChunkSize;
     }
 }

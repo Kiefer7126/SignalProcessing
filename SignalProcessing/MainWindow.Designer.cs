@@ -117,6 +117,7 @@
             this.wavToolStripMenuItem.Name = "wavToolStripMenuItem";
             this.wavToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.wavToolStripMenuItem.Text = "Wav";
+            this.wavToolStripMenuItem.Click += new System.EventHandler(this.wavToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
@@ -176,26 +177,26 @@
             // dFTToolStripMenuItem
             // 
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
             // fFTToolStripMenuItem
             // 
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             // 
             // iDFTToolStripMenuItem
             // 
             this.iDFTToolStripMenuItem.Name = "iDFTToolStripMenuItem";
-            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.iDFTToolStripMenuItem.Text = "IDFT";
             // 
             // iFFTToolStripMenuItem
             // 
             this.iFFTToolStripMenuItem.Name = "iFFTToolStripMenuItem";
-            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.iFFTToolStripMenuItem.Text = "IFFT";
             // 
             // windowToolStripMenuItem
@@ -205,7 +206,7 @@
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
@@ -260,6 +261,7 @@
             this.samplingComboBox.Name = "samplingComboBox";
             this.samplingComboBox.Size = new System.Drawing.Size(121, 20);
             this.samplingComboBox.TabIndex = 1;
+            this.samplingComboBox.SelectedIndexChanged += new System.EventHandler(this.samplingComboBox_SelectedIndexChanged);
             // 
             // samplingLabel
             // 

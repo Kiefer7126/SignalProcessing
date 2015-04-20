@@ -11,6 +11,88 @@ namespace SignalProcessing
     public class FileReader
     {
 
+
+        /**
+         * ReadWavFile
+         * 概要：wavファイルを読み込む
+         * 引数：data wavデータ格納用
+         * 戻り値：なし
+         */
+        public void ReadWavFile(DataRetention data)
+        {
+            //読み込むファイル名
+            string filename = "";
+            int i = 0;
+
+            //読み込むファイル名の取得
+            filename = OpenFile(DataRetention.WAVDATA);
+
+            if (filename == "" || filename == null)
+            {
+                //ファイル名が取得されていなければ、処理を続行しない
+
+                MessageBox.Show("ファイル名が取得されてないよ");
+            }
+            else
+            {
+                try
+                {
+                    using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+                    {
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            //指定したファイルからwavデータを読み込む
+                            //データ長だけ読み込み、指定の形式に変換する
+                            data.orChunkId = br.ReadBytes(4);
+                            data.orChunkSize = br.ReadInt32();
+                            data.orFormat = br.ReadBytes(4);
+                            data.ofChunkId = br.ReadBytes(4);
+                            data.ofChunkSize = br.ReadInt32();
+                            data.ofAudio = br.ReadInt16();
+                            data.ofCh = br.ReadInt16();
+                            data.ofSmpf = br.ReadInt32();
+                            data.ofByteRate = br.ReadInt32();
+                            data.ofBlockSize = br.ReadInt16();
+                            data.ofBits = br.ReadInt16();
+                            data.odChunkId = br.ReadBytes(4);
+                            data.odChunkSize = br.ReadInt32();
+
+                            data.originalLen = data.odChunkSize / 2;
+
+                            //MessageBox.Show("Detail:" + data.originalLen, "Exception");
+
+                            data.originalData = new double[data.originalLen];
+                            for (i = 0; i < data.originalLen; i++)
+                            {
+                                data.originalData[i] = Convert.ToDouble(br.ReadInt16());
+                            }
+
+                            //時間軸データ用にオリジナルデータをコピーする
+                            data.timeData = new double[data.windowLen];
+
+                            for (i = 0; i < data.windowLen; i++)
+                            {
+                                //オリジナルデータ数がwindowLengthより少なかったら0を入れる
+                                if (i <= data.originalLen)
+                                {
+                                    data.timeData[i] = data.originalData[i];
+                                }
+                                else
+                                {
+                                    data.timeData[i] = 0.00000;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Detail:\r\n\r\n" + e, "Exception");
+                }
+            }
+        }
+
+
         /**
          * OpenFile
          * 概要：ファイル読み込みダイアログを表示する

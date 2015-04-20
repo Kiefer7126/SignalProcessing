@@ -17,7 +17,7 @@ namespace SignalProcessing
         private FileReader reader;
         private Graph graphic;
         private FourierAnalysis fourier;
-        
+
         /**
          * MainWindow
          * 概要：コンストラクタ
@@ -88,6 +88,54 @@ namespace SignalProcessing
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
 
 
+        }
+
+        /**
+         * wavReadToolStripMenuItem_Click
+         * 概要：[File] -> [Import] -> [wav]
+         * 引数：sender 
+         *       e 
+         * 戻り値：なし
+         */
+
+        private void wavToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //読み込んだデータ形式のセット
+            this.data.fileFormat = DataRetention.WAVDATA;
+
+            //wavデータの読み込み
+            this.reader.ReadWavFile(this.data);
+
+            //時間軸グラフ表示
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+
+        }
+
+        /**
+         * samplingComboBox_SelectedIndexChanged
+         * 概要：サンプリング周波数の選択時の処理
+         * 引数：sender 
+         *       e 
+         * 戻り値：なし
+         */
+
+        private void samplingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            double item;
+
+            //現在選択されているサンプリング周波数の項目を取得する
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+
+            //dB軸グラフ、位相軸グラフのデータがあれば、
+            //サンプリング周波数に合わせて再描画する。
+            if (this.data.dBData != null && this.data.phaseData != null)
+            {
+                //dB軸グラフ表示
+                this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+
+                //位相軸グラフ表示
+                this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            }
         }
     }
 }

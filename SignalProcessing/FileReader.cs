@@ -62,7 +62,10 @@ namespace SignalProcessing
                             //MessageBox.Show("Detail:" + data.originalLen, "Exception");
 
                             data.originalData = new double[data.originalLen];
-                            for (i = 0; i < data.originalLen; i++)
+
+                            //ステレオファイルはRLRL…の順に入っているので一つ飛ばしで読み込む？
+
+                            for (i = 0; i < data.originalLen; i = i + 1)
                             {
                                 data.originalData[i] = Convert.ToDouble(br.ReadInt16());
                             }

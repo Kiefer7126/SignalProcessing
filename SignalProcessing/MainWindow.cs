@@ -86,7 +86,7 @@ namespace SignalProcessing
 
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
-
+            this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data, DataRetention.SPECTRO);
 
         }
 
@@ -135,6 +135,9 @@ namespace SignalProcessing
 
                 //位相軸グラフ表示
                 this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+                //スペクトログラム表示
+
+                this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data, DataRetention.SPECTRO);
             }
         }
     }

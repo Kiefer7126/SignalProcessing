@@ -11,6 +11,8 @@ namespace SignalProcessing
         public const int TEXTDATA = 100;
         public const int WAVDATA = 101;
 
+        public const int SPECTRO = 1;
+
         //判定フラグ(TEXTDATA or WAVDATA)
         public int fileFormat;  
         //オリジナルデータ

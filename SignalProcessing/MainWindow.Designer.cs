@@ -60,10 +60,13 @@
             this.timeGraphLabel = new System.Windows.Forms.Label();
             this.dBGraphLabel = new System.Windows.Forms.Label();
             this.phaseGraphLabel = new System.Windows.Forms.Label();
+            this.spectrogramPictureBox = new System.Windows.Forms.PictureBox();
+            this.spectrogramLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -74,7 +77,7 @@
             this.filterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(404, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(830, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -257,7 +260,7 @@
             "16",
             "22.05",
             "44.1"});
-            this.samplingComboBox.Location = new System.Drawing.Point(262, 28);
+            this.samplingComboBox.Location = new System.Drawing.Point(697, 31);
             this.samplingComboBox.Name = "samplingComboBox";
             this.samplingComboBox.Size = new System.Drawing.Size(121, 20);
             this.samplingComboBox.TabIndex = 1;
@@ -266,7 +269,7 @@
             // samplingLabel
             // 
             this.samplingLabel.AutoSize = true;
-            this.samplingLabel.Location = new System.Drawing.Point(148, 31);
+            this.samplingLabel.Location = new System.Drawing.Point(583, 34);
             this.samplingLabel.Name = "samplingLabel";
             this.samplingLabel.Size = new System.Drawing.Size(108, 12);
             this.samplingLabel.TabIndex = 2;
@@ -329,12 +332,33 @@
             this.phaseGraphLabel.TabIndex = 8;
             this.phaseGraphLabel.Text = "Phase";
             // 
+            // spectrogramPictureBox
+            // 
+            this.spectrogramPictureBox.BackColor = System.Drawing.Color.Black;
+            this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.spectrogramPictureBox.Location = new System.Drawing.Point(407, 69);
+            this.spectrogramPictureBox.Name = "spectrogramPictureBox";
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(411, 389);
+            this.spectrogramPictureBox.TabIndex = 9;
+            this.spectrogramPictureBox.TabStop = false;
+            // 
+            // spectrogramLabel
+            // 
+            this.spectrogramLabel.AutoSize = true;
+            this.spectrogramLabel.Location = new System.Drawing.Point(405, 51);
+            this.spectrogramLabel.Name = "spectrogramLabel";
+            this.spectrogramLabel.Size = new System.Drawing.Size(69, 12);
+            this.spectrogramLabel.TabIndex = 10;
+            this.spectrogramLabel.Text = "Spectrogram";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(404, 681);
+            this.ClientSize = new System.Drawing.Size(830, 681);
+            this.Controls.Add(this.spectrogramLabel);
+            this.Controls.Add(this.spectrogramPictureBox);
             this.Controls.Add(this.phaseGraphLabel);
             this.Controls.Add(this.dBGraphLabel);
             this.Controls.Add(this.timeGraphLabel);
@@ -354,6 +378,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -393,6 +418,8 @@
         private System.Windows.Forms.Label timeGraphLabel;
         private System.Windows.Forms.Label dBGraphLabel;
         private System.Windows.Forms.Label phaseGraphLabel;
+        private System.Windows.Forms.PictureBox spectrogramPictureBox;
+        private System.Windows.Forms.Label spectrogramLabel;
     }
 }
 

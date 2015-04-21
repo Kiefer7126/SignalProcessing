@@ -24,7 +24,7 @@ namespace SignalProcessing
          * 戻り値：なし
          */
 
-        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq)
+        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq, int flag)
         {
             Graphics g;
             Font myFont;
@@ -41,7 +41,11 @@ namespace SignalProcessing
             xMax = picture.Width - 20;
             yMax = 20;
             yMin = picture.Height - 20;
-            yZero = (yMax + yMin) / 2;
+
+            //spectrogramの場合は中心ではなく下から始める
+            if (flag == DataRetention.SPECTRO) { yZero = yMin; }
+            else { yZero = (yMax + yMin) / 2; }
+            
             xZero = xMin;
 
             xStep = (float)(xMax - xMin) / (windowLen + 1);
@@ -66,6 +70,7 @@ namespace SignalProcessing
                     yStep = (float)(yMin - yMax) / System.Math.Abs(dataMin) / 2;
                     yMaxLabel = System.Math.Abs(dataMin).ToString();
                     yMinLabel = (-1 * System.Math.Abs(dataMin)).ToString();
+                    
                 }
                 else
                 {
@@ -73,6 +78,15 @@ namespace SignalProcessing
 
                     yMaxLabel = System.Math.Abs(dataMax).ToString();
                     yMinLabel = (-1 * System.Math.Abs(dataMax)).ToString();
+
+                }
+
+                //spectrogramの場合のy軸はx軸と同じ？
+                if (flag == DataRetention.SPECTRO)
+                {
+                    yMaxLabel = windowLen.ToString();
+                    yMinLabel = "0";
+                    yStep = (float)(yMax - yMin) / (windowLen + 1);
                 }
 
                 g.DrawString("0", myFont, Pens.Black.Brush, xZero - 20, yZero - 2);
@@ -109,13 +123,28 @@ namespace SignalProcessing
                 g.DrawLine(Pens.Black, xZero - 2, yMin, xZero + 2, yMin);
 
                 //グラフの描画
-                for (i = 1; i < windowLen; i++)
+
+                if (flag == DataRetention.SPECTRO)
                 {
-                    g.DrawLine(Pens.Orange, 
-                        xZero + (i - 1) * xStep, 
-                        yZero - (float)data[i - 1] * yStep, 
-                        xZero + i * xStep, 
-                        yZero - (float)data[i] * yStep);
+                    for (i = 1; i < windowLen; i++)
+                    {
+                        float bottomUp = System.Math.Abs( dataMin );
+                        int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
+                        Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
+                        g.DrawLine(p,
+                             xZero, yMin + (i - 1) * yStep, xMax, yMin + (i - 1) * yStep);
+                    }
+                }
+                else
+                {
+                    for (i = 1; i < windowLen; i++)
+                    {
+                        g.DrawLine(Pens.Green,
+                            xZero + (i - 1) * xStep,
+                            yZero - (float)data[i - 1] * yStep,
+                            xZero + i * xStep,
+                            yZero - (float)data[i] * yStep);
+                    }
                 }
 
                 //Graphicsリソース解放
@@ -150,7 +179,7 @@ namespace SignalProcessing
 
         public void PlotWaveForm(PictureBox timeGraph, DataRetention data)
         {
-            PlotGraph(timeGraph, data.timeData, data.windowLen, 0);
+            PlotGraph(timeGraph, data.timeData, data.windowLen, 0, 0);
         }
 
         /**
@@ -164,7 +193,7 @@ namespace SignalProcessing
 
         public void PlotdBChar(double samplingFreq, PictureBox dbGraph, DataRetention data)
         {
-            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq);
+            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq, 0);
         }
 
         /**
@@ -178,7 +207,22 @@ namespace SignalProcessing
 
         public void PlotPhaseChar(double samplingFreq, PictureBox phaseGraph, DataRetention data)
         {
-            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq);
+            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq,0);
         }
+
+        /**
+         * PlotSpectrogram
+         * 概要：スペクトログラムを描画する
+         * 引数：samplingFreq サンプリング周波数
+         *       spectrogram   スペクトログラムを描画するPictureBox
+         *       data         グラフ描画の対象データ
+         * 戻り値：なし
+         */
+
+        public void PlotSpectrogram(double samplingFreq, PictureBox spectrogram, DataRetention data, int flag)
+        {
+            PlotGraph(spectrogram, data.dBData, data.windowLen, samplingFreq, flag);
+        }
+
     }
 }

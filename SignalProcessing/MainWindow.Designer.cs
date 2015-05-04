@@ -130,7 +130,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -159,8 +159,9 @@
             // wavToolStripMenuItem1
             // 
             this.wavToolStripMenuItem1.Name = "wavToolStripMenuItem1";
-            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
+            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.wavToolStripMenuItem1.Text = "Wav";
+            this.wavToolStripMenuItem1.Click += new System.EventHandler(this.wavToolStripMenuItem1_Click);
             // 
             // exitToolStripMenuItem
             // 

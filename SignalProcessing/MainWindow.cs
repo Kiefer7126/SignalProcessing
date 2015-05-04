@@ -203,5 +203,15 @@ namespace SignalProcessing
 
             //MessageBox.Show("waveKind: " + this.data.waveKind);
         }
+
+        private void wavToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            double item;
+
+            //現在選択されているサンプリング周波数の項目を取得する
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+
+            this.writer.WriteWavFile(item, this.data);
+        }
     }
 }

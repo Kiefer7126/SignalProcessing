@@ -12,6 +12,9 @@ namespace SignalProcessing
         public const int WAVDATA = 101;
         public const int TIMEGRAPH = 200;
         public const int FREQGRAPH = 201;
+        public const int SINE = 300;
+        public const int SAW = 301;
+        public const int SQUARE = 302;
         public const int SPECTRO = 1;
         
 
@@ -51,5 +54,20 @@ namespace SignalProcessing
         public short ofBits;
         public byte[] odChunkId;
         public int odChunkSize;
+
+        //生成したデータ
+        public double[] generatingData;
+        //判定フラグ(SINE, SAW or SQUARE)
+        public int waveKind;
+        //振幅
+        public double amplitude = 1.0;
+        //基本周波数
+        public double fundamentalFreq = 250.0;
+        //
+        public double harmonic = 10000.0;
+        //
+        public double quantizingPrecision = 16.0;
+        //サンプリング周波数
+        public double samplingFreq = 8000.0;
     }
 }

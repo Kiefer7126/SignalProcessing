@@ -18,6 +18,7 @@ namespace SignalProcessing
         private Graph graphic;
         private FourierAnalysis fourier;
         private FileWriter writer;
+        private GenerateWave generate;
 
         /**
          * MainWindow
@@ -33,6 +34,11 @@ namespace SignalProcessing
             this.graphic = new Graph();
             this.fourier = new FourierAnalysis();
             this.writer = new FileWriter();
+            this.generate = new GenerateWave();
+
+            // 初期表示時に、先頭の項目を選択
+            this.waveKindComboBox.SelectedIndex = 0; 
+
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -151,6 +157,51 @@ namespace SignalProcessing
         private void dBGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.writer.WriteFile(this.data, DataRetention.FREQGRAPH);
+        }
+
+        /**
+        * waveKindComboBox_SelectedIndexChanged
+        * 概要：生成する波の種類の選択時の処理
+        * 引数：sender 
+        *       e 
+        * 戻り値：なし
+        */
+
+        private void waveKindComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index;
+            index = waveKindComboBox.SelectedIndex;
+
+            switch (index)
+            {
+                case 0:
+                    this.data.waveKind = DataRetention.SINE;
+                    break;
+                case 1:
+                    this.data.waveKind = DataRetention.SAW;
+                    break;
+                case 2:
+                    this.data.waveKind = DataRetention.SQUARE;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**
+        * generateButton_Click
+        * 概要：Generateボタンを押した時の処理
+        * 引数：sender 
+        *       e 
+        * 戻り値：なし
+        */
+
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            generate.Processing(this.data, this.data.waveKind);
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+
+            //MessageBox.Show("waveKind: " + this.data.waveKind);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace SignalProcessing
             yMin = picture.Height - 20;
 
             //spectrogramの場合は中心ではなく下から始める
-            if (flag == DataRetention.SPECTRO) { yZero = yMin; }
+            if (flag == DataRetention.SPECTRO) { yZero = picture.Height; }
             else { yZero = (yMax + yMin) / 2; }
             
             xZero = xMin;
@@ -84,9 +84,11 @@ namespace SignalProcessing
                 //spectrogramの場合のy軸はx軸と同じ？
                 if (flag == DataRetention.SPECTRO)
                 {
-                    yMaxLabel = windowLen.ToString();
-                    yMinLabel = "0";
-                    yStep = System.Math.Abs((float)(yMax - yMin) / (windowLen + 1));
+                    //yMaxLabel = windowLen.ToString();
+                    //yMinLabel = "0";
+                    yMaxLabel = "";
+                    yMinLabel = "";
+                    yStep = System.Math.Abs((float)(0 - picture.Height) / (windowLen + 1));
                 }
 
                 g.DrawString("0", myFont, Pens.Black.Brush, xZero - 20, yZero - 2);
@@ -126,13 +128,55 @@ namespace SignalProcessing
 
                 if (flag == DataRetention.SPECTRO)
                 {
+                    /*
+                    int hsv;
+                    int red = 0;
+                    int green = 0;
+                    int brue = 255;
+                    */
+
                     for (i = 1; i < windowLen; i++)
                     {
                         float bottomUp = System.Math.Abs( dataMin );
+                       
                         int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
                         Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
+/*
+                        hsv = (int)( ( ( data[i] + bottomUp ) / (dataMax -  dataMin) ) * 1020);
+
+                        switch (hsv/255)
+                        {
+                            case 0:
+                                red = 0;
+                                green = 0 + (hsv % 255);
+                                brue = 255;
+                                break;
+
+                            case 1:
+                                red = 0;
+                                green = 255;
+                                brue = 255 - (hsv % 255);
+                                break;
+
+                            case 2:
+                                red = 0 + (hsv % 255);
+                                green = 255;
+                                brue = 0;
+                                break;
+
+                            case 3:
+                                red = 255;
+                                green = 255 - (hsv % 255);
+                                brue = 0;
+                                break;
+                                
+                        }
+
+                        Pen p = new Pen(Color.FromArgb(red, green, brue));
+
+ */
                         g.DrawLine(p,
-                             xZero, (float)(yMin - i * yStep), xMax, (float)(yMin - i * yStep));
+                             0, (float)(picture.Height - i * yStep), picture.Width, (float)(picture.Height - i * yStep));
                     }
                 }
                 else

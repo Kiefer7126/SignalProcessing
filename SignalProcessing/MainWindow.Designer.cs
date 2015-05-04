@@ -62,6 +62,8 @@
             this.phaseGraphLabel = new System.Windows.Forms.Label();
             this.spectrogramPictureBox = new System.Windows.Forms.PictureBox();
             this.spectrogramLabel = new System.Windows.Forms.Label();
+            this.waveKindComboBox = new System.Windows.Forms.ComboBox();
+            this.generateButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
@@ -128,7 +130,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -137,20 +139,20 @@
             this.timeGraphToolStripMenuItem,
             this.dBGraphToolStripMenuItem});
             this.textToolStripMenuItem1.Name = "textToolStripMenuItem1";
-            this.textToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.textToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
             this.textToolStripMenuItem1.Text = "Text";
             // 
             // timeGraphToolStripMenuItem
             // 
             this.timeGraphToolStripMenuItem.Name = "timeGraphToolStripMenuItem";
-            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.timeGraphToolStripMenuItem.Text = "TimeGraph";
             this.timeGraphToolStripMenuItem.Click += new System.EventHandler(this.timeGraphToolStripMenuItem_Click);
             // 
             // dBGraphToolStripMenuItem
             // 
             this.dBGraphToolStripMenuItem.Name = "dBGraphToolStripMenuItem";
-            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.dBGraphToolStripMenuItem.Text = "dBGraph";
             this.dBGraphToolStripMenuItem.Click += new System.EventHandler(this.dBGraphToolStripMenuItem_Click);
             // 
@@ -353,12 +355,37 @@
             this.spectrogramLabel.TabIndex = 10;
             this.spectrogramLabel.Text = "Spectrogram";
             // 
+            // waveKindComboBox
+            // 
+            this.waveKindComboBox.FormattingEnabled = true;
+            this.waveKindComboBox.Items.AddRange(new object[] {
+            "Sine",
+            "Saw",
+            "Square"});
+            this.waveKindComboBox.Location = new System.Drawing.Point(12, 24);
+            this.waveKindComboBox.Name = "waveKindComboBox";
+            this.waveKindComboBox.Size = new System.Drawing.Size(121, 20);
+            this.waveKindComboBox.TabIndex = 11;
+            this.waveKindComboBox.SelectedIndexChanged += new System.EventHandler(this.waveKindComboBox_SelectedIndexChanged);
+            // 
+            // generateButton
+            // 
+            this.generateButton.Location = new System.Drawing.Point(139, 22);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(75, 23);
+            this.generateButton.TabIndex = 12;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(830, 681);
+            this.Controls.Add(this.generateButton);
+            this.Controls.Add(this.waveKindComboBox);
             this.Controls.Add(this.spectrogramLabel);
             this.Controls.Add(this.spectrogramPictureBox);
             this.Controls.Add(this.phaseGraphLabel);
@@ -422,6 +449,8 @@
         private System.Windows.Forms.Label phaseGraphLabel;
         private System.Windows.Forms.PictureBox spectrogramPictureBox;
         private System.Windows.Forms.Label spectrogramLabel;
+        private System.Windows.Forms.ComboBox waveKindComboBox;
+        private System.Windows.Forms.Button generateButton;
     }
 }
 

@@ -10,8 +10,10 @@ namespace SignalProcessing
         public int windowLen = 1024;
         public const int TEXTDATA = 100;
         public const int WAVDATA = 101;
-
+        public const int TIMEGRAPH = 200;
+        public const int FREQGRAPH = 201;
         public const int SPECTRO = 1;
+        
 
         //判定フラグ(TEXTDATA or WAVDATA)
         public int fileFormat;  

@@ -86,7 +86,7 @@ namespace SignalProcessing
                 {
                     yMaxLabel = windowLen.ToString();
                     yMinLabel = "0";
-                    yStep = (float)(yMax - yMin) / (windowLen + 1);
+                    yStep = System.Math.Abs((float)(yMax - yMin) / (windowLen + 1));
                 }
 
                 g.DrawString("0", myFont, Pens.Black.Brush, xZero - 20, yZero - 2);
@@ -132,18 +132,25 @@ namespace SignalProcessing
                         int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
                         Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
                         g.DrawLine(p,
-                             xZero, yMin + (i - 1) * yStep, xMax, yMin + (i - 1) * yStep);
+                             xZero, (float)(yMin - i * yStep), xMax, (float)(yMin - i * yStep));
                     }
                 }
                 else
                 {
                     for (i = 1; i < windowLen; i++)
                     {
-                        g.DrawLine(Pens.Green,
+                       g.DrawLine(Pens.Green,
                             xZero + (i - 1) * xStep,
                             yZero - (float)data[i - 1] * yStep,
                             xZero + i * xStep,
                             yZero - (float)data[i] * yStep);
+
+/*                        g.DrawLine(Pens.Green,
+                            xZero + i * xStep,
+                            yZero,
+                            xZero + i * xStep,
+                            yZero - (float)data[i] * yStep);
+ */
                     }
                 }
 

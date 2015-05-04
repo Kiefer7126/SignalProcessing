@@ -128,7 +128,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -137,20 +137,22 @@
             this.timeGraphToolStripMenuItem,
             this.dBGraphToolStripMenuItem});
             this.textToolStripMenuItem1.Name = "textToolStripMenuItem1";
-            this.textToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
+            this.textToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.textToolStripMenuItem1.Text = "Text";
             // 
             // timeGraphToolStripMenuItem
             // 
             this.timeGraphToolStripMenuItem.Name = "timeGraphToolStripMenuItem";
-            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.timeGraphToolStripMenuItem.Text = "TimeGraph";
+            this.timeGraphToolStripMenuItem.Click += new System.EventHandler(this.timeGraphToolStripMenuItem_Click);
             // 
             // dBGraphToolStripMenuItem
             // 
             this.dBGraphToolStripMenuItem.Name = "dBGraphToolStripMenuItem";
-            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dBGraphToolStripMenuItem.Text = "dBGraph";
+            this.dBGraphToolStripMenuItem.Click += new System.EventHandler(this.dBGraphToolStripMenuItem_Click);
             // 
             // wavToolStripMenuItem1
             // 
@@ -338,7 +340,7 @@
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spectrogramPictureBox.Location = new System.Drawing.Point(407, 69);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(411, 389);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(411, 600);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 

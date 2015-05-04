@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DataRetention.cs" />
     <Compile Include="FileReader.cs" />
+    <Compile Include="FileWriter.cs" />
     <Compile Include="FourierAnalysis.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="SettingWindow.cs">

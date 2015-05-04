@@ -17,6 +17,7 @@ namespace SignalProcessing
         private FileReader reader;
         private Graph graphic;
         private FourierAnalysis fourier;
+        private FileWriter writer;
 
         /**
          * MainWindow
@@ -31,6 +32,7 @@ namespace SignalProcessing
             this.reader = new FileReader();
             this.graphic = new Graph();
             this.fourier = new FourierAnalysis();
+            this.writer = new FileWriter();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -139,6 +141,16 @@ namespace SignalProcessing
 
                 this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data, DataRetention.SPECTRO);
             }
+        }
+
+        private void timeGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.writer.WriteFile(this.data, DataRetention.TIMEGRAPH);
+        }
+
+        private void dBGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.writer.WriteFile(this.data, DataRetention.FREQGRAPH);
         }
     }
 }

@@ -28,9 +28,9 @@ namespace SignalProcessing
         /**
          * WriteWavFile
          * 概要：wavファイルを書き込む
-         * 引数：samplingFreq サンプリング周波数
-         *       data wavデータ格納用
-         * 戻り値：なし
+         * @param samplingFreq サンプリング周波数
+         * @param data wavデータ格納用
+         * @return なし
          */
 
         public void WriteWavFile(double samplingFreq, DataRetention data)
@@ -132,9 +132,9 @@ namespace SignalProcessing
         /*
          * SaveFile
          * 概要：ファイル保存ダイアログを表示する
-         * 引数：flag DataRetention.TEXTDATA -> テキストファイル
-         * 　　　　　 DataRetention.WAVDATA -> wavファイル
-         * 戻り値：string 保存ファイル名
+         * @param flag DataRetention.TEXTDATA -> テキストファイル
+         * 　　　　　  DataRetention.WAVDATA -> wavファイル
+         * @return string 保存ファイル名
          *         ダイアログがキャンセルされた場合は空文字を返す
          */
         private string SaveFile(int flag)
@@ -162,10 +162,10 @@ namespace SignalProcessing
         /*
          * WriteFile
          * 概要：テキスト形式で書き込む
-         * 引数：data 対象データ格納用
-         *       flag DataRetention.TIMEGRAPH -> 時間軸グラフのデータを書き込む
-         * 　　　　　 DataRetention.FREQGRAPH -> 周波数軸グラフのデータを書き込む
-         * 戻り値：なし
+         * @param data 対象データ格納用
+         * @param flag DataRetention.TIMEGRAPH -> 時間軸グラフのデータを書き込む
+         * 　　　　　  DataRetention.FREQGRAPH -> 周波数軸グラフのデータを書き込む
+         * @return なし
          */
 
         public void WriteFile(DataRetention data, int flag)

@@ -11,8 +11,8 @@ namespace SignalProcessing
         /**
          * CalDFT
          * 概要：DFTを行う
-         * 引数：data DFTの対象データ
-         * 戻り値：なし
+         * @param data DFTの対象データ
+         * @return なし
          */
 
         public void CalDFT(DataRetention data)

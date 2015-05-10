@@ -15,13 +15,13 @@ namespace SignalProcessing
         /**
          * PlotGraph
          * 概要：グラフ描画
-         * 引数：picture　    グラフを描画するPictureBox
-         *       data　　  　 グラフ描画の対象データ
-         *       windowLen 　 windowLength
-         *       samplengFreq サンプリング周波数
-         *       0 -> 時間軸グラフの描画
-         *       other -> コンボボックスから取得したサンプリング周波数値
-         * 戻り値：なし
+         * @param picture　    グラフを描画するPictureBox
+         * @param data　　  　 グラフ描画の対象データ
+         * @param windowLen 　 windowLength
+         * @param samplengFreq サンプリング周波数
+         * @param 0            -> 時間軸グラフの描画
+         * @param other        -> コンボボックスから取得したサンプリング周波数値
+         * @return なし
          */
 
         private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq, int flag)
@@ -128,56 +128,58 @@ namespace SignalProcessing
 
                 if (flag == DataRetention.SPECTRO)
                 {
-                    /*
+                    
                     int hsv;
                     int red = 0;
                     int green = 0;
                     int brue = 255;
-                    */
+                   
 
                     for (i = 1; i < windowLen; i++)
                     {
                         float bottomUp = System.Math.Abs( dataMin );
                        
-                        int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
-                        Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
-/*
-                        hsv = (int)( ( ( data[i] + bottomUp ) / (dataMax -  dataMin) ) * 1020);
+                       //int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
+                       //c Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
 
-                        switch (hsv/255)
-                        {
-                            case 0:
-                                red = 0;
-                                green = 0 + (hsv % 255);
-                                brue = 255;
-                                break;
+                           
+                            hsv = (int)( ( ( data[i] + bottomUp ) / (dataMax -  dataMin) ) * 1020);
 
-                            case 1:
-                                red = 0;
-                                green = 255;
-                                brue = 255 - (hsv % 255);
-                                break;
+                            switch (hsv/255)
+                            {
+                                case 0:
+                                    red = 0;
+                                    green = 0 + (hsv % 255);
+                                    brue = 255;
+                                    break;
 
-                            case 2:
-                                red = 0 + (hsv % 255);
-                                green = 255;
-                                brue = 0;
-                                break;
+                                case 1:
+                                    red = 0;
+                                    green = 255;
+                                    brue = 255 - (hsv % 255);
+                                    break;
 
-                            case 3:
-                                red = 255;
-                                green = 255 - (hsv % 255);
-                                brue = 0;
-                                break;
+                                case 2:
+                                    red = 0 + (hsv % 255);
+                                    green = 255;
+                                    brue = 0;
+                                    break;
+
+                                case 3:
+                                    red = 255;
+                                    green = 255 - (hsv % 255);
+                                    brue = 0;
+                                    break;
                                 
-                        }
+                            }
 
-                        Pen p = new Pen(Color.FromArgb(red, green, brue));
+                            Pen p = new Pen(Color.FromArgb(red, green, brue));
+                            
 
- */
                         g.DrawLine(p,
                              0, (float)(picture.Height - i * yStep), picture.Width, (float)(picture.Height - i * yStep));
-                    }
+                    
+                     }
                 }
                 else
                 {
@@ -223,9 +225,9 @@ namespace SignalProcessing
         /**
          * PlotWaveForm
          * 概要：時間軸のグラフを描画する
-         * 引数：timeGraph 時間軸グラフを描画するPictureBox
-         *       data      グラフ描画の対象データ
-         * 戻り値：なし
+         * @param timeGraph 時間軸グラフを描画するPictureBox
+         * @param data      グラフ描画の対象データ
+         * @return なし
          */
 
         public void PlotWaveForm(PictureBox timeGraph, DataRetention data)
@@ -236,10 +238,10 @@ namespace SignalProcessing
         /**
          * PlotdBChar
          * 概要：dB軸のグラフを描画する
-         * 引数：samplingFreq サンプリング周波数
-         *       dbGraph      dB軸グラフを描画するPictureBox
-         *       data         グラフ描画対象データ
-         * 戻り値：なし
+         * @param samplingFreq サンプリング周波数
+         * @param dbGraph      dB軸グラフを描画するPictureBox
+         * @param data         グラフ描画対象データ
+         * @return なし
          */
 
         public void PlotdBChar(double samplingFreq, PictureBox dbGraph, DataRetention data)
@@ -250,10 +252,10 @@ namespace SignalProcessing
         /**
          * PlotPhaseChar
          * 概要：位相軸のグラフを描画する
-         * 引数：samplingFreq サンプリング周波数
-         *       phaseGraph   位相軸グラフを描画するPictureBox
-         *       data         グラフ描画の対象データ
-         * 戻り値：なし
+         * @param samplingFreq サンプリング周波数
+         * @param phaseGraph   位相軸グラフを描画するPictureBox
+         * @param data         グラフ描画の対象データ
+         * @return なし
          */
 
         public void PlotPhaseChar(double samplingFreq, PictureBox phaseGraph, DataRetention data)
@@ -264,10 +266,10 @@ namespace SignalProcessing
         /**
          * PlotSpectrogram
          * 概要：スペクトログラムを描画する
-         * 引数：samplingFreq サンプリング周波数
-         *       spectrogram   スペクトログラムを描画するPictureBox
-         *       data         グラフ描画の対象データ
-         * 戻り値：なし
+         * @param samplingFreq サンプリング周波数
+         * @param spectrogram   スペクトログラムを描画するPictureBox
+         * @param data         グラフ描画の対象データ
+         * @return なし
          */
 
         public void PlotSpectrogram(double samplingFreq, PictureBox spectrogram, DataRetention data, int flag)

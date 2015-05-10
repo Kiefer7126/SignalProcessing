@@ -12,9 +12,9 @@ namespace SignalProcessing
         /*
          * Processing
          * 概要：波を生成する処理
-         * 引数：data
-         *       flag
-         * 戻り値：なし
+         * @param data
+         *        flag
+         * @return なし
          */
         public void Processing (DataRetention data, int flag)
         {

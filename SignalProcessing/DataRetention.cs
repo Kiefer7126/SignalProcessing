@@ -60,13 +60,11 @@ namespace SignalProcessing
         //判定フラグ(SINE, SAW or SQUARE)
         public int waveKind;
         //振幅
-        public double amplitude = 1.0;
+        public double amplitude = 500.0;
         //基本周波数
         public double fundamentalFreq = 250.0;
         //
         public double harmonic = 10000.0;
-        //
-        public double quantizingPrecision = 16.0;
         //サンプリング周波数
         public double samplingFreq = 8000.0;
     }

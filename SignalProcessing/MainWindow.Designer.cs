@@ -130,7 +130,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -159,7 +159,7 @@
             // wavToolStripMenuItem1
             // 
             this.wavToolStripMenuItem1.Name = "wavToolStripMenuItem1";
-            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
             this.wavToolStripMenuItem1.Text = "Wav";
             this.wavToolStripMenuItem1.Click += new System.EventHandler(this.wavToolStripMenuItem1_Click);
             // 
@@ -214,26 +214,29 @@
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
             // 
             this.hammingToolStripMenuItem.Name = "hammingToolStripMenuItem";
-            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hammingToolStripMenuItem.Text = "Hamming";
+            this.hammingToolStripMenuItem.Click += new System.EventHandler(this.hammingToolStripMenuItem_Click);
             // 
             // hanningToolStripMenuItem
             // 
             this.hanningToolStripMenuItem.Name = "hanningToolStripMenuItem";
-            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hanningToolStripMenuItem.Text = "Hanning";
+            this.hanningToolStripMenuItem.Click += new System.EventHandler(this.hanningToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
+            this.gaussianToolStripMenuItem.Click += new System.EventHandler(this.gaussianToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -363,7 +366,7 @@
             "Sine",
             "Saw",
             "Square"});
-            this.waveKindComboBox.Location = new System.Drawing.Point(12, 24);
+            this.waveKindComboBox.Location = new System.Drawing.Point(23, 26);
             this.waveKindComboBox.Name = "waveKindComboBox";
             this.waveKindComboBox.Size = new System.Drawing.Size(121, 20);
             this.waveKindComboBox.TabIndex = 11;
@@ -371,7 +374,7 @@
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(139, 22);
+            this.generateButton.Location = new System.Drawing.Point(150, 25);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(75, 23);
             this.generateButton.TabIndex = 12;

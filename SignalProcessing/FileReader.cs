@@ -15,8 +15,8 @@ namespace SignalProcessing
         /**
          * ReadWavFile
          * 概要：wavファイルを読み込む
-         * 引数：data wavデータ格納用
-         * 戻り値：なし
+         * @param data wavデータ格納用
+         * @return なし
          */
         public void ReadWavFile(DataRetention data)
         {
@@ -99,10 +99,10 @@ namespace SignalProcessing
         /**
          * OpenFile
          * 概要：ファイル読み込みダイアログを表示する
-         * 引数：flag DataRetention.TEXTDATA -> テキストファイル
-         *            DataRetention.WAVDATA -> wavファイル
-         * 戻り値：String 読み込むファイル名
-         *         キャンセルされた場合は空文字
+         * @param flag DataRetention.TEXTDATA -> テキストファイル
+         *             DataRetention.WAVDATA -> wavファイル
+         * @return String 読み込むファイル名
+         *                キャンセルされた場合は空文字
          */
 
         private string OpenFile(int flag)
@@ -131,8 +131,8 @@ namespace SignalProcessing
         /**
          * ReadFile
          * 概要：テキストファイルを読み込む
-         * 引数：data
-         * 戻り値：なし
+         * @param data
+         * @return なし
          */
 
         public void ReadFile(DataRetention data)

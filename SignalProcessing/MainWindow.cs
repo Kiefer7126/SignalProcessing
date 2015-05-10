@@ -19,6 +19,7 @@ namespace SignalProcessing
         private FourierAnalysis fourier;
         private FileWriter writer;
         private GenerateWave generate;
+        private WindowFunction window;
 
         /**
          * MainWindow
@@ -35,6 +36,7 @@ namespace SignalProcessing
             this.fourier = new FourierAnalysis();
             this.writer = new FileWriter();
             this.generate = new GenerateWave();
+            this.window = new WindowFunction();
 
             // 初期表示時に、先頭の項目を選択
             this.waveKindComboBox.SelectedIndex = 0; 
@@ -212,6 +214,46 @@ namespace SignalProcessing
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
 
             this.writer.WriteWavFile(item, this.data);
+        }
+
+        /*
+         * hammingToolStripMenuItem_Click
+         * 概要：[Frequency] -> [Window] -> [Hamming]
+         * 引数： sender
+         *          e
+         * 戻り値：なし
+         */
+
+        private void hammingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.window.WindowHamming(this.data);
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+        }
+
+        /*
+         * hanningToolStripMenuItem_Click
+         * 概要：[Frequency] -> [Window] -> [Hanning]
+         * 引数： sender
+         *          e
+         * 戻り値：なし
+         */
+        private void hanningToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.window.WindowHanning(this.data);
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+        }
+
+        /*
+         * gaussianToolStripMenuItem_Click
+         * 概要：[Frequency] -> [Window] -> [Gaussian]
+         * 引数： sender
+         *          e
+         * 戻り値：なし
+         */
+        private void gaussianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.window.WindowGaussian(this.data);
+            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
     }
 }

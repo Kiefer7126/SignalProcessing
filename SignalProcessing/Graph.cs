@@ -211,7 +211,7 @@ namespace SignalProcessing
             float dataMin = 0;
        
             xStep = (float)((picture.Width * data.windowLen * 1.01) / (data.originalLen+1));
-            yStep = System.Math.Abs((float)(0 - picture.Height * 3) / (data.windowLen + 1));
+            yStep = System.Math.Abs((float)(0 - picture.Height * 2) / (data.windowLen + 1));
 
             try
             {

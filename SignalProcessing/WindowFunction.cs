@@ -15,7 +15,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void WindowHamming (DataRetention data)
+        public void WindowHamming (DataRetention data, int time, int flag)
         {
             int i;
             //ハミング窓関数データ
@@ -39,6 +39,10 @@ namespace SignalProcessing
 
                     windowData[i] = hamming[i] * data.timeData[i];
                     data.timeData[i] = windowData[i];
+
+                    //STFT用
+                    if (flag == DataRetention.SPECTRO) data.stftData[time, i] = data.timeData[i];
+
                 }
 
             }
@@ -55,7 +59,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void WindowHanning(DataRetention data)
+        public void WindowHanning(DataRetention data, int time, int flag)
         {
             int i;
             //ハニング窓関数データ
@@ -79,6 +83,9 @@ namespace SignalProcessing
 
                     windowData[i] = hanning[i] * data.timeData[i];
                     data.timeData[i] = windowData[i];
+
+                    //STFT用
+                    if (flag == DataRetention.SPECTRO) data.stftData[time, i] = data.timeData[i];
                 }
 
             }
@@ -95,7 +102,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void WindowGaussian(DataRetention data)
+        public void WindowGaussian(DataRetention data, int time, int flag)
         {
             int i;
             //ガウス窓関数データ
@@ -121,6 +128,9 @@ namespace SignalProcessing
 
                     windowData[i] = gaussian[i] * data.timeData[i];
                     data.timeData[i] = windowData[i];
+
+                    //STFT用
+                    if(flag == DataRetention.SPECTRO) data.stftData[time, i] = data.timeData[i];
                 }
 
             }

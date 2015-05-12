@@ -49,6 +49,7 @@
             this.hammingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gaussianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sTFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,7 @@
             this.filterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(830, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(865, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -177,7 +178,8 @@
             this.fFTToolStripMenuItem,
             this.iDFTToolStripMenuItem,
             this.iFFTToolStripMenuItem,
-            this.windowToolStripMenuItem});
+            this.windowToolStripMenuItem,
+            this.sTFTToolStripMenuItem});
             this.frequencyToolStripMenuItem.Name = "frequencyToolStripMenuItem";
             this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.frequencyToolStripMenuItem.Text = "Frequency";
@@ -214,29 +216,36 @@
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
             // 
             this.hammingToolStripMenuItem.Name = "hammingToolStripMenuItem";
-            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.hammingToolStripMenuItem.Text = "Hamming";
             this.hammingToolStripMenuItem.Click += new System.EventHandler(this.hammingToolStripMenuItem_Click);
             // 
             // hanningToolStripMenuItem
             // 
             this.hanningToolStripMenuItem.Name = "hanningToolStripMenuItem";
-            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.hanningToolStripMenuItem.Text = "Hanning";
             this.hanningToolStripMenuItem.Click += new System.EventHandler(this.hanningToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
             this.gaussianToolStripMenuItem.Click += new System.EventHandler(this.gaussianToolStripMenuItem_Click);
+            // 
+            // sTFTToolStripMenuItem
+            // 
+            this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.sTFTToolStripMenuItem.Text = "STFT";
+            this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -268,7 +277,7 @@
             "16",
             "22.05",
             "44.1"});
-            this.samplingComboBox.Location = new System.Drawing.Point(697, 31);
+            this.samplingComboBox.Location = new System.Drawing.Point(729, 31);
             this.samplingComboBox.Name = "samplingComboBox";
             this.samplingComboBox.Size = new System.Drawing.Size(121, 20);
             this.samplingComboBox.TabIndex = 1;
@@ -277,7 +286,7 @@
             // samplingLabel
             // 
             this.samplingLabel.AutoSize = true;
-            this.samplingLabel.Location = new System.Drawing.Point(583, 34);
+            this.samplingLabel.Location = new System.Drawing.Point(615, 34);
             this.samplingLabel.Name = "samplingLabel";
             this.samplingLabel.Size = new System.Drawing.Size(108, 12);
             this.samplingLabel.TabIndex = 2;
@@ -289,7 +298,7 @@
             this.timeGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.timeGraphPictureBox.Location = new System.Drawing.Point(23, 69);
             this.timeGraphPictureBox.Name = "timeGraphPictureBox";
-            this.timeGraphPictureBox.Size = new System.Drawing.Size(360, 180);
+            this.timeGraphPictureBox.Size = new System.Drawing.Size(273, 180);
             this.timeGraphPictureBox.TabIndex = 3;
             this.timeGraphPictureBox.TabStop = false;
             // 
@@ -297,9 +306,9 @@
             // 
             this.dBGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.dBGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dBGraphPictureBox.Location = new System.Drawing.Point(23, 278);
+            this.dBGraphPictureBox.Location = new System.Drawing.Point(302, 69);
             this.dBGraphPictureBox.Name = "dBGraphPictureBox";
-            this.dBGraphPictureBox.Size = new System.Drawing.Size(360, 180);
+            this.dBGraphPictureBox.Size = new System.Drawing.Size(271, 180);
             this.dBGraphPictureBox.TabIndex = 4;
             this.dBGraphPictureBox.TabStop = false;
             // 
@@ -307,9 +316,9 @@
             // 
             this.phaseGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.phaseGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.phaseGraphPictureBox.Location = new System.Drawing.Point(23, 489);
+            this.phaseGraphPictureBox.Location = new System.Drawing.Point(579, 69);
             this.phaseGraphPictureBox.Name = "phaseGraphPictureBox";
-            this.phaseGraphPictureBox.Size = new System.Drawing.Size(360, 180);
+            this.phaseGraphPictureBox.Size = new System.Drawing.Size(271, 180);
             this.phaseGraphPictureBox.TabIndex = 5;
             this.phaseGraphPictureBox.TabStop = false;
             // 
@@ -325,7 +334,7 @@
             // dBGraphLabel
             // 
             this.dBGraphLabel.AutoSize = true;
-            this.dBGraphLabel.Location = new System.Drawing.Point(23, 263);
+            this.dBGraphLabel.Location = new System.Drawing.Point(300, 51);
             this.dBGraphLabel.Name = "dBGraphLabel";
             this.dBGraphLabel.Size = new System.Drawing.Size(19, 12);
             this.dBGraphLabel.TabIndex = 7;
@@ -334,7 +343,7 @@
             // phaseGraphLabel
             // 
             this.phaseGraphLabel.AutoSize = true;
-            this.phaseGraphLabel.Location = new System.Drawing.Point(23, 474);
+            this.phaseGraphLabel.Location = new System.Drawing.Point(577, 51);
             this.phaseGraphLabel.Name = "phaseGraphLabel";
             this.phaseGraphLabel.Size = new System.Drawing.Size(36, 12);
             this.phaseGraphLabel.TabIndex = 8;
@@ -344,16 +353,16 @@
             // 
             this.spectrogramPictureBox.BackColor = System.Drawing.Color.Black;
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.spectrogramPictureBox.Location = new System.Drawing.Point(407, 69);
+            this.spectrogramPictureBox.Location = new System.Drawing.Point(23, 277);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(411, 600);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(827, 392);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
             // spectrogramLabel
             // 
             this.spectrogramLabel.AutoSize = true;
-            this.spectrogramLabel.Location = new System.Drawing.Point(405, 51);
+            this.spectrogramLabel.Location = new System.Drawing.Point(23, 262);
             this.spectrogramLabel.Name = "spectrogramLabel";
             this.spectrogramLabel.Size = new System.Drawing.Size(69, 12);
             this.spectrogramLabel.TabIndex = 10;
@@ -387,7 +396,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(830, 681);
+            this.ClientSize = new System.Drawing.Size(865, 702);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.waveKindComboBox);
             this.Controls.Add(this.spectrogramLabel);
@@ -455,6 +464,7 @@
         private System.Windows.Forms.Label spectrogramLabel;
         private System.Windows.Forms.ComboBox waveKindComboBox;
         private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.ToolStripMenuItem sTFTToolStripMenuItem;
     }
 }
 

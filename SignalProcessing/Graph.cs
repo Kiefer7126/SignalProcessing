@@ -24,8 +24,9 @@ namespace SignalProcessing
          * @return なし
          */
 
-        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq, int flag)
+        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq)
         {
+
             Graphics g;
             Font myFont;
             int i, xZero, yZero, xMin, yMin, xMax, yMax, scale;
@@ -42,23 +43,19 @@ namespace SignalProcessing
             yMax = 20;
             yMin = picture.Height - 20;
 
-            //spectrogramの場合は中心ではなく下から始める
-            if (flag == DataRetention.SPECTRO) { yZero = picture.Height; }
-            else { yZero = (yMax + yMin) / 2; }
-            
+            yZero = (yMax + yMin) / 2;
             xZero = xMin;
-
             xStep = (float)(xMax - xMin) / (windowLen + 1);
             yStep = 0;
             scale = 0;
 
             try
             {
-                picture.Refresh();
-                picture.Image = new Bitmap(picture.Width, picture.Height);
-                g = Graphics.FromImage(picture.Image);
-                myFont = new Font("Arial", 9);
-
+                    picture.Refresh();
+                    picture.Image = new Bitmap(picture.Width, picture.Height);
+                    g = Graphics.FromImage(picture.Image);
+                    myFont = new Font("Arial", 9);
+       
                 for (i = 0; i < windowLen; i++)
                 {
                     if (dataMax < data[i]) dataMax = (float)data[i];
@@ -81,16 +78,7 @@ namespace SignalProcessing
 
                 }
 
-                //spectrogramの場合のy軸はx軸と同じ？
-                if (flag == DataRetention.SPECTRO)
-                {
-                    //yMaxLabel = windowLen.ToString();
-                    //yMinLabel = "0";
-                    yMaxLabel = "";
-                    yMinLabel = "";
-                    yStep = System.Math.Abs((float)(0 - picture.Height) / (windowLen + 1));
-                }
-
+                
                 g.DrawString("0", myFont, Pens.Black.Brush, xZero - 20, yZero - 2);
 
                 g.DrawLine(Pens.Black, xMin, yZero, xMax, yZero); // x軸
@@ -124,65 +112,6 @@ namespace SignalProcessing
                 g.DrawLine(Pens.Black, xZero - 2, yMax, xZero + 2, yMax);
                 g.DrawLine(Pens.Black, xZero - 2, yMin, xZero + 2, yMin);
 
-                //グラフの描画
-
-                if (flag == DataRetention.SPECTRO)
-                {
-                    
-                    int hsv;
-                    int red = 0;
-                    int green = 0;
-                    int brue = 255;
-                   
-
-                    for (i = 1; i < windowLen; i++)
-                    {
-                        float bottomUp = System.Math.Abs( dataMin );
-                       
-                       //int alpha = (int)( ( ( data[i] + bottomUp ) / (dataMax - dataMin) ) * 255);
-                       //c Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
-
-                           
-                            hsv = (int)( ( ( data[i] + bottomUp ) / (dataMax -  dataMin) ) * 1020);
-
-                            switch (hsv/255)
-                            {
-                                case 0:
-                                    red = 0;
-                                    green = 0 + (hsv % 255);
-                                    brue = 255;
-                                    break;
-
-                                case 1:
-                                    red = 0;
-                                    green = 255;
-                                    brue = 255 - (hsv % 255);
-                                    break;
-
-                                case 2:
-                                    red = 0 + (hsv % 255);
-                                    green = 255;
-                                    brue = 0;
-                                    break;
-
-                                case 3:
-                                    red = 255;
-                                    green = 255 - (hsv % 255);
-                                    brue = 0;
-                                    break;
-                                
-                            }
-
-                            Pen p = new Pen(Color.FromArgb(red, green, brue));
-                            
-
-                        g.DrawLine(p,
-                             0, (float)(picture.Height - i * yStep), picture.Width, (float)(picture.Height - i * yStep));
-                    
-                     }
-                }
-                else
-                {
                     for (i = 1; i < windowLen; i++)
                     {
                        g.DrawLine(Pens.Green,
@@ -190,16 +119,15 @@ namespace SignalProcessing
                             yZero - (float)data[i - 1] * yStep,
                             xZero + i * xStep,
                             yZero - (float)data[i] * yStep);
-
-/*                        g.DrawLine(Pens.Green,
+                        /*
+                            g.DrawLine(Pens.Green,
                             xZero + i * xStep,
                             yZero,
                             xZero + i * xStep,
                             yZero - (float)data[i] * yStep);
- */
-                    }
-                }
+                         */
 
+                    }
                 //Graphicsリソース解放
                 g.Dispose(); 
 
@@ -232,7 +160,7 @@ namespace SignalProcessing
 
         public void PlotWaveForm(PictureBox timeGraph, DataRetention data)
         {
-            PlotGraph(timeGraph, data.timeData, data.windowLen, 0, 0);
+            PlotGraph(timeGraph, data.timeData, data.windowLen, 0);
         }
 
         /**
@@ -246,7 +174,7 @@ namespace SignalProcessing
 
         public void PlotdBChar(double samplingFreq, PictureBox dbGraph, DataRetention data)
         {
-            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq, 0);
+            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq);
         }
 
         /**
@@ -260,7 +188,7 @@ namespace SignalProcessing
 
         public void PlotPhaseChar(double samplingFreq, PictureBox phaseGraph, DataRetention data)
         {
-            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq,0);
+            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq);
         }
 
         /**
@@ -272,10 +200,115 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void PlotSpectrogram(double samplingFreq, PictureBox spectrogram, DataRetention data, int flag)
+        public void PlotSpectrogram(double samplingFreq, PictureBox picture, DataRetention data)
         {
-            PlotGraph(spectrogram, data.dBData, data.windowLen, samplingFreq, flag);
+
+            Graphics g;
+            Font myFont;
+            int i, time;
+            float xStep, yStep;
+            float dataMax = 0;
+            float dataMin = 0;
+       
+            xStep = (float)((picture.Width * data.windowLen * 1.01) / (data.originalLen+1));
+            yStep = System.Math.Abs((float)(0 - picture.Height * 3) / (data.windowLen + 1));
+
+            try
+            {
+
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                //グラフの描画
+
+                    int hsv;
+                    int red = 0;
+                    int green = 0;
+                    int brue = 255;
+
+                    for (time = 0; time < (data.originalLen / data.windowLen); time++)
+                    {
+
+                        for (i = 0; i < data.windowLen; i++)
+                        {
+                            if (dataMax < data.stftData[time, i]) dataMax = (float)data.stftData[time, i];
+                            if (dataMin > data.stftData[time, i]) dataMin = (float)data.stftData[time, i];
+                        }
+
+                        for (i = 0; i < data.windowLen; i++)
+                        {
+                            
+                            float bottomUp = System.Math.Abs(dataMin);
+
+                            //int alpha = (int)(((data.stftData[time, i] + bottomUp) / (dataMax - dataMin)) * 255);
+                            //Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
+
+                            hsv = (int)((data.stftData[time, i] + bottomUp) * 1020 / (dataMax - dataMin));
+
+                            switch (hsv / 255)
+                            {
+                                case 0:
+                                    red = 0;
+                                    green = 0 + (hsv % 255);
+                                    brue = 255;
+                                    break;
+
+                                case 1:
+                                    red = 0;
+                                    green = 255;
+                                    brue = 255 - (hsv % 255);
+                                    break;
+
+                                case 2:
+                                    red = 0 + (hsv % 255);
+                                    green = 255;
+                                    brue = 0;
+                                    break;
+
+                                case 3:
+                                    red = 255;
+                                    green = 255 - (hsv % 255);
+                                    brue = 0;
+                                    break;
+
+                            }
+
+                            Pen p = new Pen(Color.FromArgb(red, green, brue));
+
+                             
+                            g.DrawLine(p,
+                                 (float)(xStep * time),
+                                 (float)(picture.Height - i * yStep),
+                                 (float)(xStep * (time + 1)),
+                                 (float)(picture.Height - i * yStep));
+                        }
+                    }
+
+                //Graphicsリソース解放
+                g.Dispose();
+
+            }
+            catch (NullReferenceException)
+            {
+                //MessageBox.Show("NullReferenceException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+            }
+            catch (OverflowException e)
+            {
+                MessageBox.Show("OverflowException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                MessageBox.Show("IndexOutOfRangeException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Detail:\r\n\r\n" + e, "Exception");
+            }
+
         }
+
 
     }
 }

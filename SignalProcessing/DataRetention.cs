@@ -15,9 +15,10 @@ namespace SignalProcessing
         public const int SINE = 300;
         public const int SAW = 301;
         public const int SQUARE = 302;
-        public const int SPECTRO = 1;
+        public const int SPECTRO = 401;
         
-
+        //短時間フーリエ変換結果
+        public double[,] stftData;
         //判定フラグ(TEXTDATA or WAVDATA)
         public int fileFormat;  
         //オリジナルデータ

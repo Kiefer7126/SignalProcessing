@@ -8,6 +8,43 @@ namespace SignalProcessing
 {
     public class FourierAnalysis
     {
+        private WindowFunction window;
+        /**
+         * CalSTFT
+         * 概要：STFTを行う
+         * @param data STFTの対象データ
+         * @return なし
+         */
+        public void CalSTFT(DataRetention data)
+        {
+            int a;
+            this.window = new WindowFunction();
+
+            for (int time = 0; time < (data.originalLen / data.windowLen); time++)
+            {
+                //オリジナルデータをタイムデータにずらしながら格納
+                for (int j = 0; j < data.windowLen; j++)
+                {
+                    a = j + (data.windowLen * time);
+
+                    if (a > data.originalLen)
+                    {
+                        data.stftData[time, j] = 0.00000;
+                        data.timeData[j] = 0.00000;
+                    }
+                        data.stftData[time, j] = data.originalData[a];
+                        data.timeData[j] = data.originalData[a];
+                    }
+
+                //窓をかける
+                this.window.WindowGaussian(data, time, DataRetention.SPECTRO);
+
+                //フーリエ変換
+                CalDFT(data, time, DataRetention.SPECTRO);
+
+               }     
+            }
+
         /**
          * CalDFT
          * 概要：DFTを行う
@@ -15,7 +52,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void CalDFT(DataRetention data)
+        public void CalDFT(DataRetention data, int time, int flag)
         {
             int i, j;
 
@@ -36,8 +73,11 @@ namespace SignalProcessing
                 {
                     for (j = 0; j < data.windowLen; j++)
                     {
-                        data.realData[i] += data.timeData[j] * System.Math.Cos((2 * System.Math.PI * i * j) / data.windowLen);
-                        data.imagData[i] += data.timeData[j] * (-System.Math.Sin((2 * System.Math.PI * i * j) / data.windowLen));
+                       
+                        //if(flag == DataRetention.SPECTRO) data.timeData[j] = data.stftData[time, j];
+
+                            data.realData[i] += data.timeData[j] * System.Math.Cos((2 * System.Math.PI * i * j) / data.windowLen);
+                            data.imagData[i] += data.timeData[j] * (-System.Math.Sin((2 * System.Math.PI * i * j) / data.windowLen));
                     }
 
                     data.realData[i] = data.realData[i] / data.windowLen;
@@ -58,6 +98,8 @@ namespace SignalProcessing
                     {
                         data.dBData[i] = 0.00000;
                     }
+
+                     data.stftData[time, i] = data.dBData[i];
                 }
             }
             catch (Exception e)

@@ -16,6 +16,7 @@ namespace SignalProcessing
          * ReadWavFile
          * 概要：wavファイルを読み込む
          * @param data wavデータ格納用
+         * 
          * @return なし
          */
         public void ReadWavFile(DataRetention data)
@@ -62,6 +63,7 @@ namespace SignalProcessing
                             //MessageBox.Show("Detail:" + data.originalLen, "Exception");
 
                             data.originalData = new double[data.originalLen];
+                            MessageBox.Show("originalLen = " + data.originalLen);
 
                             //ステレオファイルはRLRL…の順に入っているので一つ飛ばしで読み込む？
 

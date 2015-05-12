@@ -37,11 +37,11 @@ namespace SignalProcessing
             this.writer = new FileWriter();
             this.generate = new GenerateWave();
             this.window = new WindowFunction();
-
             // 初期表示時に、先頭の項目を選択
             this.waveKindComboBox.SelectedIndex = 0; 
 
-        }
+
+         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -92,11 +92,13 @@ namespace SignalProcessing
 
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
 
-            this.fourier.CalDFT(this.data);
+            data.stftData = new double[data.originalLen / data.windowLen, data.windowLen];
+
+            this.fourier.CalDFT(this.data, 0, 0);
 
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
-            this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data, DataRetention.SPECTRO);
+            this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
 
         }
 
@@ -146,8 +148,7 @@ namespace SignalProcessing
                 //位相軸グラフ表示
                 this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
                 //スペクトログラム表示
-
-                this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data, DataRetention.SPECTRO);
+                this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             }
         }
 
@@ -226,34 +227,60 @@ namespace SignalProcessing
 
         private void hammingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.window.WindowHamming(this.data);
+            this.window.WindowHamming(this.data, 0, 0);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
 
         /*
          * hanningToolStripMenuItem_Click
          * 概要：[Frequency] -> [Window] -> [Hanning]
-         * 引数： sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          */
         private void hanningToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.window.WindowHanning(this.data);
+            this.window.WindowHanning(this.data, 0, 0);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
 
         /*
          * gaussianToolStripMenuItem_Click
          * 概要：[Frequency] -> [Window] -> [Gaussian]
-         * 引数： sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          */
         private void gaussianToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.window.WindowGaussian(this.data);
+            this.window.WindowGaussian(this.data, 0, 0);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
+
+
+        /*
+         * sTFTToolStripMenuItem_Click
+         * 概要：[Frequency] -> [STFT]
+         * @param sender
+         * @param e
+         * @return なし
+         */
+
+        private void sTFTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double item;
+
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+            
+            data.stftData = new double[data.originalLen / data.windowLen, data.windowLen];
+            
+            this.fourier.CalSTFT(this.data);
+
+            //グラフ描画
+            //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
+        }
+
     }
 }

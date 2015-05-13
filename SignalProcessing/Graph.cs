@@ -231,13 +231,13 @@ namespace SignalProcessing
                     for (time = 0; time < (data.originalLen / data.windowLen); time++)
                     {
 
-                        for (i = 0; i < data.windowLen; i++)
+                        for (i = 0; i <= data.windowLen / 2; i++)
                         {
                             if (dataMax < data.stftData[time, i]) dataMax = (float)data.stftData[time, i];
                             if (dataMin > data.stftData[time, i]) dataMin = (float)data.stftData[time, i];
                         }
 
-                        for (i = 0; i < data.windowLen; i++)
+                        for (i = 0; i <= data.windowLen / 2; i++)
                         {
                             
                             float bottomUp = System.Math.Abs(dataMin);
@@ -275,7 +275,7 @@ namespace SignalProcessing
 
                             }
 
-                            Pen p = new Pen(Color.FromArgb(red, green, brue));
+                            Pen p = new Pen(Color.FromArgb(red, green, brue),15);
 
                              
                             g.DrawLine(p,

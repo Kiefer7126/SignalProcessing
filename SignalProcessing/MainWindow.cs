@@ -38,9 +38,9 @@ namespace SignalProcessing
             this.generate = new GenerateWave();
             this.window = new WindowFunction();
             // 初期表示時に、先頭の項目を選択
-            this.waveKindComboBox.SelectedIndex = 0; 
+            this.waveKindComboBox.SelectedIndex = 0;
 
-
+            this.graphic.PlotLegend(this.legendPictureBox);
          }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace SignalProcessing
         private void textToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.data.fileFormat = DataRetention.TEXTDATA;
-            this.reader.ReadFile(this.data);
+            this.reader.ReadTextFile(this.data);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
 
@@ -94,7 +94,7 @@ namespace SignalProcessing
 
             data.stftData = new double[data.originalLen / data.windowLen, data.windowLen];
 
-            this.fourier.CalDFT(this.data, 0, 0);
+            this.fourier.CalDFT(this.data, 0);
 
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
@@ -154,12 +154,12 @@ namespace SignalProcessing
 
         private void timeGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.writer.WriteFile(this.data, DataRetention.TIMEGRAPH);
+            this.writer.WriteTextFile(this.data, DataRetention.TIMEGRAPH);
         }
 
         private void dBGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.writer.WriteFile(this.data, DataRetention.FREQGRAPH);
+            this.writer.WriteTextFile(this.data, DataRetention.FREQGRAPH);
         }
 
         /**
@@ -269,10 +269,10 @@ namespace SignalProcessing
         private void sTFTToolStripMenuItem_Click(object sender, EventArgs e)
         {
             double item;
-
+            int numberOfWindow = data.originalLen / data.windowLen;
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
-            
-            data.stftData = new double[data.originalLen / data.windowLen, data.windowLen];
+
+            data.stftData = new double[numberOfWindow+1, data.windowLen];
             
             this.fourier.CalSTFT(this.data);
 

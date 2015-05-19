@@ -8,7 +8,37 @@ namespace SignalProcessing
 {
     public class FourierAnalysis
     {
+
         private WindowFunction window;
+
+        /**
+         * DivideWindowLen
+         * 概要：originalDataをずらしながらstftDataとtimeDataに格納
+         * @param data 分割する対象データ
+         * @return なし
+         */
+
+        public void DivideWindowLen(DataRetention data, int time)
+        {
+            int timeStep;
+
+            for (int i = 0; i < data.windowLen; i++)
+            {
+                timeStep = i + (data.windowLen * time);
+
+                if (timeStep >= data.originalLen)
+                {
+                    data.stftData[time, i] = 0.00000;
+                    data.timeData[i] = 0.00000;
+                }
+                else
+                {
+                    data.stftData[time, i] = data.originalData[timeStep];
+                    data.timeData[i] = data.originalData[timeStep];
+                }
+            }
+        }
+
         /**
          * CalSTFT
          * 概要：STFTを行う
@@ -17,30 +47,20 @@ namespace SignalProcessing
          */
         public void CalSTFT(DataRetention data)
         {
-            int a;
+            
+            int numberOfWindow = data.originalLen / data.windowLen;
             this.window = new WindowFunction();
 
-            for (int time = 0; time < (data.originalLen / data.windowLen); time++)
+            for (int time = 0; time < numberOfWindow; time++)
             {
-                //オリジナルデータをタイムデータにずらしながら格納
-                for (int j = 0; j < data.windowLen; j++)
-                {
-                    a = j + (data.windowLen * time);
-
-                    if (a > data.originalLen)
-                    {
-                        data.stftData[time, j] = 0.00000;
-                        data.timeData[j] = 0.00000;
-                    }
-                        data.stftData[time, j] = data.originalData[a];
-                        data.timeData[j] = data.originalData[a];
-                    }
+                //windowLenで分割する
+                DivideWindowLen(data, time);
 
                 //窓をかける
                 this.window.WindowGaussian(data, time, DataRetention.SPECTRO);
 
                 //フーリエ変換
-                CalDFT(data, time, DataRetention.SPECTRO);
+                CalDFT(data, time);
 
                }     
             }
@@ -52,7 +72,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void CalDFT(DataRetention data, int time, int flag)
+        public void CalDFT(DataRetention data, int time)
         {
             int i, j;
 

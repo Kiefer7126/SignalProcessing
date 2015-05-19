@@ -13,7 +13,7 @@ namespace SignalProcessing
          * Processing
          * 概要：波を生成する処理
          * @param data
-         *        flag
+         * @param flag
          * @return なし
          */
         public void Processing (DataRetention data, int flag)
@@ -43,8 +43,18 @@ namespace SignalProcessing
                         break;
                 }
             }
+            PutInTimeData(data);
+        }
 
-            //時間軸データ用にオリジナルデータをコピーする
+        /*
+         * PutInTimeData
+         * 概要：originalDataをtimeDataにコピーする
+         * @param data
+         * @return なし
+         */
+
+        public void PutInTimeData(DataRetention data)
+        {
             data.timeData = new double[data.windowLen];
 
             for (int i = 0; i < data.windowLen; i++)
@@ -59,7 +69,6 @@ namespace SignalProcessing
                     data.timeData[i] = 0.00000;
                 }
             }
-
         }
     }
 }

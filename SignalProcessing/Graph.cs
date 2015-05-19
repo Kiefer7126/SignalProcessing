@@ -119,34 +119,30 @@ namespace SignalProcessing
                             yZero - (float)data[i - 1] * yStep,
                             xZero + i * xStep,
                             yZero - (float)data[i] * yStep);
-                        /*
-                            g.DrawLine(Pens.Green,
-                            xZero + i * xStep,
-                            yZero,
-                            xZero + i * xStep,
-                            yZero - (float)data[i] * yStep);
-                         */
-
                     }
                 //Graphicsリソース解放
                 g.Dispose(); 
 
             }
-            catch (NullReferenceException)
+            catch (NullReferenceException e)
             {
-                //MessageBox.Show("NullReferenceException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NullReferenceException", errorMessage); 
             }
             catch (OverflowException e)
             {
-                MessageBox.Show("OverflowException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("OverflowException", errorMessage);
             }
             catch (IndexOutOfRangeException e)
             {
-                MessageBox.Show("IndexOutOfRangeException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Detail:\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NewException", errorMessage);
             }
         }
 
@@ -192,6 +188,111 @@ namespace SignalProcessing
         }
 
         /**
+          * PlotLegend
+          * 概要：スペクトログラムの凡例を描画する
+          * @param picture   凡例を描画するPictureBox
+          * @return なし
+          */
+
+        public void PlotLegend(PictureBox picture)
+        {
+            Graphics g;
+            Font myFont;
+            int i, xZero, yZero, xMax, yMax;
+            float xStep, yStep;
+
+            xZero = 0;
+            yZero = picture.Height;
+            xMax  = picture.Width;
+            yMax  = 0;
+
+             try
+            {
+                
+                xStep = 0;
+                yStep = (float)picture.Height / (float)1020;
+
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                int hsv;
+                    int red = 0;
+                    int green = 0;
+                    int brue = 255;
+
+
+                        for (i = 0; i <= 1024; i++)
+                        {
+
+                            hsv = i;
+
+                            switch (hsv / 255)
+                            {
+                                case 0:
+                                    red = 0;
+                                    green = 0 + (hsv % 255);
+                                    brue = 255;
+                                    break;
+
+                                case 1:
+                                    red = 0;
+                                    green = 255;
+                                    brue = 255 - (hsv % 255);
+                                    break;
+
+                                case 2:
+                                    red = 0 + (hsv % 255);
+                                    green = 255;
+                                    brue = 0;
+                                    break;
+
+                                case 3:
+                                    red = 255;
+                                    green = 255 - (hsv % 255);
+                                    brue = 0;
+                                    break;
+
+                            }
+
+                            Pen p = new Pen(Color.FromArgb(red, green, brue), 1);
+
+                             
+                            g.DrawLine(p,
+                                 (float)(xZero),
+                                 (float)(yZero - i * yStep),
+                                 (float)(xMax),
+                                 (float)(yZero - i * yStep));
+                    }
+                    //Graphicsリソース解放
+                    g.Dispose();
+
+            }
+             catch (NullReferenceException e)
+             {
+                 String errorMessage = e.ToString();
+                 Debug.ShowMessage("NullReferenceException", errorMessage);
+             }
+             catch (OverflowException e)
+             {
+                 String errorMessage = e.ToString();
+                 Debug.ShowMessage("OverflowException", errorMessage);
+             }
+             catch (IndexOutOfRangeException e)
+             {
+                 String errorMessage = e.ToString();
+                 Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
+             }
+             catch (Exception e)
+             {
+                 String errorMessage = e.ToString();
+                 Debug.ShowMessage("NewException", errorMessage);
+             }
+
+        }
+
+        /**
          * PlotSpectrogram
          * 概要：スペクトログラムを描画する
          * @param samplingFreq サンプリング周波数
@@ -205,21 +306,53 @@ namespace SignalProcessing
 
             Graphics g;
             Font myFont;
-            int i, time;
+            int i, time, numberOfWindow, xZero, yZero, xMax, yMax;
+            int margin = 40;
+            int gramWidth  = picture.Width  - margin * 2;
+            int gramHeight = picture.Height - margin * 2;
+            int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
+            
             float xStep, yStep;
             float dataMax = 0;
             float dataMin = 0;
-       
-            xStep = (float)((picture.Width * data.windowLen * 1.01) / (data.originalLen+1));
-            yStep = System.Math.Abs((float)(0 - picture.Height * 2) / (data.windowLen + 1));
+
+            String xLabel = "[ ms ]";
+            String yLabel = "[ Hz ]";
+            String xScaleLabel = ""; 
+            String yScaleLabel = "";
 
             try
             {
+                xZero = margin;
+                yZero = picture.Height - margin;
+                xMax  = picture.Width  - margin;
+                yMax  = margin;
+
+                numberOfWindow = data.originalLen / data.windowLen;
+                xStep = (float)gramWidth / (float)(numberOfWindow);
+                yStep = System.Math.Abs((float)gramHeight * 2 / data.windowLen);
+                
 
                 picture.Refresh();
                 picture.Image = new Bitmap(picture.Width, picture.Height);
                 g = Graphics.FromImage(picture.Image);
                 myFont = new Font("Arial", 9);
+
+                //x軸のラベル
+                if (samplingFreq == 0)
+                {
+                    //xLabel = data.windowLen.ToString();
+                    xScaleLabel = System.Convert.ToString(data.windowLen / 2);
+                }
+                else
+                {
+                    //xLabel = samplingFreq.ToString();
+                    xScaleLabel = System.Convert.ToString((int)samplingFreq / 2);
+                }
+
+                g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 3) );
+
+
 
                 //グラフの描画
 
@@ -228,7 +361,7 @@ namespace SignalProcessing
                     int green = 0;
                     int brue = 255;
 
-                    for (time = 0; time < (data.originalLen / data.windowLen); time++)
+                    for (time = 0; time < numberOfWindow ; time++)
                     {
 
                         for (i = 0; i <= data.windowLen / 2; i++)
@@ -275,36 +408,60 @@ namespace SignalProcessing
 
                             }
 
-                            Pen p = new Pen(Color.FromArgb(red, green, brue),15);
+                            Pen p = new Pen(Color.FromArgb(red, green, brue), penSize);
 
                              
                             g.DrawLine(p,
-                                 (float)(xStep * time),
-                                 (float)(picture.Height - i * yStep),
-                                 (float)(xStep * (time + 1)),
-                                 (float)(picture.Height - i * yStep));
+                                 (float)(xZero + xStep * time),
+                                 (float)(yZero - i * yStep - penSize/2),
+                                 (float)(xZero + xStep * (time + 1)),
+                                 (float)(yZero - i * yStep - penSize/2));
                         }
                     }
+
+                    g.DrawString("0", myFont, Pens.Black.Brush, 0, picture.Width - 2); //原点
+
+                    g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
+                    g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax - penSize); // y軸
+
+                    //x軸のメモリ
+                    //scale = (xMax + 20) / 2;
+                    //g.DrawLine(Pens.Black, scale, yZero - 5, scale, yZero + 5);
+                    //g.DrawLine(Pens.Black, xMax, yZero - 5, xMax, yZero + 5);
+                    //g.DrawString(xScaleLabel, myFont, Pens.Black.Brush, scale, yZero);
+
+                    //y軸のラベル
+                    //g.DrawString(yMaxLabel, myFont, Pens.Black.Brush, xZero - 20, yMax - 15);
+                    //g.DrawString(yMinLabel, myFont, Pens.Black.Brush, xZero - 20, yMin);
+                    g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);
+
+                    //y軸のメモリ
+                    //g.DrawLine(Pens.Black, xZero - 2, yMax, xZero + 2, yMax);
+                    //g.DrawLine(Pens.Black, xZero - 2, yZero, xZero + 2, yZero);
 
                 //Graphicsリソース解放
                 g.Dispose();
 
             }
-            catch (NullReferenceException)
+            catch (NullReferenceException e)
             {
-                //MessageBox.Show("NullReferenceException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NullReferenceException", errorMessage);
             }
             catch (OverflowException e)
             {
-                MessageBox.Show("OverflowException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("OverflowException", errorMessage);
             }
             catch (IndexOutOfRangeException e)
             {
-                MessageBox.Show("IndexOutOfRangeException" + "\r\n\r\n" + "Detail:" + "\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Detail:\r\n\r\n" + e, "Exception");
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NewException", errorMessage);
             }
 
         }

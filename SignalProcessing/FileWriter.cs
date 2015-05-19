@@ -27,7 +27,7 @@ namespace SignalProcessing
 
         /**
          * WriteWavFile
-         * 概要：wavファイルを書き込む
+         * 概要：wavファイルに書き込む
          * @param samplingFreq サンプリング周波数
          * @param data wavデータ格納用
          * @return なし
@@ -36,7 +36,7 @@ namespace SignalProcessing
         public void WriteWavFile(double samplingFreq, DataRetention data)
         {
             //書き込むファイル名
-            string filename = "";
+            string writeFileName = "";
             int i = 0;
             double wavemax = 0.0;
 
@@ -44,9 +44,9 @@ namespace SignalProcessing
             int rChunkSize, fByteRate, dChunkSize, fSmpf;
 
             //書き込むファイル名の取得
-            filename = SaveFile(DataRetention.WAVDATA);
+            writeFileName = SaveFileDialog(DataRetention.WAVDATA);
 
-            if (filename == "" || filename == null)
+            if (writeFileName == "" || writeFileName == null)
             {
                 //ファイル名が取得されていなければ、処理を続行しない
             }
@@ -54,12 +54,13 @@ namespace SignalProcessing
             {
                 try
                 {
-                    using (FileStream fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                    using (FileStream fs = new FileStream(writeFileName, FileMode.Create, FileAccess.Write))
                     {
                         using (BinaryWriter bw = new BinaryWriter(fs))
                         {
                             //元データ書き込み
-                            /*bw.Write(data.orChunkId);
+                            /*
+                            bw.Write(data.orChunkId);
                             bw.Write(data.orChunkSize);
                             bw.Write(data.orFormat);
                             bw.Write(data.ofChunkId);
@@ -130,37 +131,7 @@ namespace SignalProcessing
         }
 
         /*
-         * SaveFile
-         * 概要：ファイル保存ダイアログを表示する
-         * @param flag DataRetention.TEXTDATA -> テキストファイル
-         * 　　　　　  DataRetention.WAVDATA -> wavファイル
-         * @return string 保存ファイル名
-         *         ダイアログがキャンセルされた場合は空文字を返す
-         */
-        private string SaveFile(int flag)
-        {
-            string filename = "";
-            SaveFileDialog dialog = new SaveFileDialog();
-
-            if (flag == DataRetention.TEXTDATA)
-            {
-                dialog.Filter = "テキストファイル(*.txt)|*.txt";
-            }
-            else
-            {
-                dialog.Filter = "wavファイル(*.wav)|*.wav";
-            }
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                filename = dialog.FileName;
-            }
-
-            return filename;
-        }
-
-        /*
-         * WriteFile
+         * WriteTextFile
          * 概要：テキスト形式で書き込む
          * @param data 対象データ格納用
          * @param flag DataRetention.TIMEGRAPH -> 時間軸グラフのデータを書き込む
@@ -168,15 +139,15 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void WriteFile(DataRetention data, int flag)
+        public void WriteTextFile(DataRetention data, int flag)
         {
-            string filename = "";
+            string writeFileName = "";
 
             int i = 0;
 
-            filename = SaveFile(DataRetention.TEXTDATA);
+            writeFileName = SaveFileDialog(DataRetention.TEXTDATA);
 
-            if (filename == "" || filename == null)
+            if (writeFileName == "" || writeFileName == null)
             {
                 //スルー
             }
@@ -184,7 +155,7 @@ namespace SignalProcessing
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(filename))
+                    using (StreamWriter sw = new StreamWriter(writeFileName))
                     {
                         if (flag == DataRetention.TIMEGRAPH)
                         {
@@ -208,6 +179,36 @@ namespace SignalProcessing
                     //例外処理
                 }
             }
+        }
+
+        /*
+        * SaveFileDialog
+        * 概要：ファイル保存ダイアログを表示する
+        * @param flag DataRetention.TEXTDATA -> テキストファイル
+        * 　　　　　  DataRetention.WAVDATA -> wavファイル
+        * @return string 保存ファイル名
+        *         ダイアログがキャンセルされた場合は空文字を返す
+        */
+        private string SaveFileDialog(int flag)
+        {
+            string writeFileName = "";
+            SaveFileDialog dialog = new SaveFileDialog();
+
+            if (flag == DataRetention.TEXTDATA)
+            {
+                dialog.Filter = "テキストファイル(*.txt)|*.txt";
+            }
+            else
+            {
+                dialog.Filter = "wavファイル(*.wav)|*.wav";
+            }
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                writeFileName = dialog.FileName;
+            }
+
+            return writeFileName;
         }
     }
 }

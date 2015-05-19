@@ -65,11 +65,13 @@
             this.spectrogramLabel = new System.Windows.Forms.Label();
             this.waveKindComboBox = new System.Windows.Forms.ComboBox();
             this.generateButton = new System.Windows.Forms.Button();
+            this.legendPictureBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -351,11 +353,11 @@
             // 
             // spectrogramPictureBox
             // 
-            this.spectrogramPictureBox.BackColor = System.Drawing.Color.Black;
+            this.spectrogramPictureBox.BackColor = System.Drawing.Color.White;
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spectrogramPictureBox.Location = new System.Drawing.Point(23, 277);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(827, 392);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(784, 392);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
@@ -391,12 +393,23 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // legendPictureBox
+            // 
+            this.legendPictureBox.BackColor = System.Drawing.Color.White;
+            this.legendPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.legendPictureBox.Location = new System.Drawing.Point(813, 277);
+            this.legendPictureBox.Name = "legendPictureBox";
+            this.legendPictureBox.Size = new System.Drawing.Size(37, 392);
+            this.legendPictureBox.TabIndex = 13;
+            this.legendPictureBox.TabStop = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(865, 702);
+            this.Controls.Add(this.legendPictureBox);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.waveKindComboBox);
             this.Controls.Add(this.spectrogramLabel);
@@ -421,6 +434,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -465,6 +479,7 @@
         private System.Windows.Forms.ComboBox waveKindComboBox;
         private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.ToolStripMenuItem sTFTToolStripMenuItem;
+        private System.Windows.Forms.PictureBox legendPictureBox;
     }
 }
 

@@ -12,6 +12,11 @@ namespace SignalProcessing
     public class Graph
     {
 
+        int plotData;
+        int red;
+        int green;
+        int blue;
+
         /**
          * PlotGraph
          * 概要：グラフ描画
@@ -187,7 +192,7 @@ namespace SignalProcessing
             PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq);
         }
 
-        /**
+         /**
           * PlotLegend
           * 概要：スペクトログラムの凡例を描画する
           * @param picture   凡例を描画するPictureBox
@@ -201,73 +206,36 @@ namespace SignalProcessing
             int i, xZero, yZero, xMax, yMax;
             float xStep, yStep;
 
-            xZero = 0;
-            yZero = picture.Height;
-            xMax  = picture.Width;
-            yMax  = 0;
-
-             try
+            try
             {
-                
-                xStep = 0;
-                yStep = (float)picture.Height / (float)1020;
-
                 picture.Refresh();
                 picture.Image = new Bitmap(picture.Width, picture.Height);
                 g = Graphics.FromImage(picture.Image);
                 myFont = new Font("Arial", 9);
 
-                int hsv;
-                    int red = 0;
-                    int green = 0;
-                    int brue = 255;
+                xZero = 0;
+                yZero = picture.Height;
+                xMax  = picture.Width;
+                yMax  = 0;
+                xStep = 0;
+                yStep = (float)picture.Height / (float)1020;
 
+                for (i = 0; i <= 1024; i++)
+                {
+                    plotData = i;
 
-                        for (i = 0; i <= 1024; i++)
-                        {
+                    ToHsv(plotData);
 
-                            hsv = i;
-
-                            switch (hsv / 255)
-                            {
-                                case 0:
-                                    red = 0;
-                                    green = 0 + (hsv % 255);
-                                    brue = 255;
-                                    break;
-
-                                case 1:
-                                    red = 0;
-                                    green = 255;
-                                    brue = 255 - (hsv % 255);
-                                    break;
-
-                                case 2:
-                                    red = 0 + (hsv % 255);
-                                    green = 255;
-                                    brue = 0;
-                                    break;
-
-                                case 3:
-                                    red = 255;
-                                    green = 255 - (hsv % 255);
-                                    brue = 0;
-                                    break;
-
-                            }
-
-                            Pen p = new Pen(Color.FromArgb(red, green, brue), 1);
-
+                    Pen p = new Pen(Color.FromArgb(red, green, blue), 1);
                              
-                            g.DrawLine(p,
-                                 (float)(xZero),
-                                 (float)(yZero - i * yStep),
-                                 (float)(xMax),
-                                 (float)(yZero - i * yStep));
-                    }
-                    //Graphicsリソース解放
-                    g.Dispose();
-
+                    g.DrawLine(p,
+                              (float)(xZero),
+                              (float)(yZero - i * yStep),
+                              (float)(xMax),
+                              (float)(yZero - i * yStep));
+                }
+                //Graphicsリソース解放
+                g.Dispose();
             }
              catch (NullReferenceException e)
              {
@@ -293,6 +261,45 @@ namespace SignalProcessing
         }
 
         /**
+         * ToHsv
+         * 概要：Hsvに変換する
+         * @param red 
+         * @param green  
+         * @param blue
+         * @return なし
+         */
+
+        public void ToHsv(int plotHsvData)
+        {
+            switch (plotHsvData / 255)
+            {
+                case 0:
+                    red = 0;
+                    green = 0 + (plotHsvData % 255);
+                    blue = 255;
+                    break;
+
+                case 1:
+                    red = 0;
+                    green = 255;
+                    blue = 255 - (plotHsvData % 255);
+                    break;
+
+                case 2:
+                    red = 0 + (plotHsvData % 255);
+                    green = 255;
+                    blue = 0;
+                    break;
+
+                case 3:
+                    red = 255;
+                    green = 255 - (plotHsvData % 255);
+                    blue = 0;
+                    break;
+            }
+        }
+
+        /**
          * PlotSpectrogram
          * 概要：スペクトログラムを描画する
          * @param samplingFreq サンプリング周波数
@@ -306,23 +313,32 @@ namespace SignalProcessing
 
             Graphics g;
             Font myFont;
-            int i, time, numberOfWindow, xZero, yZero, xMax, yMax;
-            int margin = 40;
-            int gramWidth  = picture.Width  - margin * 2;
-            int gramHeight = picture.Height - margin * 2;
+            int i, time, numberOfWindow, xZero, yZero, xMax, yMax, margin, gramWidth, gramHeight;
+
             int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
             
             float xStep, yStep;
             float dataMax = 0;
             float dataMin = 0;
 
-            String xLabel = "[ ms ]";
-            String yLabel = "[ Hz ]";
+            String xLabel = "";
+            String yLabel = "";
             String xScaleLabel = ""; 
             String yScaleLabel = "";
 
             try
             {
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                xLabel = "[ ms ]";
+                yLabel = "[ Hz ]";
+                margin = 40;
+                gramWidth = picture.Width - margin * 2;
+                gramHeight = picture.Height - margin * 2;
+
                 xZero = margin;
                 yZero = picture.Height - margin;
                 xMax  = picture.Width  - margin;
@@ -331,85 +347,28 @@ namespace SignalProcessing
                 numberOfWindow = data.originalLen / data.windowLen;
                 xStep = (float)gramWidth / (float)(numberOfWindow);
                 yStep = System.Math.Abs((float)gramHeight * 2 / data.windowLen);
-                
-
-                picture.Refresh();
-                picture.Image = new Bitmap(picture.Width, picture.Height);
-                g = Graphics.FromImage(picture.Image);
-                myFont = new Font("Arial", 9);
 
                 //x軸のラベル
-                if (samplingFreq == 0)
-                {
-                    //xLabel = data.windowLen.ToString();
-                    xScaleLabel = System.Convert.ToString(data.windowLen / 2);
-                }
-                else
-                {
-                    //xLabel = samplingFreq.ToString();
-                    xScaleLabel = System.Convert.ToString((int)samplingFreq / 2);
-                }
-
                 g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 3) );
-
-
 
                 //グラフの描画
 
-                    int hsv;
-                    int red = 0;
-                    int green = 0;
-                    int brue = 255;
-
                     for (time = 0; time < numberOfWindow ; time++)
                     {
-
                         for (i = 0; i <= data.windowLen / 2; i++)
                         {
                             if (dataMax < data.stftData[time, i]) dataMax = (float)data.stftData[time, i];
                             if (dataMin > data.stftData[time, i]) dataMin = (float)data.stftData[time, i];
                         }
-
                         for (i = 0; i <= data.windowLen / 2; i++)
-                        {
-                            
+                        {      
                             float bottomUp = System.Math.Abs(dataMin);
 
-                            //int alpha = (int)(((data.stftData[time, i] + bottomUp) / (dataMax - dataMin)) * 255);
-                            //Pen p = new Pen(Color.FromArgb(alpha, Color.Green));
+                            plotData = (int)((data.stftData[time, i] + bottomUp) * 1020 / (dataMax - dataMin));
 
-                            hsv = (int)((data.stftData[time, i] + bottomUp) * 1020 / (dataMax - dataMin));
+                            ToHsv(plotData);
 
-                            switch (hsv / 255)
-                            {
-                                case 0:
-                                    red = 0;
-                                    green = 0 + (hsv % 255);
-                                    brue = 255;
-                                    break;
-
-                                case 1:
-                                    red = 0;
-                                    green = 255;
-                                    brue = 255 - (hsv % 255);
-                                    break;
-
-                                case 2:
-                                    red = 0 + (hsv % 255);
-                                    green = 255;
-                                    brue = 0;
-                                    break;
-
-                                case 3:
-                                    red = 255;
-                                    green = 255 - (hsv % 255);
-                                    brue = 0;
-                                    break;
-
-                            }
-
-                            Pen p = new Pen(Color.FromArgb(red, green, brue), penSize);
-
+                            Pen p = new Pen(Color.FromArgb(red, green, blue), penSize);
                              
                             g.DrawLine(p,
                                  (float)(xZero + xStep * time),
@@ -418,30 +377,19 @@ namespace SignalProcessing
                                  (float)(yZero - i * yStep - penSize/2));
                         }
                     }
-
                     g.DrawString("0", myFont, Pens.Black.Brush, 0, picture.Width - 2); //原点
-
                     g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
                     g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax - penSize); // y軸
 
                     //x軸のメモリ
-                    //scale = (xMax + 20) / 2;
-                    //g.DrawLine(Pens.Black, scale, yZero - 5, scale, yZero + 5);
-                    //g.DrawLine(Pens.Black, xMax, yZero - 5, xMax, yZero + 5);
-                    //g.DrawString(xScaleLabel, myFont, Pens.Black.Brush, scale, yZero);
 
                     //y軸のラベル
-                    //g.DrawString(yMaxLabel, myFont, Pens.Black.Brush, xZero - 20, yMax - 15);
-                    //g.DrawString(yMinLabel, myFont, Pens.Black.Brush, xZero - 20, yMin);
                     g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);
 
                     //y軸のメモリ
-                    //g.DrawLine(Pens.Black, xZero - 2, yMax, xZero + 2, yMax);
-                    //g.DrawLine(Pens.Black, xZero - 2, yZero, xZero + 2, yZero);
 
                 //Graphicsリソース解放
                 g.Dispose();
-
             }
             catch (NullReferenceException e)
             {
@@ -463,9 +411,6 @@ namespace SignalProcessing
                 String errorMessage = e.ToString();
                 Debug.ShowMessage("NewException", errorMessage);
             }
-
         }
-
-
     }
 }

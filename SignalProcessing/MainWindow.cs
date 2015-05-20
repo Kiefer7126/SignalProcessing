@@ -51,9 +51,9 @@ namespace SignalProcessing
         /**
          * preferencesToolStripMenuItem_Click
          * 概要：[File] -> [Preferences]
-         * 引数：sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          * 
          */
 
@@ -66,9 +66,9 @@ namespace SignalProcessing
         /**
          * textToolStripMenuItem_Click
          * 概要：[Frequency] -> [Import] -> [Text]
-         * 引数：sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          */
 
         private void textToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,9 +81,9 @@ namespace SignalProcessing
         /**
          * dFTToolStripMenuItem_Click
          * 概要：[File] -> [DFT]
-         * 引数：sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          */
 
         private void dFTToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,9 +105,9 @@ namespace SignalProcessing
         /**
          * wavReadToolStripMenuItem_Click
          * 概要：[File] -> [Import] -> [wav]
-         * 引数：sender 
-         *       e 
-         * 戻り値：なし
+         * @param sender 
+         * @param e 
+         * @return なし
          */
 
         private void wavToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,9 +126,9 @@ namespace SignalProcessing
         /**
          * samplingComboBox_SelectedIndexChanged
          * 概要：サンプリング周波数の選択時の処理
-         * 引数：sender 
-         *       e 
-         * 戻り値：なし
+         * @param sender 
+         * @param e 
+         * @return なし
          */
 
         private void samplingComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -165,9 +165,9 @@ namespace SignalProcessing
         /**
         * waveKindComboBox_SelectedIndexChanged
         * 概要：生成する波の種類の選択時の処理
-        * 引数：sender 
-        *       e 
-        * 戻り値：なし
+        * @param sender 
+        * @param e 
+        * @return なし
         */
 
         private void waveKindComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -194,9 +194,9 @@ namespace SignalProcessing
         /**
         * generateButton_Click
         * 概要：Generateボタンを押した時の処理
-        * 引数：sender 
-        *       e 
-        * 戻り値：なし
+        * @param sender 
+        * @param e 
+        * @return なし
         */
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -220,9 +220,9 @@ namespace SignalProcessing
         /*
          * hammingToolStripMenuItem_Click
          * 概要：[Frequency] -> [Window] -> [Hamming]
-         * 引数： sender
-         *          e
-         * 戻り値：なし
+         * @param sender
+         * @param e
+         * @return なし
          */
 
         private void hammingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,7 +257,6 @@ namespace SignalProcessing
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
         }
 
-
         /*
          * sTFTToolStripMenuItem_Click
          * 概要：[Frequency] -> [STFT]
@@ -277,8 +276,8 @@ namespace SignalProcessing
             this.fourier.CalSTFT(this.data);
 
             //グラフ描画
-            //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
-            //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
         }
 

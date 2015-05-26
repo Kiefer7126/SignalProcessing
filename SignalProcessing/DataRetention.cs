@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SignalProcessing
 {
     public class DataRetention{
-        public int windowLen = 1024;
+        
         public const int TEXTDATA = 100;
         public const int WAVDATA = 101;
         public const int TIMEGRAPH = 200;
@@ -16,7 +16,15 @@ namespace SignalProcessing
         public const int SAW = 301;
         public const int SQUARE = 302;
         public const int SPECTRO = 401;
+
+        //注意：FFTの処理でFFTとIFFTの値を使用する
+        public const int FFT = 1;
+        public const int IFFT = -1;
         
+        //window幅
+        public int windowLen = 1024;
+        //シフト幅
+        public int shiftLen = 512;
         //短時間フーリエ変換結果
         public double[,] stftData;
         //判定フラグ(TEXTDATA or WAVDATA)

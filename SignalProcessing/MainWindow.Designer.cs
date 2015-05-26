@@ -196,8 +196,9 @@
             // fFTToolStripMenuItem
             // 
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
+            this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
             // 
             // iDFTToolStripMenuItem
             // 

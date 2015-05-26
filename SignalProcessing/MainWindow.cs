@@ -92,14 +92,15 @@ namespace SignalProcessing
 
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
 
-            data.stftData = new double[data.originalLen / data.windowLen, data.windowLen];
+            int numberOfWindow = data.originalLen / data.shiftLen;
+            data.stftData = new double[numberOfWindow , data.windowLen];
 
             this.fourier.CalDFT(this.data, 0);
 
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
-
+            
         }
 
         /**
@@ -268,11 +269,11 @@ namespace SignalProcessing
         private void sTFTToolStripMenuItem_Click(object sender, EventArgs e)
         {
             double item;
-            int numberOfWindow = data.originalLen / data.windowLen;
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
-
+            int numberOfWindow = data.originalLen / data.shiftLen;
+          
             data.stftData = new double[numberOfWindow+1, data.windowLen];
-            
+
             this.fourier.CalSTFT(this.data);
 
             //グラフ描画
@@ -281,5 +282,19 @@ namespace SignalProcessing
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
         }
 
+        private void fFTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double item;
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+
+            int numberOfWindow = data.originalLen / data.shiftLen;
+            data.stftData = new double[numberOfWindow + 1, data.windowLen];
+
+            this.fourier.CalFFT(this.data, 0);
+            
+            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
+        }
     }
 }

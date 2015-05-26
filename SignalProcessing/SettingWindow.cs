@@ -69,6 +69,7 @@ namespace SignalProcessing
             {
                 this.radioButtonCheck = 1;
                 this.data.windowLen = Convert.ToInt32(this.radioButton1.Text);
+                this.data.shiftLen = this.data.windowLen / 2;
 
                 this.Close();
             }
@@ -76,6 +77,7 @@ namespace SignalProcessing
             {
                 this.radioButtonCheck = 2;
                 this.data.windowLen = Convert.ToInt32(this.radioButton2.Text);
+                this.data.shiftLen = this.data.windowLen / 2;
 
                 this.Close();
             }
@@ -83,6 +85,7 @@ namespace SignalProcessing
             {
                 this.radioButtonCheck = 3;
                 this.data.windowLen = Convert.ToInt32(this.radioButton3.Text);
+                this.data.shiftLen = this.data.windowLen / 2;
 
                 this.Close();
             }
@@ -90,6 +93,7 @@ namespace SignalProcessing
             {
                 this.radioButtonCheck = 4;
                 this.data.windowLen = Convert.ToInt32(this.radioButton4.Text);
+                this.data.shiftLen = this.data.windowLen / 2;
 
                 this.Close();
             }

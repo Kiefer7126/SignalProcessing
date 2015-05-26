@@ -12,10 +12,47 @@ namespace SignalProcessing
     public class Graph
     {
 
-        int plotData;
-        int red;
-        int green;
-        int blue;
+        private int plotData;
+        private int red;
+        private int green;
+        private int blue;
+
+         /**
+         * GetMax
+         * 概要：最大値を求める
+         * @param data　　  　 最大値を求める対象データ
+         * @param windowLen 　 windowLength
+         * @return dataMax
+         */
+
+        private float GetMax(double[] data, int windowLen)
+        {
+            float dataMax = 0;
+
+            
+
+            return dataMax;
+        }
+
+        /**
+       　* GetMax
+         * 概要：最小値を求める
+         * @param data　　  　 最小値を求める対象データ
+         * @param windowLen 　 windowLength
+         * @return dataMin
+         */
+
+        private float GetMin(double[] data, int windowLen)
+        {
+            float dataMin = 0;
+
+            for (int i = 0; i < windowLen; i++)
+            {
+                if (dataMin > data[i]) dataMin = (float)data[i];
+            }
+
+            return dataMin;
+        }
 
         /**
          * PlotGraph
@@ -31,7 +68,6 @@ namespace SignalProcessing
 
         private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq)
         {
-
             Graphics g;
             Font myFont;
             int i, xZero, yZero, xMin, yMin, xMax, yMax, scale;
@@ -60,13 +96,17 @@ namespace SignalProcessing
                     picture.Image = new Bitmap(picture.Width, picture.Height);
                     g = Graphics.FromImage(picture.Image);
                     myFont = new Font("Arial", 9);
-       
-                for (i = 0; i < windowLen; i++)
-                {
-                    if (dataMax < data[i]) dataMax = (float)data[i];
-                    if (dataMin > data[i]) dataMin = (float)data[i];
-                }
 
+                    //dataMax = GetMax(data, windowLen);
+
+                    for (i = 0; i < windowLen; i++)
+                    {
+                        if (dataMax < data[i]) dataMax = (float)data[i];
+                        if (dataMin > data[i]) dataMin = (float)data[i];
+                    }
+
+                    //dataMin = GetMin(data, windowLen);
+                
                 if (System.Math.Abs(dataMax) <= System.Math.Abs(dataMin))
                 {
                     yStep = (float)(yMin - yMax) / System.Math.Abs(dataMin) / 2;
@@ -117,13 +157,13 @@ namespace SignalProcessing
                 g.DrawLine(Pens.Black, xZero - 2, yMax, xZero + 2, yMax);
                 g.DrawLine(Pens.Black, xZero - 2, yMin, xZero + 2, yMin);
 
-                    for (i = 1; i < windowLen; i++)
+                    for (i = 0; i < windowLen - 1; i++)
                     {
                        g.DrawLine(Pens.Green,
-                            xZero + (i - 1) * xStep,
-                            yZero - (float)data[i - 1] * yStep,
-                            xZero + i * xStep,
-                            yZero - (float)data[i] * yStep);
+                            (float)(xZero + i * xStep),
+                            (float)(yZero - (float)data[i] * yStep),
+                            (float)(xZero + (i + 1) * xStep),
+                            (float)(yZero - (float)data[i + 1] * yStep));
                     }
                 //Graphicsリソース解放
                 g.Dispose(); 
@@ -218,9 +258,11 @@ namespace SignalProcessing
                 xMax  = picture.Width;
                 yMax  = 0;
                 xStep = 0;
-                yStep = (float)picture.Height / (float)1020;
+                yStep = (float)picture.Height / (float)1275;
 
-                for (i = 0; i <= 1024; i++)
+                for (i = 0; i <= 1275; i++)
+                    //1024
+                    //1275
                 {
                     plotData = i;
 
@@ -275,23 +317,29 @@ namespace SignalProcessing
             {
                 case 0:
                     red = 0;
+                    green = 0;
+                    blue = 0 + (plotHsvData % 255);
+                    break;
+
+                case 1:
+                    red = 0;
                     green = 0 + (plotHsvData % 255);
                     blue = 255;
                     break;
 
-                case 1:
+                case 2:
                     red = 0;
                     green = 255;
                     blue = 255 - (plotHsvData % 255);
                     break;
 
-                case 2:
+                case 3:
                     red = 0 + (plotHsvData % 255);
                     green = 255;
                     blue = 0;
                     break;
 
-                case 3:
+                case 4:
                     red = 255;
                     green = 255 - (plotHsvData % 255);
                     blue = 0;
@@ -344,44 +392,60 @@ namespace SignalProcessing
                 xMax  = picture.Width  - margin;
                 yMax  = margin;
 
-                numberOfWindow = data.originalLen / data.windowLen;
-                xStep = (float)gramWidth / (float)(numberOfWindow);
-                yStep = System.Math.Abs((float)gramHeight * 2 / data.windowLen);
+                numberOfWindow = data.originalLen / data.shiftLen;
+                xStep = (float)gramWidth / (float)(numberOfWindow - 1);
+                yStep = System.Math.Abs((float)gramHeight * 30 / data.windowLen);
 
                 //x軸のラベル
                 g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 3) );
 
                 //グラフの描画
 
-                    for (time = 0; time < numberOfWindow ; time++)
+                    for (time = 0; time < numberOfWindow - 1 ; time++)
                     {
                         for (i = 0; i <= data.windowLen / 2; i++)
                         {
                             if (dataMax < data.stftData[time, i]) dataMax = (float)data.stftData[time, i];
                             if (dataMin > data.stftData[time, i]) dataMin = (float)data.stftData[time, i];
                         }
+
                         for (i = 0; i <= data.windowLen / 2; i++)
                         {      
                             float bottomUp = System.Math.Abs(dataMin);
 
-                            plotData = (int)((data.stftData[time, i] + bottomUp) * 1020 / (dataMax - dataMin));
-
+                            plotData = (int)((data.stftData[time, i] + bottomUp) * 1275 / (dataMax - dataMin));
                             ToHsv(plotData);
 
                             Pen p = new Pen(Color.FromArgb(red, green, blue), penSize);
+                            
                              
                             g.DrawLine(p,
                                  (float)(xZero + xStep * time),
                                  (float)(yZero - i * yStep - penSize/2),
                                  (float)(xZero + xStep * (time + 1)),
                                  (float)(yZero - i * yStep - penSize/2));
+
+                            //x軸のメモリ
+                           // g.DrawLine(Pens.Black, 
+                             //   (float)(xZero + xStep * time), 
+                              //  (float)(yZero - 5),
+                              //  (float)(xZero + xStep * time), 
+                              //  (float)(yZero + 5));
                         }
                     }
+                    Pen whitePen = new Pen(Color.White, penSize);
+                    g.DrawLine(whitePen,
+                        (float)(xZero),
+                        (float)(yMax) - penSize / 2,
+                        (float)(xMax),
+                        (float)(yMax) - penSize / 2);
+
                     g.DrawString("0", myFont, Pens.Black.Brush, 0, picture.Width - 2); //原点
                     g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
-                    g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax - penSize); // y軸
+                    g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax); // y軸
 
-                    //x軸のメモリ
+                    
+                    
 
                     //y軸のラベル
                     g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);

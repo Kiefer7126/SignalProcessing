@@ -18,11 +18,10 @@ namespace SignalProcessing
          */
         public void Processing (DataRetention data, int flag)
         {
-            data.originalData = new double[data.windowLen];
             data.originalLen = data.windowLen;
+            data.originalData = new double[data.windowLen];
 
-            
-            for (int n = 0; n < data.windowLen; n++)
+            for (int n = 0; n < data.originalLen; n++)
             {
                 switch (flag)
                 {

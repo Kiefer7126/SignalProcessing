@@ -130,14 +130,18 @@ namespace SignalProcessing
                             data.odChunkId = br.ReadBytes(4);
                             data.odChunkSize = br.ReadInt32();
 
+                            //2バイトでひとつのデータなので2で割る
                             data.originalLen = data.odChunkSize / 2;
-                            
+                            //オリジナルデータの長さを時間変換
+                            data.originalTime_s = data.originalLen / data.ofSmpf; 
+
                             data.originalData = new double[data.originalLen];
                             MessageBox.Show("originalLen = " + data.originalLen);
+                            MessageBox.Show("originalTime_s = " + data.originalTime_s);
+                           // MessageBox.Show("data.ofCh = " + data.ofCh);
 
                             //ステレオファイルはRLRL…の順に入っているので一つ飛ばしで読み込む？
-
-                            for (i = 0; i < data.originalLen; i = i + 1)
+                            for (i = 0; i < data.originalLen ; i = i + 1)
                             {
                                 data.originalData[i] = Convert.ToDouble(br.ReadInt16());
                             }

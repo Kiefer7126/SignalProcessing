@@ -160,10 +160,10 @@ namespace SignalProcessing
                     for (i = 0; i < windowLen - 1; i++)
                     {
                        g.DrawLine(Pens.Green,
-                            (float)(xZero + i * xStep),
-                            (float)(yZero - (float)data[i] * yStep),
-                            (float)(xZero + (i + 1) * xStep),
-                            (float)(yZero - (float)data[i + 1] * yStep));
+                            (float)((float)xZero + (float)i * xStep),
+                            (float)((float)yZero - (float)data[i] * yStep),
+                            (float)((float)xZero + (float)(i + 1) * xStep),
+                            (float)((float)yZero - (float)data[i + 1] * yStep));
                     }
                 //Graphicsリソース解放
                 g.Dispose(); 
@@ -365,7 +365,7 @@ namespace SignalProcessing
 
             int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
             
-            float xStep, yStep;
+            float xStep, yStep, xScale, yScale;
             float dataMax = 0;
             float dataMin = 0;
 
@@ -381,7 +381,7 @@ namespace SignalProcessing
                 g = Graphics.FromImage(picture.Image);
                 myFont = new Font("Arial", 9);
 
-                xLabel = "[ ms ]";
+                xLabel = "[ s ]";
                 yLabel = "[ Hz ]";
                 margin = 40;
                 gramWidth = picture.Width - margin * 2;
@@ -394,10 +394,10 @@ namespace SignalProcessing
 
                 numberOfWindow = data.originalLen / data.shiftLen;
                 xStep = (float)gramWidth / (float)(numberOfWindow - 1);
-                yStep = System.Math.Abs((float)gramHeight * 30 / data.windowLen);
+                yStep = System.Math.Abs((float)gramHeight * 20 / data.windowLen);
 
                 //x軸のラベル
-                g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 3) );
+                g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 2) );
 
                 //グラフの描画
 
@@ -424,15 +424,9 @@ namespace SignalProcessing
                                  (float)(yZero - i * yStep - penSize/2),
                                  (float)(xZero + xStep * (time + 1)),
                                  (float)(yZero - i * yStep - penSize/2));
-
-                            //x軸のメモリ
-                           // g.DrawLine(Pens.Black, 
-                             //   (float)(xZero + xStep * time), 
-                              //  (float)(yZero - 5),
-                              //  (float)(xZero + xStep * time), 
-                              //  (float)(yZero + 5));
                         }
                     }
+
                     Pen whitePen = new Pen(Color.White, penSize);
                     g.DrawLine(whitePen,
                         (float)(xZero),
@@ -444,13 +438,27 @@ namespace SignalProcessing
                     g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
                     g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax); // y軸
 
-                    
+                    //x軸の目盛り
+                    xScale = gramWidth / data.originalTime_s;
+
+                    for (i = 0; i <= data.originalTime_s; i++)
+                    {
+                        g.DrawLine(Pens.Black,
+                            (float)(xZero + xScale * i),
+                            (float)(yZero - 5),
+                            (float)(xZero + xScale * i),
+                            (float)(yZero + 5));
+
+                        xScaleLabel = i.ToString();
+                        g.DrawString(xScaleLabel, myFont, Pens.Black.Brush, xZero + xScale * i - 4, yZero + 4);
+                    }
+
                     
 
                     //y軸のラベル
                     g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);
 
-                    //y軸のメモリ
+                    //y軸の目盛り
 
                 //Graphicsリソース解放
                 g.Dispose();

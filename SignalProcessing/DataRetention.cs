@@ -31,8 +31,10 @@ namespace SignalProcessing
         public int fileFormat;  
         //オリジナルデータ
         public double[] originalData;
-        //オリジナルデータの長さ
+        //オリジナルデータの長さ[byte]
         public int originalLen;
+        //オリジナルデータの長さ[s]
+        public int originalTime_s;
         //WindowLength分切り取ったデータ
         public double[] timeData;
         //フーリエ変換後の複素数データ

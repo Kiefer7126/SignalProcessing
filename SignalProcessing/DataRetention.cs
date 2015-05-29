@@ -35,6 +35,8 @@ namespace SignalProcessing
         public int originalLen;
         //オリジナルデータの長さ[s]
         public int originalTime_s;
+        //周波数の間隔[Hz]
+        public float fScale_Hz;
         //WindowLength分切り取ったデータ
         public double[] timeData;
         //フーリエ変換後の複素数データ

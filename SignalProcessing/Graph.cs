@@ -28,9 +28,10 @@ namespace SignalProcessing
         private float GetMax(double[] data, int windowLen)
         {
             float dataMax = 0;
-
-            
-
+            for (int i = 0; i < windowLen; i++)
+            {
+                if (dataMax < data[i]) dataMax = (float)data[i];
+            }
             return dataMax;
         }
 
@@ -239,12 +240,13 @@ namespace SignalProcessing
           * @return なし
           */
 
-        public void PlotLegend(PictureBox picture)
+        public void PlotLegend(PictureBox picture, DataRetention data)
         {
             Graphics g;
             Font myFont;
-            int i, xZero, yZero, xMax, yMax;
-            float xStep, yStep;
+            int i, xZero, yZero, xMax, yMax, marginRight, marginTop, yScaleNumber, yScaleValue;
+            float xStep, yStep, yScale, dBDataMax, dBDataMin;
+            String yScaleLabel;
 
             try
             {
@@ -252,13 +254,17 @@ namespace SignalProcessing
                 picture.Image = new Bitmap(picture.Width, picture.Height);
                 g = Graphics.FromImage(picture.Image);
                 myFont = new Font("Arial", 9);
+                marginRight = 30;
+                marginTop = 0;
 
                 xZero = 0;
                 yZero = picture.Height;
-                xMax  = picture.Width;
-                yMax  = 0;
+                xMax  = picture.Width - marginRight;
+                yMax  = marginTop;
                 xStep = 0;
-                yStep = (float)picture.Height / (float)1275;
+                yStep = (float)(picture.Height - marginTop) / (float)1275;
+
+                yScaleLabel = "";
 
                 for (i = 0; i <= 1275; i++)
                     //1024
@@ -276,6 +282,27 @@ namespace SignalProcessing
                               (float)(xMax),
                               (float)(yZero - i * yStep));
                 }
+
+                //y軸の目盛り
+                yScaleNumber = 8;
+                yScale = (picture.Height + marginTop) / yScaleNumber;
+
+                dBDataMax = GetMax(data.dBData, data.windowLen);
+                dBDataMin = GetMin(data.dBData, data.windowLen);
+
+                for (i = 0; i <= yScaleNumber; i++)
+                {
+                    g.DrawLine(Pens.Black,
+                       (float)(xMax - 5),
+                       (float)(yZero - yScale * i),
+                       (float)(xMax + 5),
+                       (float)(yZero - yScale * i));
+
+                    yScaleValue = (int)(dBDataMin + (System.Math.Abs(dBDataMax - dBDataMin) / yScaleNumber) * i);
+                    yScaleLabel = yScaleValue.ToString();
+                    g.DrawString(yScaleLabel, myFont, Pens.Black.Brush, xMax + 7, yZero - yScale * i - 3);
+                }
+
                 //Graphicsリソース解放
                 g.Dispose();
             }
@@ -361,18 +388,19 @@ namespace SignalProcessing
 
             Graphics g;
             Font myFont;
-            int i, time, numberOfWindow, xZero, yZero, xMax, yMax, margin, gramWidth, gramHeight;
+            int i, time, numberOfWindow, xZero, yZero, xMax, yMax, marginRight, marginLeft, marginTop, marginBottom, gramWidth, gramHeight, yScaleNumber, yScaleValue;
 
             int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
-            
             float xStep, yStep, xScale, yScale;
             float dataMax = 0;
             float dataMin = 0;
+            float fMax_Hz = 0;
 
             String xLabel = "";
             String yLabel = "";
             String xScaleLabel = ""; 
             String yScaleLabel = "";
+            String yMaxLabel = "";
 
             try
             {
@@ -382,22 +410,22 @@ namespace SignalProcessing
                 myFont = new Font("Arial", 9);
 
                 xLabel = "[ s ]";
-                yLabel = "[ Hz ]";
-                margin = 40;
-                gramWidth = picture.Width - margin * 2;
-                gramHeight = picture.Height - margin * 2;
+                yLabel = "[ kHz ]";
+                marginRight = 10;
+                marginLeft = 65;
+                marginTop = 10;
+                marginBottom = 40;
+                gramWidth = picture.Width - (marginRight + marginLeft);
+                gramHeight = picture.Height - (marginTop + marginBottom);
 
-                xZero = margin;
-                yZero = picture.Height - margin;
-                xMax  = picture.Width  - margin;
-                yMax  = margin;
+                xZero = marginLeft;
+                yZero = picture.Height - marginBottom;
+                xMax  = picture.Width  - marginRight;
+                yMax  = marginTop;
 
                 numberOfWindow = data.originalLen / data.shiftLen;
                 xStep = (float)gramWidth / (float)(numberOfWindow - 1);
-                yStep = System.Math.Abs((float)gramHeight * 20 / data.windowLen);
-
-                //x軸のラベル
-                g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (margin / 2) );
+                yStep = System.Math.Abs((float)gramHeight * 2 / data.windowLen);
 
                 //グラフの描画
 
@@ -438,6 +466,9 @@ namespace SignalProcessing
                     g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
                     g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax); // y軸
 
+                    //x軸のラベル
+                    g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (marginBottom / 2));
+
                     //x軸の目盛り
                     xScale = gramWidth / data.originalTime_s;
 
@@ -454,14 +485,30 @@ namespace SignalProcessing
                     }
 
                     
-
                     //y軸のラベル
                     g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);
 
                     //y軸の目盛り
+                    yScaleNumber = 8;
+                    data.fScale_Hz = data.ofSmpf / data.windowLen;
+                    fMax_Hz = (data.fScale_Hz * data.windowLen) / 2;
+                    yScale = gramHeight / yScaleNumber;   
+                
+                    for (i = 0; i <= yScaleNumber; i++)
+                    {
+                        g.DrawLine(Pens.Black,
+                           (float)(xZero - 5),
+                           (float)(yZero - yScale * i),
+                           (float)(xZero + 5),
+                           (float)(yZero - yScale * i));
 
-                //Graphicsリソース解放
-                g.Dispose();
+                        yScaleValue = (int)((fMax_Hz / yScaleNumber) * i) / 1000;
+                        yScaleLabel = yScaleValue.ToString();
+                        g.DrawString(yScaleLabel, myFont, Pens.Black.Brush, xZero - 20, yZero - yScale * i - 7);
+                    }
+
+                        //Graphicsリソース解放
+                        g.Dispose();
             }
             catch (NullReferenceException e)
             {

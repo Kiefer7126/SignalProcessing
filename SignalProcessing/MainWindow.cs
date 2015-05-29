@@ -39,8 +39,6 @@ namespace SignalProcessing
             this.window = new WindowFunction();
             // 初期表示時に、先頭の項目を選択
             this.waveKindComboBox.SelectedIndex = 0;
-
-            this.graphic.PlotLegend(this.legendPictureBox);
          }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -100,7 +98,7 @@ namespace SignalProcessing
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
-            
+            this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
 
         /**
@@ -280,6 +278,7 @@ namespace SignalProcessing
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
+            this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
 
         private void fFTToolStripMenuItem_Click(object sender, EventArgs e)
@@ -295,6 +294,7 @@ namespace SignalProcessing
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
+            this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
     }
 }

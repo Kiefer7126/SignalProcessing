@@ -133,7 +133,8 @@ namespace SignalProcessing
                             //2バイトでひとつのデータなので2で割る
                             data.originalLen = data.odChunkSize / 2;
                             //オリジナルデータの長さを時間変換
-                            data.originalTime_s = data.originalLen / data.ofSmpf; 
+                            //(RLで標本化一回のためofChで除算する)
+                            data.originalTime_s = data.originalLen / data.ofSmpf / data.ofCh; 
 
                             data.originalData = new double[data.originalLen];
                             MessageBox.Show("originalLen = " + data.originalLen);

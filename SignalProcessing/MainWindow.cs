@@ -20,6 +20,7 @@ namespace SignalProcessing
         private FileWriter writer;
         private GenerateWave generate;
         private WindowFunction window;
+        private WaveletAnalysis wavelet;
 
         /**
          * MainWindow
@@ -37,6 +38,8 @@ namespace SignalProcessing
             this.writer = new FileWriter();
             this.generate = new GenerateWave();
             this.window = new WindowFunction();
+            this.wavelet = new WaveletAnalysis();
+
             // 初期表示時に、先頭の項目を選択
             this.waveKindComboBox.SelectedIndex = 0;
          }
@@ -294,6 +297,18 @@ namespace SignalProcessing
             this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
             this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
+            this.graphic.PlotLegend(this.legendPictureBox, this.data);
+        }
+
+        private void gaborToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double item;
+            item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
+
+            int wtLen = wavelet.cent_max / wavelet.cent_interval;
+            this.wavelet.CalGWT(this.data);
+
+            this.graphic.PlotSpectrogramEdit(item, this.spectrogramPictureBox, wavelet.wt, wtLen);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace SignalProcessing
 {
     public class DataRetention{
+
         
         public const int TEXTDATA = 100;
         public const int WAVDATA = 101;
@@ -34,7 +35,7 @@ namespace SignalProcessing
         //オリジナルデータの長さ[byte]
         public int originalLen;
         //オリジナルデータの長さ[s]
-        public int originalTime_s;
+        public float originalTime_s;
         //周波数の間隔[Hz]
         public float fScale_Hz;
         //WindowLength分切り取ったデータ

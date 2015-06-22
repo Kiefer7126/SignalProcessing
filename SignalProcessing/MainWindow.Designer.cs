@@ -67,6 +67,7 @@
             this.generateButton = new System.Windows.Forms.Button();
             this.legendPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.gaborToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
@@ -182,7 +183,8 @@
             this.iDFTToolStripMenuItem,
             this.iFFTToolStripMenuItem,
             this.windowToolStripMenuItem,
-            this.sTFTToolStripMenuItem});
+            this.sTFTToolStripMenuItem,
+            this.gaborToolStripMenuItem});
             this.frequencyToolStripMenuItem.Name = "frequencyToolStripMenuItem";
             this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.frequencyToolStripMenuItem.Text = "Frequency";
@@ -190,27 +192,27 @@
             // dFTToolStripMenuItem
             // 
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
             // fFTToolStripMenuItem
             // 
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
             // 
             // iDFTToolStripMenuItem
             // 
             this.iDFTToolStripMenuItem.Name = "iDFTToolStripMenuItem";
-            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.iDFTToolStripMenuItem.Text = "IDFT";
             // 
             // iFFTToolStripMenuItem
             // 
             this.iFFTToolStripMenuItem.Name = "iFFTToolStripMenuItem";
-            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.iFFTToolStripMenuItem.Text = "IFFT";
             // 
             // windowToolStripMenuItem
@@ -220,7 +222,7 @@
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
@@ -247,7 +249,7 @@
             // sTFTToolStripMenuItem
             // 
             this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
-            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sTFTToolStripMenuItem.Text = "STFT";
             this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
             // 
@@ -414,6 +416,13 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "[dB]";
             // 
+            // gaborToolStripMenuItem
+            // 
+            this.gaborToolStripMenuItem.Name = "gaborToolStripMenuItem";
+            this.gaborToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gaborToolStripMenuItem.Text = "Gabor";
+            this.gaborToolStripMenuItem.Click += new System.EventHandler(this.gaborToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -493,6 +502,7 @@
         private System.Windows.Forms.ToolStripMenuItem sTFTToolStripMenuItem;
         private System.Windows.Forms.PictureBox legendPictureBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem gaborToolStripMenuItem;
     }
 }
 

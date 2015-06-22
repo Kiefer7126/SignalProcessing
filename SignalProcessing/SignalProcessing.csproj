@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WaveletAnalysis.cs" />
     <Compile Include="DataRetention.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="FileReader.cs" />

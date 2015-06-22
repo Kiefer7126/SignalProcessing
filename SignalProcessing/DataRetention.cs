@@ -16,6 +16,7 @@ namespace SignalProcessing
         public const int SINE = 300;
         public const int SAW = 301;
         public const int SQUARE = 302;
+        public const int SINE2 = 303;
         public const int SPECTRO = 401;
 
         //注意：FFTの処理でFFTとIFFTの値を使用する

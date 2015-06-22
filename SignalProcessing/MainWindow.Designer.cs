@@ -50,6 +50,7 @@
             this.hanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gaussianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sTFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fWTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,13 +68,22 @@
             this.generateButton = new System.Windows.Forms.Button();
             this.legendPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.gaborToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.waveletGraphLevel1PictureBox = new System.Windows.Forms.PictureBox();
+            this.waveletGraphLevel2PictureBox = new System.Windows.Forms.PictureBox();
+            this.waveletGraphLevel3PictureBox = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -84,7 +94,7 @@
             this.filterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(924, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1044, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,13 +106,13 @@
             this.exportToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -112,20 +122,20 @@
             this.textToolStripMenuItem,
             this.wavToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // textToolStripMenuItem
             // 
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            this.textToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.textToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.textToolStripMenuItem.Text = "Text";
             this.textToolStripMenuItem.Click += new System.EventHandler(this.textToolStripMenuItem_Click);
             // 
             // wavToolStripMenuItem
             // 
             this.wavToolStripMenuItem.Name = "wavToolStripMenuItem";
-            this.wavToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.wavToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.wavToolStripMenuItem.Text = "Wav";
             this.wavToolStripMenuItem.Click += new System.EventHandler(this.wavToolStripMenuItem_Click);
             // 
@@ -135,7 +145,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -144,34 +154,34 @@
             this.timeGraphToolStripMenuItem,
             this.dBGraphToolStripMenuItem});
             this.textToolStripMenuItem1.Name = "textToolStripMenuItem1";
-            this.textToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
+            this.textToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
             this.textToolStripMenuItem1.Text = "Text";
             // 
             // timeGraphToolStripMenuItem
             // 
             this.timeGraphToolStripMenuItem.Name = "timeGraphToolStripMenuItem";
-            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.timeGraphToolStripMenuItem.Text = "TimeGraph";
             this.timeGraphToolStripMenuItem.Click += new System.EventHandler(this.timeGraphToolStripMenuItem_Click);
             // 
             // dBGraphToolStripMenuItem
             // 
             this.dBGraphToolStripMenuItem.Name = "dBGraphToolStripMenuItem";
-            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.dBGraphToolStripMenuItem.Text = "dBGraph";
             this.dBGraphToolStripMenuItem.Click += new System.EventHandler(this.dBGraphToolStripMenuItem_Click);
             // 
             // wavToolStripMenuItem1
             // 
             this.wavToolStripMenuItem1.Name = "wavToolStripMenuItem1";
-            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
+            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
             this.wavToolStripMenuItem1.Text = "Wav";
             this.wavToolStripMenuItem1.Click += new System.EventHandler(this.wavToolStripMenuItem1_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -184,35 +194,35 @@
             this.iFFTToolStripMenuItem,
             this.windowToolStripMenuItem,
             this.sTFTToolStripMenuItem,
-            this.gaborToolStripMenuItem});
+            this.fWTToolStripMenuItem});
             this.frequencyToolStripMenuItem.Name = "frequencyToolStripMenuItem";
-            this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.frequencyToolStripMenuItem.Text = "Frequency";
             // 
             // dFTToolStripMenuItem
             // 
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
             // fFTToolStripMenuItem
             // 
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
             // 
             // iDFTToolStripMenuItem
             // 
             this.iDFTToolStripMenuItem.Name = "iDFTToolStripMenuItem";
-            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.iDFTToolStripMenuItem.Text = "IDFT";
             // 
             // iFFTToolStripMenuItem
             // 
             this.iFFTToolStripMenuItem.Name = "iFFTToolStripMenuItem";
-            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.iFFTToolStripMenuItem.Text = "IFFT";
             // 
             // windowToolStripMenuItem
@@ -222,36 +232,43 @@
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
             // 
             this.hammingToolStripMenuItem.Name = "hammingToolStripMenuItem";
-            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.hammingToolStripMenuItem.Text = "Hamming";
             this.hammingToolStripMenuItem.Click += new System.EventHandler(this.hammingToolStripMenuItem_Click);
             // 
             // hanningToolStripMenuItem
             // 
             this.hanningToolStripMenuItem.Name = "hanningToolStripMenuItem";
-            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.hanningToolStripMenuItem.Text = "Hanning";
             this.hanningToolStripMenuItem.Click += new System.EventHandler(this.hanningToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
             this.gaussianToolStripMenuItem.Click += new System.EventHandler(this.gaussianToolStripMenuItem_Click);
             // 
             // sTFTToolStripMenuItem
             // 
             this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
-            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.sTFTToolStripMenuItem.Text = "STFT";
             this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
+            // 
+            // fWTToolStripMenuItem
+            // 
+            this.fWTToolStripMenuItem.Name = "fWTToolStripMenuItem";
+            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fWTToolStripMenuItem.Text = "FWT";
+            this.fWTToolStripMenuItem.Click += new System.EventHandler(this.fWTToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -259,19 +276,19 @@
             this.fIRToolStripMenuItem,
             this.iIRToolStripMenuItem});
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.filterToolStripMenuItem.Text = "Filter";
             // 
             // fIRToolStripMenuItem
             // 
             this.fIRToolStripMenuItem.Name = "fIRToolStripMenuItem";
-            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
+            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
             this.fIRToolStripMenuItem.Text = "FIR";
             // 
             // iIRToolStripMenuItem
             // 
             this.iIRToolStripMenuItem.Name = "iIRToolStripMenuItem";
-            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
+            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
             this.iIRToolStripMenuItem.Text = "IIR";
             // 
             // samplingComboBox
@@ -302,9 +319,9 @@
             // 
             this.timeGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.timeGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.timeGraphPictureBox.Location = new System.Drawing.Point(23, 69);
+            this.timeGraphPictureBox.Location = new System.Drawing.Point(25, 69);
             this.timeGraphPictureBox.Name = "timeGraphPictureBox";
-            this.timeGraphPictureBox.Size = new System.Drawing.Size(296, 180);
+            this.timeGraphPictureBox.Size = new System.Drawing.Size(317, 120);
             this.timeGraphPictureBox.TabIndex = 3;
             this.timeGraphPictureBox.TabStop = false;
             // 
@@ -312,9 +329,9 @@
             // 
             this.dBGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.dBGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dBGraphPictureBox.Location = new System.Drawing.Point(325, 69);
+            this.dBGraphPictureBox.Location = new System.Drawing.Point(348, 69);
             this.dBGraphPictureBox.Name = "dBGraphPictureBox";
-            this.dBGraphPictureBox.Size = new System.Drawing.Size(294, 180);
+            this.dBGraphPictureBox.Size = new System.Drawing.Size(317, 120);
             this.dBGraphPictureBox.TabIndex = 4;
             this.dBGraphPictureBox.TabStop = false;
             // 
@@ -322,9 +339,9 @@
             // 
             this.phaseGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.phaseGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.phaseGraphPictureBox.Location = new System.Drawing.Point(625, 69);
+            this.phaseGraphPictureBox.Location = new System.Drawing.Point(671, 69);
             this.phaseGraphPictureBox.Name = "phaseGraphPictureBox";
-            this.phaseGraphPictureBox.Size = new System.Drawing.Size(294, 180);
+            this.phaseGraphPictureBox.Size = new System.Drawing.Size(317, 120);
             this.phaseGraphPictureBox.TabIndex = 5;
             this.phaseGraphPictureBox.TabStop = false;
             // 
@@ -340,7 +357,7 @@
             // dBGraphLabel
             // 
             this.dBGraphLabel.AutoSize = true;
-            this.dBGraphLabel.Location = new System.Drawing.Point(323, 51);
+            this.dBGraphLabel.Location = new System.Drawing.Point(361, 54);
             this.dBGraphLabel.Name = "dBGraphLabel";
             this.dBGraphLabel.Size = new System.Drawing.Size(19, 12);
             this.dBGraphLabel.TabIndex = 7;
@@ -349,7 +366,7 @@
             // phaseGraphLabel
             // 
             this.phaseGraphLabel.AutoSize = true;
-            this.phaseGraphLabel.Location = new System.Drawing.Point(623, 51);
+            this.phaseGraphLabel.Location = new System.Drawing.Point(625, 54);
             this.phaseGraphLabel.Name = "phaseGraphLabel";
             this.phaseGraphLabel.Size = new System.Drawing.Size(36, 12);
             this.phaseGraphLabel.TabIndex = 8;
@@ -359,16 +376,16 @@
             // 
             this.spectrogramPictureBox.BackColor = System.Drawing.Color.White;
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.spectrogramPictureBox.Location = new System.Drawing.Point(23, 277);
+            this.spectrogramPictureBox.Location = new System.Drawing.Point(348, 224);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(798, 392);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 392);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
             // spectrogramLabel
             // 
             this.spectrogramLabel.AutoSize = true;
-            this.spectrogramLabel.Location = new System.Drawing.Point(23, 262);
+            this.spectrogramLabel.Location = new System.Drawing.Point(346, 209);
             this.spectrogramLabel.Name = "spectrogramLabel";
             this.spectrogramLabel.Size = new System.Drawing.Size(69, 12);
             this.spectrogramLabel.TabIndex = 10;
@@ -380,7 +397,8 @@
             this.waveKindComboBox.Items.AddRange(new object[] {
             "Sine",
             "Saw",
-            "Square"});
+            "Square",
+            "Sine2"});
             this.waveKindComboBox.Location = new System.Drawing.Point(23, 26);
             this.waveKindComboBox.Name = "waveKindComboBox";
             this.waveKindComboBox.Size = new System.Drawing.Size(121, 20);
@@ -401,34 +419,100 @@
             // 
             this.legendPictureBox.BackColor = System.Drawing.Color.White;
             this.legendPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.legendPictureBox.Location = new System.Drawing.Point(827, 277);
+            this.legendPictureBox.Location = new System.Drawing.Point(993, 224);
             this.legendPictureBox.Name = "legendPictureBox";
-            this.legendPictureBox.Size = new System.Drawing.Size(69, 392);
+            this.legendPictureBox.Size = new System.Drawing.Size(39, 392);
             this.legendPictureBox.TabIndex = 13;
             this.legendPictureBox.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(897, 439);
+            this.label1.Location = new System.Drawing.Point(1005, 209);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 12);
             this.label1.TabIndex = 14;
             this.label1.Text = "[dB]";
             // 
-            // gaborToolStripMenuItem
+            // waveletGraphLevel1PictureBox
             // 
-            this.gaborToolStripMenuItem.Name = "gaborToolStripMenuItem";
-            this.gaborToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.gaborToolStripMenuItem.Text = "Gabor";
-            this.gaborToolStripMenuItem.Click += new System.EventHandler(this.gaborToolStripMenuItem_Click);
+            this.waveletGraphLevel1PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.waveletGraphLevel1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.waveletGraphLevel1PictureBox.Location = new System.Drawing.Point(25, 224);
+            this.waveletGraphLevel1PictureBox.Name = "waveletGraphLevel1PictureBox";
+            this.waveletGraphLevel1PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel1PictureBox.TabIndex = 15;
+            this.waveletGraphLevel1PictureBox.TabStop = false;
+            // 
+            // waveletGraphLevel2PictureBox
+            // 
+            this.waveletGraphLevel2PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.waveletGraphLevel2PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.waveletGraphLevel2PictureBox.Location = new System.Drawing.Point(25, 359);
+            this.waveletGraphLevel2PictureBox.Name = "waveletGraphLevel2PictureBox";
+            this.waveletGraphLevel2PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel2PictureBox.TabIndex = 16;
+            this.waveletGraphLevel2PictureBox.TabStop = false;
+            // 
+            // waveletGraphLevel3PictureBox
+            // 
+            this.waveletGraphLevel3PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.waveletGraphLevel3PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.waveletGraphLevel3PictureBox.Location = new System.Drawing.Point(25, 496);
+            this.waveletGraphLevel3PictureBox.Name = "waveletGraphLevel3PictureBox";
+            this.waveletGraphLevel3PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel3PictureBox.TabIndex = 17;
+            this.waveletGraphLevel3PictureBox.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 209);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 12);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "WaveletTransform";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 277);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(11, 12);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 416);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(11, 12);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "2";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 552);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(11, 12);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "3";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(924, 702);
+            this.ClientSize = new System.Drawing.Size(1044, 631);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.waveletGraphLevel3PictureBox);
+            this.Controls.Add(this.waveletGraphLevel2PictureBox);
+            this.Controls.Add(this.waveletGraphLevel1PictureBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.legendPictureBox);
             this.Controls.Add(this.generateButton);
@@ -456,6 +540,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -502,7 +589,14 @@
         private System.Windows.Forms.ToolStripMenuItem sTFTToolStripMenuItem;
         private System.Windows.Forms.PictureBox legendPictureBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem gaborToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fWTToolStripMenuItem;
+        private System.Windows.Forms.PictureBox waveletGraphLevel1PictureBox;
+        private System.Windows.Forms.PictureBox waveletGraphLevel2PictureBox;
+        private System.Windows.Forms.PictureBox waveletGraphLevel3PictureBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 

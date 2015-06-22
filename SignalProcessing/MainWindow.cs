@@ -188,6 +188,9 @@ namespace SignalProcessing
                 case 2:
                     this.data.waveKind = DataRetention.SQUARE;
                     break;
+                case 3:
+                    this.data.waveKind = DataRetention.SINE2;
+                    break;
                 default:
                     break;
             }
@@ -300,15 +303,34 @@ namespace SignalProcessing
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
 
-        private void gaborToolStripMenuItem_Click(object sender, EventArgs e)
+        private void fWTToolStripMenuItem_Click(object sender, EventArgs e)
         {
             double item;
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
 
             int wtLen = wavelet.cent_max / wavelet.cent_interval;
-            this.wavelet.CalGWT(this.data);
+            //this.wavelet.CalGWT(this.data);
 
-            this.graphic.PlotSpectrogramEdit(item, this.spectrogramPictureBox, wavelet.wt, wtLen);
+            //ウェーブレット変換
+            this.wavelet.CalFWT(data.originalData, data.originalLen);
+
+            //レベル1グラフの描画
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel1PictureBox, wavelet.s1, data.windowLen/2);
+
+            //ウェーブレット変換
+            this.wavelet.CalFWT(wavelet.s1, data.originalLen/2);
+
+            //レベル2グラフの描画
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel2PictureBox, wavelet.s1, data.windowLen / 4);
+
+            //ウェーブレット変換
+            this.wavelet.CalFWT(wavelet.s1, data.originalLen / 4);
+
+            //レベル3グラフの描画
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel3PictureBox, wavelet.s1, data.windowLen / 8);
+
+
+            //this.graphic.PlotSpectrogramEdit(item, this.spectrogramPictureBox, wavelet.wt, wtLen);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
     }

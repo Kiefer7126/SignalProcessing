@@ -38,7 +38,13 @@ namespace SignalProcessing
                         for (int i = 1; i <= data.harmonic; i++)
                         {
                             data.originalData[n] = data.originalData[n] + (data.amplitude / (2 * i - 1)) * Math.Sin(2.0 * Math.PI * data.fundamentalFreq * (2 * i - 1) * n / data.samplingFreq);
-                        } 
+                        }
+                        break;
+                    case DataRetention.SINE2:
+
+                        if(n < 300) data.originalData[n] = data.amplitude * Math.Sin((2.0 * Math.PI * data.fundamentalFreq * n) / data.samplingFreq);
+                        else if (n < 700) data.originalData[n] = data.amplitude * Math.Sin((2.0 * Math.PI * 700 * n) / data.samplingFreq);
+                        else data.originalData[n] = data.amplitude * Math.Sin((2.0 * Math.PI * 900 * n) / data.samplingFreq);
                         break;
                 }
             }

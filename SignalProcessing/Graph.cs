@@ -67,7 +67,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq)
+        private void PlotGraph(PictureBox picture, double[] data, int windowLen, double samplingFreq, Boolean isWevelet)
         {
             Graphics g;
             Font myFont;
@@ -160,11 +160,23 @@ namespace SignalProcessing
 
                     for (i = 0; i < windowLen - 1; i++)
                     {
-                       g.DrawLine(Pens.Green,
-                            (float)((float)xZero + (float)i * xStep),
-                            (float)((float)yZero - (float)data[i] * yStep),
-                            (float)((float)xZero + (float)(i + 1) * xStep),
-                            (float)((float)yZero - (float)data[i + 1] * yStep));
+                        if (isWevelet)
+                        {
+                            g.DrawLine(Pens.Green,
+                                 (float)((float)xZero + (float)i * xStep),
+                                 (float)((float)yZero),
+                                 (float)((float)xZero + (float)i * xStep),
+                                 (float)((float)yZero - (float)data[i + 1] * yStep));
+                        }
+                        else
+                        {
+                            g.DrawLine(Pens.Green,
+                                 (float)((float)xZero + (float)i * xStep),
+                                 (float)((float)yZero - (float)data[i] * yStep),
+                                 (float)((float)xZero + (float)(i + 1) * xStep),
+                                 (float)((float)yZero - (float)data[i + 1] * yStep));
+                        }
+
                     }
                 //Graphicsリソース解放
                 g.Dispose(); 
@@ -202,7 +214,20 @@ namespace SignalProcessing
 
         public void PlotWaveForm(PictureBox timeGraph, DataRetention data)
         {
-            PlotGraph(timeGraph, data.timeData, data.windowLen, 0);
+            PlotGraph(timeGraph, data.originalData, data.windowLen, 0, false);
+        }
+
+        /**
+         * PlotWaveletGraph
+         * 概要：ウェーブレット変換した周波数軸のグラフを描画する
+         * @param waveletGraph ウェーブレットグラフを描画するPictureBox
+         * @param data      グラフ描画の対象データ
+         * @return なし
+         */
+
+        public void PlotWaveletGraph(PictureBox waveletGraph, double[] w1, int originalLen)
+        {
+            PlotGraph(waveletGraph, w1, originalLen, 0, true);
         }
 
         /**
@@ -216,7 +241,7 @@ namespace SignalProcessing
 
         public void PlotdBChar(double samplingFreq, PictureBox dbGraph, DataRetention data)
         {
-            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq);
+            PlotGraph(dbGraph, data.dBData, data.windowLen, samplingFreq, false);
         }
 
         /**
@@ -230,7 +255,7 @@ namespace SignalProcessing
 
         public void PlotPhaseChar(double samplingFreq, PictureBox phaseGraph, DataRetention data)
         {
-            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq);
+            PlotGraph(phaseGraph, data.phaseData, data.windowLen, samplingFreq, false);
         }
 
          /**

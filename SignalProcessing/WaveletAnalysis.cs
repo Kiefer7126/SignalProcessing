@@ -18,12 +18,25 @@ namespace SignalProcessing
         public int cent_max = cent_div * octave_div * octave;
         public double[] wt;
 
-         /**
-         * CalGWT
-         * 概要：GWTを行う
-         * @param data STFTの対象データ
-         * @return なし
-         */
+        /*分解信号*/
+        public double[] s1;
+        public double[] w1;
+
+        /*ドベシィの数列(N=2)*/
+        private double[] p = {0.482962913145, 
+                              0.836516303738, 
+                              0.224143868042,
+                             -0.129409522551};
+        public double[] q;
+
+        public int pLen = 4;
+
+        /**
+        * CalGWT
+        * 概要：ガボールウェーブレット変換を行う
+        * @param data GWTの対象データ
+        * @return なし
+        */
         public void CalGWT(DataRetention data)
         {
             //int numberOfWindow = data.originalLen / data.shiftLen;
@@ -66,6 +79,55 @@ namespace SignalProcessing
                     wt[y] = 1.0 / Math.Sqrt(a) * Math.Sqrt(real_wt * real_wt + imag_wt * imag_wt);
                 }
             }   
+        }
+
+        /**
+         * CalDaubechiesSeries
+         * 概要：ドベシィの数列(q)を生成する
+         * @param なし
+         * @return なし
+         */
+        public void CalDaubechiesSeries()
+        {
+            q = new double[pLen];
+
+            for(int i = 0; i < pLen; i++)
+            {
+                q[i] = Math.Pow(-1, i) * p[pLen - i - 1];
+            }
+        }
+
+        /**
+        * CalFWT
+        * 概要：高速ウェーブレット変換を行う
+        * @param data FWTの対象データ
+        * @return なし
+        */
+
+        public void CalFWT(double[] s0, int originalLen)
+        {
+            int index;
+
+            s1 = new double[originalLen/2];
+            w1 = new double[originalLen/2];
+
+            //ドベシィの数列(q)を生成する
+            CalDaubechiesSeries();
+     
+            //分解
+            for(int k = 0; k < originalLen / 2; k++)
+            {
+                s1[k] = 0.0;
+                w1[k] = 0.0;
+                
+                for(int n = 0; n < pLen; n++)
+                {
+                    index = (n + 2 * k) % originalLen;
+
+                    s1[k] += p[n] * s0[index];
+                    w1[k] += q[n] * s0[index];
+                }
+            }
         }
     }
 }

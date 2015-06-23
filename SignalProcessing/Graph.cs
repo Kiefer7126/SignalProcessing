@@ -160,6 +160,7 @@ namespace SignalProcessing
 
                     for (i = 0; i < windowLen - 1; i++)
                     {
+
                         if (isWevelet)
                         {
                             g.DrawLine(Pens.Green,
@@ -170,6 +171,7 @@ namespace SignalProcessing
                         }
                         else
                         {
+                         
                             g.DrawLine(Pens.Green,
                                  (float)((float)xZero + (float)i * xStep),
                                  (float)((float)yZero - (float)data[i] * yStep),
@@ -562,12 +564,11 @@ namespace SignalProcessing
             }
         }
 
-        public void PlotSpectrogramEdit(double samplingFreq, PictureBox picture, double[] data, int wtLen)
+        public void PlotSpectrogramEdit(double samplingFreq, PictureBox picture, double[,] data, int numberOfWindow, int shiftLen, int freqLen)
         {
-
             Graphics g;
             Font myFont;
-            int i, time, numberOfWindow, xZero, yZero, xMax, yMax, marginRight, marginLeft, marginTop, marginBottom, gramWidth, gramHeight, yScaleNumber, yScaleValue;
+            int i, time, xZero, yZero, xMax, yMax, marginRight, marginLeft, marginTop, marginBottom, gramWidth, gramHeight, yScaleNumber, yScaleValue;
 
             int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
             float xStep, yStep, xScale, yScale;
@@ -602,46 +603,100 @@ namespace SignalProcessing
                 xMax = picture.Width - marginRight;
                 yMax = marginTop;
 
-                xStep = (float)gramWidth / (float)(wtLen);
-                yStep = System.Math.Abs((float)gramHeight * 2 / wtLen);
+                xStep = (float)gramWidth / (float)(numberOfWindow - 1);
+                yStep = System.Math.Abs((float)gramHeight / freqLen);
 
                 //グラフの描画
 
-                for (i = 0; i < wtLen; i++)
+                for (time = 0; time < numberOfWindow - 1; time++)
                 {
-                    if (dataMax < data[i]) dataMax = (float)data[i];
-                    if (dataMin > data[i]) dataMin = (float)data[i];
-                }
+                    for (i = 0; i < freqLen; i++)
+                    {
+                        if (dataMax < data[time, i]) dataMax = (float)data[time, i];
+                        if (dataMin > data[time, i]) dataMin = (float)data[time, i];
+                    }
 
-                for (i = 0; i <= wtLen; i++)
+                    for (i =0; i < freqLen; i++)
                     {
                         float bottomUp = System.Math.Abs(dataMin);
 
-                        plotData = (int)((data[i] + bottomUp) * 255 * 5 / (dataMax - dataMin));
+                        plotData = (int)((data[time, i] + bottomUp) * 255 * 5 / (dataMax - dataMin));
                         ToHsv(plotData);
 
                         Pen p = new Pen(Color.FromArgb(red, green, blue), penSize);
 
                         g.DrawLine(p,
-                             (float)(xZero + xStep * i),
+                             (float)(xZero + xStep * time),
                              (float)(yZero - i * yStep - penSize / 2),
-                             (float)(xZero + xStep * (i + 1)),
+                             (float)(xZero + xStep * (time + 1)),
                              (float)(yZero - i * yStep - penSize / 2));
+                        
                     }
+                    //Debug.ShowMessage("DEBUG", "time = " + time);
+                }
 
+                /*
                 Pen whitePen = new Pen(Color.White, penSize);
                 g.DrawLine(whitePen,
                     (float)(xZero),
                     (float)(yMax) - penSize / 2,
                     (float)(xMax),
                     (float)(yMax) - penSize / 2);
+                */
 
                 g.DrawString("0", myFont, Pens.Black.Brush, 0, picture.Width - 2); //原点
                 g.DrawLine(Pens.Black, xZero, yZero, xMax, yZero); // x軸
                 g.DrawLine(Pens.Black, xZero, yZero, xZero, yMax); // y軸
 
+                //x軸のラベル
+                g.DrawString(xLabel, myFont, Pens.Black.Brush, picture.Width / 2, yZero + (marginBottom / 2));
+
+                /*
+                xScale = gramWidth / data.originalTime_s;
+
+                for (i = 0; i <= data.originalTime_s; i++)
+                {
+                    g.DrawLine(Pens.Black,
+                        (float)(xZero + xScale * i),
+                        (float)(yZero - 5),
+                        (float)(xZero + xScale * i),
+                        (float)(yZero + 5));
+
+                    xScaleLabel = i.ToString();
+                    g.DrawString(xScaleLabel, myFont, Pens.Black.Brush, xZero + xScale * i - 4, yZero + 4);
+                }
+
+                */
+
                 //y軸のラベル
                 g.DrawString(yLabel, myFont, Pens.Black.Brush, 5, gramHeight / 2);
+
+                //y軸の目盛り
+                //yScaleNumber = 8;
+                //data.fScale_Hz = data.ofSmpf / data.windowLen;
+                //fMax_Hz = (data.fScale_Hz * data.windowLen) / 2;
+                //yScale = gramHeight / yScaleNumber;
+
+                /*
+                yScaleNumber = data.ofSmpf / 1000;
+                fMax_Hz = data.ofSmpf / 2;
+                yScale = ((float)gramHeight / (float)data.ofSmpf) * 1000 * 2;
+
+                for (i = 0; i <= yScaleNumber / 2; i++)
+                {
+                    g.DrawLine(Pens.Black,
+                       (float)(xZero - 5),
+                       (float)(yZero - yScale * i),
+                       (float)(xZero + 5),
+                       (float)(yZero - yScale * i));
+
+                    //yScaleValue = (int)((fMax_Hz / yScaleNumber) * i) / 1000;
+                    yScaleValue = i;
+
+                    yScaleLabel = yScaleValue.ToString();
+                    g.DrawString(yScaleLabel, myFont, Pens.Black.Brush, xZero - 20, yZero - yScale * i - 7);
+                }
+                 */
 
                 //Graphicsリソース解放
                 g.Dispose();
@@ -668,5 +723,83 @@ namespace SignalProcessing
             }
         }
 
+        /**
+         * PlotWeveletSpectrogram
+         * 概要：スペクトログラムを描画する
+         * @param samplingFreq サンプリング周波数
+         * @param spectrogram   スペクトログラムを描画するPictureBox
+         * @param data         グラフ描画の対象データ
+         * @return なし
+         */
+
+        public void PlotWeveletSpectrogram(PictureBox picture, double[] data, int windowLen)
+        {
+
+            Graphics g;
+            Font myFont;
+            int i;
+
+            int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
+            float xStep;
+            float dataMax = 0;
+            float dataMin = 0;
+
+            try
+            {
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                xStep = (float)picture.Width / (float)(windowLen);
+
+                //グラフの描画
+
+                    for (i = 0; i < windowLen; i++)
+                    {
+                        if (dataMax < data[i]) dataMax = (float)data[i];
+                        if (dataMin > data[i]) dataMin = (float)data[i];
+                    }
+
+                    for (i = 0; i < windowLen; i++)
+                    {
+                        float bottomUp = System.Math.Abs(dataMin);
+
+                        plotData = (int)((data[i] + bottomUp) * 255 * 5 / (dataMax - dataMin));
+                        ToHsv(plotData);
+
+                        Pen p = new Pen(Color.FromArgb(red, green, blue), penSize);
+
+                        g.DrawLine(p,
+                             (float)(xStep * i),
+                             (float)(picture.Height),
+                             (float)(xStep * i),
+                             (float)(0));
+                    }
+
+                //Graphicsリソース解放
+                g.Dispose();
+            }
+            catch (NullReferenceException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NullReferenceException", errorMessage);
+            }
+            catch (OverflowException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("OverflowException", errorMessage);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
+            }
+            catch (Exception e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NewException", errorMessage);
+            }
+        }
     }
 }

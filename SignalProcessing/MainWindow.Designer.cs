@@ -75,6 +75,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.waveletGraphLevel4PictureBox = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
@@ -84,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel4PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -357,7 +360,7 @@
             // dBGraphLabel
             // 
             this.dBGraphLabel.AutoSize = true;
-            this.dBGraphLabel.Location = new System.Drawing.Point(361, 54);
+            this.dBGraphLabel.Location = new System.Drawing.Point(346, 54);
             this.dBGraphLabel.Name = "dBGraphLabel";
             this.dBGraphLabel.Size = new System.Drawing.Size(19, 12);
             this.dBGraphLabel.TabIndex = 7;
@@ -366,7 +369,7 @@
             // phaseGraphLabel
             // 
             this.phaseGraphLabel.AutoSize = true;
-            this.phaseGraphLabel.Location = new System.Drawing.Point(625, 54);
+            this.phaseGraphLabel.Location = new System.Drawing.Point(669, 54);
             this.phaseGraphLabel.Name = "phaseGraphLabel";
             this.phaseGraphLabel.Size = new System.Drawing.Size(36, 12);
             this.phaseGraphLabel.TabIndex = 8;
@@ -378,7 +381,7 @@
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spectrogramPictureBox.Location = new System.Drawing.Point(348, 224);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 392);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 406);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
@@ -421,7 +424,7 @@
             this.legendPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.legendPictureBox.Location = new System.Drawing.Point(993, 224);
             this.legendPictureBox.Name = "legendPictureBox";
-            this.legendPictureBox.Size = new System.Drawing.Size(39, 392);
+            this.legendPictureBox.Size = new System.Drawing.Size(39, 406);
             this.legendPictureBox.TabIndex = 13;
             this.legendPictureBox.TabStop = false;
             // 
@@ -440,7 +443,7 @@
             this.waveletGraphLevel1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.waveletGraphLevel1PictureBox.Location = new System.Drawing.Point(25, 224);
             this.waveletGraphLevel1PictureBox.Name = "waveletGraphLevel1PictureBox";
-            this.waveletGraphLevel1PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel1PictureBox.Size = new System.Drawing.Size(317, 97);
             this.waveletGraphLevel1PictureBox.TabIndex = 15;
             this.waveletGraphLevel1PictureBox.TabStop = false;
             // 
@@ -448,9 +451,9 @@
             // 
             this.waveletGraphLevel2PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel2PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel2PictureBox.Location = new System.Drawing.Point(25, 359);
+            this.waveletGraphLevel2PictureBox.Location = new System.Drawing.Point(25, 327);
             this.waveletGraphLevel2PictureBox.Name = "waveletGraphLevel2PictureBox";
-            this.waveletGraphLevel2PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel2PictureBox.Size = new System.Drawing.Size(317, 97);
             this.waveletGraphLevel2PictureBox.TabIndex = 16;
             this.waveletGraphLevel2PictureBox.TabStop = false;
             // 
@@ -458,9 +461,9 @@
             // 
             this.waveletGraphLevel3PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel3PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel3PictureBox.Location = new System.Drawing.Point(25, 496);
+            this.waveletGraphLevel3PictureBox.Location = new System.Drawing.Point(25, 430);
             this.waveletGraphLevel3PictureBox.Name = "waveletGraphLevel3PictureBox";
-            this.waveletGraphLevel3PictureBox.Size = new System.Drawing.Size(317, 120);
+            this.waveletGraphLevel3PictureBox.Size = new System.Drawing.Size(317, 97);
             this.waveletGraphLevel3PictureBox.TabIndex = 17;
             this.waveletGraphLevel3PictureBox.TabStop = false;
             // 
@@ -469,14 +472,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(23, 209);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 12);
+            this.label2.Size = new System.Drawing.Size(151, 12);
             this.label2.TabIndex = 18;
-            this.label2.Text = "WaveletTransform";
+            this.label2.Text = "Multiple Resolution Analysis";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 277);
+            this.label3.Location = new System.Drawing.Point(12, 266);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 12);
             this.label3.TabIndex = 19;
@@ -485,7 +488,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 416);
+            this.label4.Location = new System.Drawing.Point(12, 373);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(11, 12);
             this.label4.TabIndex = 20;
@@ -494,18 +497,39 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 552);
+            this.label5.Location = new System.Drawing.Point(12, 473);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 21;
             this.label5.Text = "3";
+            // 
+            // waveletGraphLevel4PictureBox
+            // 
+            this.waveletGraphLevel4PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.waveletGraphLevel4PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.waveletGraphLevel4PictureBox.Location = new System.Drawing.Point(25, 533);
+            this.waveletGraphLevel4PictureBox.Name = "waveletGraphLevel4PictureBox";
+            this.waveletGraphLevel4PictureBox.Size = new System.Drawing.Size(317, 97);
+            this.waveletGraphLevel4PictureBox.TabIndex = 22;
+            this.waveletGraphLevel4PictureBox.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 576);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(11, 12);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "4";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1044, 631);
+            this.ClientSize = new System.Drawing.Size(1044, 644);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.waveletGraphLevel4PictureBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -543,6 +567,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel4PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -597,6 +622,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox waveletGraphLevel4PictureBox;
+        private System.Windows.Forms.Label label6;
     }
 }
 

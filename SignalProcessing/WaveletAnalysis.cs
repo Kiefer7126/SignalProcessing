@@ -16,7 +16,10 @@ namespace SignalProcessing
         private const int octave = 5;
         public int cent_interval = 25;
         public int cent_max = cent_div * octave_div * octave;
-        public double[] wt;
+
+        //ガボールウェーブレット変換結果
+        public double[,] wt;
+        public int freqLen;
 
         /*分解信号*/
         public double[] s1;
@@ -31,33 +34,30 @@ namespace SignalProcessing
 
         public int pLen = 4;
 
+        public int shiftLen = 128;
+
+        public int numberOfWindow;
         /**
         * CalGWT
         * 概要：ガボールウェーブレット変換を行う
         * @param data GWTの対象データ
         * @return なし
         */
-        public void CalGWT(DataRetention data)
+        public void CalGWT(double[] data, int originalLen, int samplingFreq)
         {
-            //int numberOfWindow = data.originalLen / data.shiftLen;
+            freqLen = cent_max / cent_interval;
+            numberOfWindow = originalLen / shiftLen;
 
-            int center = data.originalLen/2; // 中心のサンプル番号
+            wt = new double[numberOfWindow, freqLen];
 
-	        double cuttime = 0.046440; // 切り出す長さ[s](2048サンプル)
-	        int wavdata_length = (int)(cuttime/2*data.samplingFreq)*2;
-	        //float *p_wav = wav + center - wavdata_length/2 - 1;
-
-            wt = new double[cent_max / cent_interval];
-
-            for (int x = 0; x < wavdata_length; x = x + 64)
+            for (int x = 0; x < numberOfWindow; x++)
             {
-
-                for(int y = 0; y < cent_max / cent_interval; y++)
+                for (int y = 0 ; y < freqLen; y++)
                 {
                     double freq = freq0 * Math.Pow(2.0, (double)y * cent_interval / (cent_div * octave_div));
                     double a = 1.0 / freq;
                     double dt = a * sigma * Math.Sqrt(-2.0 * Math.Log10(0.01)); //窓幅(s)
-                    int dx = (int)(dt * data.samplingFreq);
+                    int dx = (int)(dt * samplingFreq);
 
                     // 窓幅の範囲を積分
 		            double real_wt = 0;
@@ -65,18 +65,18 @@ namespace SignalProcessing
 		            
                     for (int m = -dx; m <= dx; m++)
 		            {
-			            int n = x + m; // 信号のサンプル位置
+			            int n = x * shiftLen + m; // 信号のサンプル位置
 
-                        if (n >= 0 && n < wavdata_length)
+                        if (n >= 0 && n < originalLen)
 			            {
-				            double t = (double)m/data.samplingFreq/a;
-				            double gauss = 1.0 / Math.Sqrt(2.0*Math.PI*sigma*sigma) * Math.Exp(-t*t/(2.0*sigma*sigma)); // ガウス関数
-				            double omega_t = 2.0*Math.PI*t; // ωt
-				            real_wt += (double)data.originalData[n] * gauss * Math.Cos(omega_t);
-                            imag_wt += (double)data.originalData[n] * gauss * Math.Sin(omega_t);
+				            double t = (double)m / samplingFreq / a;
+				            double gauss = 1.0 / Math.Sqrt(2.0 * Math.PI * sigma * sigma) * Math.Exp(-t * t / (2.0 * sigma * sigma)); // ガウス関数
+				            double omega_t = 2.0 * Math.PI * t; // ωt
+				            real_wt += (double)data[n] * gauss * Math.Cos(omega_t);
+                            imag_wt += (double)data[n] * gauss * Math.Sin(omega_t);
 			            }
 		            }
-                    wt[y] = 1.0 / Math.Sqrt(a) * Math.Sqrt(real_wt * real_wt + imag_wt * imag_wt);
+                    wt[x, y] = 1.0 / Math.Sqrt(a) * Math.Sqrt(real_wt * real_wt + imag_wt * imag_wt);
                 }
             }   
         }

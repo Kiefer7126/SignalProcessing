@@ -308,30 +308,37 @@ namespace SignalProcessing
             double item;
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
 
-            int wtLen = wavelet.cent_max / wavelet.cent_interval;
+            
             //this.wavelet.CalGWT(this.data);
 
             //ウェーブレット変換
             this.wavelet.CalFWT(data.originalData, data.originalLen);
 
             //レベル1グラフの描画
-            this.graphic.PlotWaveletGraph(this.waveletGraphLevel1PictureBox, wavelet.s1, data.windowLen/2);
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel1PictureBox, wavelet.w1, data.windowLen/2);
 
             //ウェーブレット変換
             this.wavelet.CalFWT(wavelet.s1, data.originalLen/2);
 
             //レベル2グラフの描画
-            this.graphic.PlotWaveletGraph(this.waveletGraphLevel2PictureBox, wavelet.s1, data.windowLen / 4);
-
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel2PictureBox, wavelet.w1, data.windowLen / 4);
+ 
             //ウェーブレット変換
             this.wavelet.CalFWT(wavelet.s1, data.originalLen / 4);
 
             //レベル3グラフの描画
-            this.graphic.PlotWaveletGraph(this.waveletGraphLevel3PictureBox, wavelet.s1, data.windowLen / 8);
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel3PictureBox, wavelet.w1, data.windowLen / 8);
+ 
+            //ウェーブレット変換
+            this.wavelet.CalFWT(wavelet.s1, data.originalLen / 8);
 
+            //レベル4グラフの描画
+            this.graphic.PlotWaveletGraph(this.waveletGraphLevel4PictureBox, wavelet.w1, data.windowLen / 16);
 
-            //this.graphic.PlotSpectrogramEdit(item, this.spectrogramPictureBox, wavelet.wt, wtLen);
-            this.graphic.PlotLegend(this.legendPictureBox, this.data);
+            this.wavelet.CalGWT(this.data.originalData, this.data.originalLen, this.data.ofSmpf);
+            this.graphic.PlotSpectrogramEdit(this.data.ofSmpf, this.spectrogramPictureBox, this.wavelet.wt, this.wavelet.numberOfWindow, this.wavelet.shiftLen, this.wavelet.freqLen);
+
+            //this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
     }
 }

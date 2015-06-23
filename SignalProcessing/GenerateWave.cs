@@ -48,6 +48,7 @@ namespace SignalProcessing
                         break;
                 }
             }
+            data.ofSmpf = (int)data.samplingFreq;
             PutInTimeData(data);
         }
 

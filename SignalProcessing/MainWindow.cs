@@ -335,8 +335,8 @@ namespace SignalProcessing
             //レベル4グラフの描画
             this.graphic.PlotWaveletGraph(this.waveletGraphLevel4PictureBox, wavelet.w1, data.windowLen / 16);
 
-            this.wavelet.CalGWT(this.data.originalData, this.data.originalLen, this.data.ofSmpf);
-            this.graphic.PlotSpectrogramEdit(this.data.ofSmpf, this.spectrogramPictureBox, this.wavelet.wt, this.wavelet.numberOfWindow, this.wavelet.shiftLen, this.wavelet.freqLen);
+            this.wavelet.CalGWT(this.data.originalData, this.data.originalLen, this.data.ofSmpf, this.data.shiftLen, this.data.sigma);
+            this.graphic.PlotSpectrogramEdit(this.data.ofSmpf, this.spectrogramPictureBox, this.wavelet.wt, this.wavelet.numberOfWindow, this.data.shiftLen, this.wavelet.freqLen);
 
             //this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }

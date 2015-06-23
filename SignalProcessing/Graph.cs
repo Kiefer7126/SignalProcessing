@@ -603,12 +603,12 @@ namespace SignalProcessing
                 xMax = picture.Width - marginRight;
                 yMax = marginTop;
 
-                xStep = (float)gramWidth / (float)(numberOfWindow - 1);
+                xStep = (float)gramWidth / (float)(numberOfWindow - 2);
                 yStep = System.Math.Abs((float)gramHeight / freqLen);
 
                 //グラフの描画
 
-                for (time = 0; time < numberOfWindow - 1; time++)
+                for (time = 1; time < numberOfWindow - 1; time++)
                 {
                     for (i = 0; i < freqLen; i++)
                     {
@@ -626,9 +626,9 @@ namespace SignalProcessing
                         Pen p = new Pen(Color.FromArgb(red, green, blue), penSize);
 
                         g.DrawLine(p,
-                             (float)(xZero + xStep * time),
+                             (float)(xZero + xStep * (time - 1)),
                              (float)(yZero - i * yStep - penSize / 2),
-                             (float)(xZero + xStep * (time + 1)),
+                             (float)(xZero + xStep * (time)),
                              (float)(yZero - i * yStep - penSize / 2));
                         
                     }

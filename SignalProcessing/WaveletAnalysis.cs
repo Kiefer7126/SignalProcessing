@@ -9,7 +9,6 @@ namespace SignalProcessing
     class WaveletAnalysis
     {
         private FourierAnalysis fourier;
-        private const double sigma = 1.0;
         private const double freq0 = 110; //下限周波数
         private const int cent_div = 100;
         private const int octave_div = 12;
@@ -34,8 +33,6 @@ namespace SignalProcessing
 
         public int pLen = 4;
 
-        public int shiftLen = 128;
-
         public int numberOfWindow;
         /**
         * CalGWT
@@ -43,14 +40,14 @@ namespace SignalProcessing
         * @param data GWTの対象データ
         * @return なし
         */
-        public void CalGWT(double[] data, int originalLen, int samplingFreq)
+        public void CalGWT(double[] data, int originalLen, int samplingFreq, int shiftLen, double sigma)
         {
             freqLen = cent_max / cent_interval;
             numberOfWindow = originalLen / shiftLen;
 
             wt = new double[numberOfWindow, freqLen];
 
-            for (int x = 0; x < numberOfWindow; x++)
+            for (int x = 1; x < numberOfWindow; x++)
             {
                 for (int y = 0 ; y < freqLen; y++)
                 {

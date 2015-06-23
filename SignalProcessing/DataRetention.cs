@@ -26,7 +26,7 @@ namespace SignalProcessing
         //window幅
         public int windowLen = 1024;
         //シフト幅
-        public int shiftLen = 512;
+        public int shiftLen = 128;
         //短時間フーリエ変換結果
         public double[,] stftData;
         //判定フラグ(TEXTDATA or WAVDATA)
@@ -54,6 +54,8 @@ namespace SignalProcessing
         public double[] phaseData;
         //位相の最大値
         public double phaseDataMax;
+        //ウェーブレット変換に使うシグマの値
+        public double sigma = 1.0;
 
         //wavの実チャンクデータ
         public byte[] orChunkId;

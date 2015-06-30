@@ -29,7 +29,7 @@ namespace SignalProcessing
 
             //立ち上がりの度合い
             double[,] d;
-            d = new double[numberOfWindow + 1, freqBand];
+            d = new double[numberOfWindow + 1, freqResolution];
 
             //各時刻における立ち上がり成分の合計(指定された周波数帯域)
             double[] sumD;
@@ -155,5 +155,41 @@ namespace SignalProcessing
             return newData;
         }
 
+
+        /**
+         * PeekDetection
+         * 概要：ピークの検出
+         * @param data            ピークを求める対象データ(微分済み)
+         * @param dataLen         対象データの長さ
+         * @return peekTime        平滑化後のデータ
+         */
+        public double [] PeekDetection(double[] data, int dataLen)
+        {
+            double[] peekTime;
+            peekTime = new double[dataLen];
+
+            for (int i = 0; i < dataLen - 1; i++)
+            {
+                if (data[i] > 0)
+                {
+                    if (data[i + 1] < 0)
+                    {
+
+                        peekTime[i] = data[i];
+                    }
+                    else
+                    {
+                        peekTime[i] = 0.0;
+                    }
+                }
+                else
+                {
+                    peekTime[i] = 0.0;
+                }
+                
+            }
+                return peekTime;
         }
+
+    }
 }

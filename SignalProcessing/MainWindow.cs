@@ -395,34 +395,49 @@ namespace SignalProcessing
         private void sGFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int numberOfWindow = data.originalLen / data.shiftLen;
+            double[] peekTime1, peekTime2, peekTime3, peekTime4, peekTime5, peekTime6, peekTime7;
+            peekTime1 = new double[numberOfWindow + 1];
+            peekTime2 = new double[numberOfWindow + 1];
+            peekTime3 = new double[numberOfWindow + 1];
+            peekTime4 = new double[numberOfWindow + 1];
+            peekTime5 = new double[numberOfWindow + 1];
+            peekTime6 = new double[numberOfWindow + 1];
+            peekTime7 = new double[numberOfWindow + 1];
 
             //0-125の発音時間
-            soundTimeData1 = this.soundTime.SavitzkyGolayFilter(soundTimeData1, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, soundTimeData1, numberOfWindow + 1);
+            peekTime1 = this.soundTime.SavitzkyGolayFilter(soundTimeData1, 15, numberOfWindow + 1);
+            peekTime1 = this.soundTime.PeekDetection(peekTime1, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, peekTime1, numberOfWindow + 1);
 
             //125-250の発音時間
-            soundTimeData2 = this.soundTime.SavitzkyGolayFilter(soundTimeData2, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, soundTimeData2, numberOfWindow + 1);
+            peekTime2 = this.soundTime.SavitzkyGolayFilter(soundTimeData2, 15, numberOfWindow + 1);
+            peekTime2 = this.soundTime.PeekDetection(peekTime2, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, peekTime2, numberOfWindow + 1);
 
             //250-500の発音時間
-            soundTimeData3 = this.soundTime.SavitzkyGolayFilter(soundTimeData3, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, soundTimeData3, numberOfWindow + 1);
+            peekTime3 = this.soundTime.SavitzkyGolayFilter(soundTimeData3, 15, numberOfWindow + 1);
+            peekTime3 = this.soundTime.PeekDetection(peekTime3, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, peekTime3, numberOfWindow + 1);
 
             //500-1kの発音時間
-            soundTimeData4 = this.soundTime.SavitzkyGolayFilter(soundTimeData4, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, soundTimeData4, numberOfWindow + 1);
+            peekTime4 = this.soundTime.SavitzkyGolayFilter(soundTimeData4, 15, numberOfWindow + 1);
+            peekTime4 = this.soundTime.PeekDetection(peekTime4, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, peekTime4, numberOfWindow + 1);
 
             //1k-2kの発音時間
-            soundTimeData5 = this.soundTime.SavitzkyGolayFilter(soundTimeData5, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, soundTimeData5, numberOfWindow + 1);
+            peekTime5 = this.soundTime.SavitzkyGolayFilter(soundTimeData5, 15, numberOfWindow + 1);
+            peekTime5 = this.soundTime.PeekDetection(peekTime5, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, peekTime5, numberOfWindow + 1);
 
             //2k-4kの発音時間
-            soundTimeData6 = this.soundTime.SavitzkyGolayFilter(soundTimeData6, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, soundTimeData6, numberOfWindow + 1);
+            peekTime6 = this.soundTime.SavitzkyGolayFilter(soundTimeData6, 15, numberOfWindow + 1);
+            peekTime6 = this.soundTime.PeekDetection(peekTime6, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, peekTime6, numberOfWindow + 1);
 
             //4k-11kの発音時間
-            soundTimeData7 = this.soundTime.SavitzkyGolayFilter(soundTimeData7, 15, numberOfWindow + 1);
-            this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData7, numberOfWindow + 1);
+            peekTime7 = this.soundTime.SavitzkyGolayFilter(soundTimeData7, 5, numberOfWindow + 1);
+            peekTime7 = this.soundTime.PeekDetection(peekTime7, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, peekTime7, numberOfWindow + 1);
         }
     }
 }

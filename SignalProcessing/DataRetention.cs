@@ -24,9 +24,9 @@ namespace SignalProcessing
         public const int IFFT = -1;
         
         //window幅
-        public int windowLen = 1024;
+        public int windowLen = 2048;
         //シフト幅
-        public int shiftLen = 128;
+        public int shiftLen = 512;
         //短時間フーリエ変換結果
         public double[,] stftData;
         //判定フラグ(TEXTDATA or WAVDATA)

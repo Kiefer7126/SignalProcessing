@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoundTimeAnalysis.cs" />
     <Compile Include="WaveletAnalysis.cs" />
     <Compile Include="DataRetention.cs" />
     <Compile Include="Debug.cs" />

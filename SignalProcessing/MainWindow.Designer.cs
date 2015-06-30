@@ -54,14 +54,12 @@
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beatTrackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.soundTimeAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.samplingComboBox = new System.Windows.Forms.ComboBox();
             this.samplingLabel = new System.Windows.Forms.Label();
             this.timeGraphPictureBox = new System.Windows.Forms.PictureBox();
-            this.dBGraphPictureBox = new System.Windows.Forms.PictureBox();
-            this.phaseGraphPictureBox = new System.Windows.Forms.PictureBox();
             this.timeGraphLabel = new System.Windows.Forms.Label();
-            this.dBGraphLabel = new System.Windows.Forms.Label();
-            this.phaseGraphLabel = new System.Windows.Forms.Label();
             this.spectrogramPictureBox = new System.Windows.Forms.PictureBox();
             this.spectrogramLabel = new System.Windows.Forms.Label();
             this.waveKindComboBox = new System.Windows.Forms.ComboBox();
@@ -77,16 +75,35 @@
             this.label5 = new System.Windows.Forms.Label();
             this.waveletGraphLevel4PictureBox = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.soundTimeTo500PictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo1kPictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo2kPictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo250PictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo125PictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo4kPictureBox = new System.Windows.Forms.PictureBox();
+            this.soundTimeTo11kPictureBox = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel4PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo500PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo1kPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo2kPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo250PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo125PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo4kPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo11kPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -94,7 +111,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.frequencyToolStripMenuItem,
-            this.filterToolStripMenuItem});
+            this.filterToolStripMenuItem,
+            this.beatTrackingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1044, 24);
@@ -294,6 +312,21 @@
             this.iIRToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
             this.iIRToolStripMenuItem.Text = "IIR";
             // 
+            // beatTrackingToolStripMenuItem
+            // 
+            this.beatTrackingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.soundTimeAnalysisToolStripMenuItem});
+            this.beatTrackingToolStripMenuItem.Name = "beatTrackingToolStripMenuItem";
+            this.beatTrackingToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.beatTrackingToolStripMenuItem.Text = "BeatTracking";
+            // 
+            // soundTimeAnalysisToolStripMenuItem
+            // 
+            this.soundTimeAnalysisToolStripMenuItem.Name = "soundTimeAnalysisToolStripMenuItem";
+            this.soundTimeAnalysisToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.soundTimeAnalysisToolStripMenuItem.Text = "SoundTimeAnalysis";
+            this.soundTimeAnalysisToolStripMenuItem.Click += new System.EventHandler(this.soundTimeAnalysisToolStripMenuItem_Click);
+            // 
             // samplingComboBox
             // 
             this.samplingComboBox.FormattingEnabled = true;
@@ -328,26 +361,6 @@
             this.timeGraphPictureBox.TabIndex = 3;
             this.timeGraphPictureBox.TabStop = false;
             // 
-            // dBGraphPictureBox
-            // 
-            this.dBGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
-            this.dBGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dBGraphPictureBox.Location = new System.Drawing.Point(348, 69);
-            this.dBGraphPictureBox.Name = "dBGraphPictureBox";
-            this.dBGraphPictureBox.Size = new System.Drawing.Size(317, 120);
-            this.dBGraphPictureBox.TabIndex = 4;
-            this.dBGraphPictureBox.TabStop = false;
-            // 
-            // phaseGraphPictureBox
-            // 
-            this.phaseGraphPictureBox.BackColor = System.Drawing.SystemColors.Window;
-            this.phaseGraphPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.phaseGraphPictureBox.Location = new System.Drawing.Point(671, 69);
-            this.phaseGraphPictureBox.Name = "phaseGraphPictureBox";
-            this.phaseGraphPictureBox.Size = new System.Drawing.Size(317, 120);
-            this.phaseGraphPictureBox.TabIndex = 5;
-            this.phaseGraphPictureBox.TabStop = false;
-            // 
             // timeGraphLabel
             // 
             this.timeGraphLabel.AutoSize = true;
@@ -357,38 +370,20 @@
             this.timeGraphLabel.TabIndex = 6;
             this.timeGraphLabel.Text = "Time";
             // 
-            // dBGraphLabel
-            // 
-            this.dBGraphLabel.AutoSize = true;
-            this.dBGraphLabel.Location = new System.Drawing.Point(346, 54);
-            this.dBGraphLabel.Name = "dBGraphLabel";
-            this.dBGraphLabel.Size = new System.Drawing.Size(19, 12);
-            this.dBGraphLabel.TabIndex = 7;
-            this.dBGraphLabel.Text = "dB";
-            // 
-            // phaseGraphLabel
-            // 
-            this.phaseGraphLabel.AutoSize = true;
-            this.phaseGraphLabel.Location = new System.Drawing.Point(669, 54);
-            this.phaseGraphLabel.Name = "phaseGraphLabel";
-            this.phaseGraphLabel.Size = new System.Drawing.Size(36, 12);
-            this.phaseGraphLabel.TabIndex = 8;
-            this.phaseGraphLabel.Text = "Phase";
-            // 
             // spectrogramPictureBox
             // 
             this.spectrogramPictureBox.BackColor = System.Drawing.Color.White;
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.spectrogramPictureBox.Location = new System.Drawing.Point(348, 224);
+            this.spectrogramPictureBox.Location = new System.Drawing.Point(348, 69);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 406);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 342);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
             // spectrogramLabel
             // 
             this.spectrogramLabel.AutoSize = true;
-            this.spectrogramLabel.Location = new System.Drawing.Point(346, 209);
+            this.spectrogramLabel.Location = new System.Drawing.Point(346, 51);
             this.spectrogramLabel.Name = "spectrogramLabel";
             this.spectrogramLabel.Size = new System.Drawing.Size(69, 12);
             this.spectrogramLabel.TabIndex = 10;
@@ -422,16 +417,16 @@
             // 
             this.legendPictureBox.BackColor = System.Drawing.Color.White;
             this.legendPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.legendPictureBox.Location = new System.Drawing.Point(993, 224);
+            this.legendPictureBox.Location = new System.Drawing.Point(993, 69);
             this.legendPictureBox.Name = "legendPictureBox";
-            this.legendPictureBox.Size = new System.Drawing.Size(39, 406);
+            this.legendPictureBox.Size = new System.Drawing.Size(39, 342);
             this.legendPictureBox.TabIndex = 13;
             this.legendPictureBox.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1005, 209);
+            this.label1.Location = new System.Drawing.Point(1005, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 12);
             this.label1.TabIndex = 14;
@@ -522,12 +517,159 @@
             this.label6.TabIndex = 23;
             this.label6.Text = "4";
             // 
+            // soundTimeTo500PictureBox
+            // 
+            this.soundTimeTo500PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo500PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo500PictureBox.Location = new System.Drawing.Point(413, 545);
+            this.soundTimeTo500PictureBox.Name = "soundTimeTo500PictureBox";
+            this.soundTimeTo500PictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo500PictureBox.TabIndex = 24;
+            this.soundTimeTo500PictureBox.TabStop = false;
+            // 
+            // soundTimeTo1kPictureBox
+            // 
+            this.soundTimeTo1kPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo1kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo1kPictureBox.Location = new System.Drawing.Point(413, 513);
+            this.soundTimeTo1kPictureBox.Name = "soundTimeTo1kPictureBox";
+            this.soundTimeTo1kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo1kPictureBox.TabIndex = 25;
+            this.soundTimeTo1kPictureBox.TabStop = false;
+            // 
+            // soundTimeTo2kPictureBox
+            // 
+            this.soundTimeTo2kPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo2kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo2kPictureBox.Location = new System.Drawing.Point(413, 481);
+            this.soundTimeTo2kPictureBox.Name = "soundTimeTo2kPictureBox";
+            this.soundTimeTo2kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo2kPictureBox.TabIndex = 26;
+            this.soundTimeTo2kPictureBox.TabStop = false;
+            // 
+            // soundTimeTo250PictureBox
+            // 
+            this.soundTimeTo250PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo250PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo250PictureBox.Location = new System.Drawing.Point(413, 577);
+            this.soundTimeTo250PictureBox.Name = "soundTimeTo250PictureBox";
+            this.soundTimeTo250PictureBox.Size = new System.Drawing.Size(574, 25);
+            this.soundTimeTo250PictureBox.TabIndex = 27;
+            this.soundTimeTo250PictureBox.TabStop = false;
+            // 
+            // soundTimeTo125PictureBox
+            // 
+            this.soundTimeTo125PictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo125PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo125PictureBox.Location = new System.Drawing.Point(413, 608);
+            this.soundTimeTo125PictureBox.Name = "soundTimeTo125PictureBox";
+            this.soundTimeTo125PictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo125PictureBox.TabIndex = 28;
+            this.soundTimeTo125PictureBox.TabStop = false;
+            // 
+            // soundTimeTo4kPictureBox
+            // 
+            this.soundTimeTo4kPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo4kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo4kPictureBox.Location = new System.Drawing.Point(413, 449);
+            this.soundTimeTo4kPictureBox.Name = "soundTimeTo4kPictureBox";
+            this.soundTimeTo4kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo4kPictureBox.TabIndex = 29;
+            this.soundTimeTo4kPictureBox.TabStop = false;
+            // 
+            // soundTimeTo11kPictureBox
+            // 
+            this.soundTimeTo11kPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeTo11kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeTo11kPictureBox.Location = new System.Drawing.Point(413, 417);
+            this.soundTimeTo11kPictureBox.Name = "soundTimeTo11kPictureBox";
+            this.soundTimeTo11kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo11kPictureBox.TabIndex = 30;
+            this.soundTimeTo11kPictureBox.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(372, 618);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 12);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "0-125";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(360, 590);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 12);
+            this.label8.TabIndex = 32;
+            this.label8.Text = "125-250";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(360, 559);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 12);
+            this.label9.TabIndex = 33;
+            this.label9.Text = "250-500";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(365, 527);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 12);
+            this.label10.TabIndex = 34;
+            this.label10.Text = "500-1k";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(370, 495);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 12);
+            this.label11.TabIndex = 35;
+            this.label11.Text = "1k-2k";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(370, 463);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(35, 12);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "2k-4k";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(370, 430);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 12);
+            this.label13.TabIndex = 37;
+            this.label13.Text = "4k-11k";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1044, 644);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.soundTimeTo11kPictureBox);
+            this.Controls.Add(this.soundTimeTo4kPictureBox);
+            this.Controls.Add(this.soundTimeTo125PictureBox);
+            this.Controls.Add(this.soundTimeTo250PictureBox);
+            this.Controls.Add(this.soundTimeTo2kPictureBox);
+            this.Controls.Add(this.soundTimeTo1kPictureBox);
+            this.Controls.Add(this.soundTimeTo500PictureBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.waveletGraphLevel4PictureBox);
             this.Controls.Add(this.label5);
@@ -543,11 +685,7 @@
             this.Controls.Add(this.waveKindComboBox);
             this.Controls.Add(this.spectrogramLabel);
             this.Controls.Add(this.spectrogramPictureBox);
-            this.Controls.Add(this.phaseGraphLabel);
-            this.Controls.Add(this.dBGraphLabel);
             this.Controls.Add(this.timeGraphLabel);
-            this.Controls.Add(this.phaseGraphPictureBox);
-            this.Controls.Add(this.dBGraphPictureBox);
             this.Controls.Add(this.timeGraphPictureBox);
             this.Controls.Add(this.samplingLabel);
             this.Controls.Add(this.samplingComboBox);
@@ -560,14 +698,19 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dBGraphPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.phaseGraphPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.legendPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel1PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel2PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel3PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waveletGraphLevel4PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo500PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo1kPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo2kPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo250PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo125PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo4kPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo11kPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -602,11 +745,7 @@
         private System.Windows.Forms.ComboBox samplingComboBox;
         private System.Windows.Forms.Label samplingLabel;
         private System.Windows.Forms.PictureBox timeGraphPictureBox;
-        private System.Windows.Forms.PictureBox dBGraphPictureBox;
-        private System.Windows.Forms.PictureBox phaseGraphPictureBox;
         private System.Windows.Forms.Label timeGraphLabel;
-        private System.Windows.Forms.Label dBGraphLabel;
-        private System.Windows.Forms.Label phaseGraphLabel;
         private System.Windows.Forms.PictureBox spectrogramPictureBox;
         private System.Windows.Forms.Label spectrogramLabel;
         private System.Windows.Forms.ComboBox waveKindComboBox;
@@ -624,6 +763,22 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox waveletGraphLevel4PictureBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox soundTimeTo500PictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo1kPictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo2kPictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo250PictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo125PictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo4kPictureBox;
+        private System.Windows.Forms.PictureBox soundTimeTo11kPictureBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolStripMenuItem beatTrackingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem soundTimeAnalysisToolStripMenuItem;
     }
 }
 

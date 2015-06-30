@@ -13,8 +13,8 @@ namespace SignalProcessing
     public partial class SettingWindow : Form
     {
         public DataRetention data;
-        private string windowLenRadioButtonCheck = "1024";
-        private string shiftLenRadioButtonCheck = "128";
+        private string windowLenRadioButtonCheck = "2048";
+        private string shiftLenRadioButtonCheck = "512";
         private string sigmaRadioButtonCheck = "1.0";
 
         /**
@@ -34,69 +34,81 @@ namespace SignalProcessing
             switch (windowLenRadioButtonCheck)
             {
                 case "64":
-                    this.radioButton1.Checked = true;
+                    this.windowRadioButton1.Checked = true;
                     break;
 
                 case "256":
-                    this.radioButton2.Checked = true;
+                    this.windowRadioButton2.Checked = true;
                     break;
 
                 case "1024":
-                    this.radioButton3.Checked = true;
+                    this.windowRadioButton3.Checked = true;
+                    break;
+
+                case "2048":
+                    this.windowRadioButton4.Checked = true;
                     break;
 
                 case "4096":
-                    this.radioButton4.Checked = true;
+                    this.windowRadioButton5.Checked = true;
                     break;
                 
                 default:
-                    this.radioButton3.Checked = true;
+                    this.windowRadioButton4.Checked = true;
                     break;
             }
 
             switch (shiftLenRadioButtonCheck)
             {
                 case "32":
-                    this.radioButton5.Checked = true;
+                    this.shiftRadioButton1.Checked = true;
                     break;
 
                 case "128":
-                    this.radioButton6.Checked = true;
+                    this.shiftRadioButton2.Checked = true;
                     break;
 
                 case "512":
-                    this.radioButton7.Checked = true;
+                    this.shiftRadioButton3.Checked = true;
+                    break;
+
+                case "1024":
+                    this.shiftRadioButton4.Checked = true;
                     break;
 
                 case "2048":
-                    this.radioButton8.Checked = true;
+                    this.shiftRadioButton5.Checked = true;
                     break;
 
                 default:
-                    this.radioButton6.Checked = true;
+                    this.shiftRadioButton3.Checked = true;
                     break;
             }
 
             switch (sigmaRadioButtonCheck)
             {
                 case "0.5":
-                    this.radioButton9.Checked = true;
+                    this.sigmaRadioButton1.Checked = true;
                     break;
 
                 case "1.0":
-                    this.radioButton10.Checked = true;
+                    this.sigmaRadioButton2.Checked = true;
                     break;
 
                 case "2.0":
-                    this.radioButton11.Checked = true;
+                    this.sigmaRadioButton3.Checked = true;
                     break;
 
                 case "4.0":
-                    this.radioButton12.Checked = true;
+                    this.sigmaRadioButton4.Checked = true;
+                    break;
+
+                case "8.0":
+                    this.sigmaRadioButton5.Checked = true;
                     break;
 
                 default:
-                    this.radioButton10.Checked = true;
+                    this.sigmaRadioButton2.Checked = true;
                     break;
             }
         }
@@ -112,89 +124,110 @@ namespace SignalProcessing
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (this.radioButton1.Checked)
+            if (this.windowRadioButton1.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton1.Text;
-                this.data.windowLen = Convert.ToInt32(this.radioButton1.Text);
+                this.windowLenRadioButtonCheck = this.windowRadioButton1.Text;
+                this.data.windowLen = Convert.ToInt32(this.windowRadioButton1.Text);
 
                 this.Close();
             }
-            else if (this.radioButton2.Checked)
+            else if (this.windowRadioButton2.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton2.Text;
-                this.data.windowLen = Convert.ToInt32(this.radioButton2.Text);
+                this.windowLenRadioButtonCheck = this.windowRadioButton2.Text;
+                this.data.windowLen = Convert.ToInt32(this.windowRadioButton2.Text);
 
                 this.Close();
             }
-            else if (this.radioButton3.Checked)
+            else if (this.windowRadioButton3.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton3.Text;
-                this.data.windowLen = Convert.ToInt32(this.radioButton3.Text);
+                this.windowLenRadioButtonCheck = this.windowRadioButton3.Text;
+                this.data.windowLen = Convert.ToInt32(this.windowRadioButton3.Text);
 
                 this.Close();
             }
-            else if (this.radioButton4.Checked)
+            else if (this.windowRadioButton4.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton4.Text;
-                this.data.windowLen = Convert.ToInt32(this.radioButton4.Text);
+                this.windowLenRadioButtonCheck = this.windowRadioButton4.Text;
+                this.data.windowLen = Convert.ToInt32(this.windowRadioButton4.Text);
+
+                this.Close();
+            }
+            else if (this.windowRadioButton5.Checked)
+            {
+                this.windowLenRadioButtonCheck = this.windowRadioButton5.Text;
+                this.data.windowLen = Convert.ToInt32(this.windowRadioButton5.Text);
 
                 this.Close();
             }
            
-            if (this.radioButton5.Checked)
+            if (this.shiftRadioButton5.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton5.Text;
-                this.data.shiftLen = Convert.ToInt32(this.radioButton5.Text);
+                this.windowLenRadioButtonCheck = this.shiftRadioButton5.Text;
+                this.data.shiftLen = Convert.ToInt32(this.shiftRadioButton5.Text);
 
                 this.Close();
             }
-            else if (this.radioButton6.Checked)
+            else if (this.shiftRadioButton4.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton6.Text;
-                this.data.shiftLen = Convert.ToInt32(this.radioButton6.Text);
+                this.windowLenRadioButtonCheck = this.shiftRadioButton4.Text;
+                this.data.shiftLen = Convert.ToInt32(this.shiftRadioButton4.Text);
 
                 this.Close();
             }
-            else if (this.radioButton7.Checked)
+            else if (this.shiftRadioButton3.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton7.Text;
-                this.data.shiftLen = Convert.ToInt32(this.radioButton7.Text);
+                this.windowLenRadioButtonCheck = this.shiftRadioButton3.Text;
+                this.data.shiftLen = Convert.ToInt32(this.shiftRadioButton3.Text);
 
                 this.Close();
             }
-            else if (this.radioButton8.Checked)
+            else if (this.shiftRadioButton2.Checked)
             {
-                this.windowLenRadioButtonCheck = this.radioButton8.Text;
-                this.data.shiftLen = Convert.ToInt32(this.radioButton8.Text);
+                this.windowLenRadioButtonCheck = this.shiftRadioButton2.Text;
+                this.data.shiftLen = Convert.ToInt32(this.shiftRadioButton2.Text);
+
+                this.Close();
+            }
+            else if (this.shiftRadioButton1.Checked)
+            {
+                this.windowLenRadioButtonCheck = this.shiftRadioButton1.Text;
+                this.data.shiftLen = Convert.ToInt32(this.shiftRadioButton1.Text);
 
                 this.Close();
             }
 
-            if (this.radioButton9.Checked)
+            if (this.sigmaRadioButton5.Checked)
             {
-                this.sigmaRadioButtonCheck = this.radioButton9.Text;
-                this.data.sigma = Convert.ToDouble(this.radioButton9.Text);
+                this.sigmaRadioButtonCheck = this.sigmaRadioButton5.Text;
+                this.data.sigma = Convert.ToDouble(this.sigmaRadioButton5.Text);
 
                 this.Close();
             }
-            else if (this.radioButton10.Checked)
+            else if (this.sigmaRadioButton4.Checked)
             {
-                this.sigmaRadioButtonCheck = this.radioButton10.Text;
-                this.data.sigma = Convert.ToDouble(this.radioButton10.Text);
+                this.sigmaRadioButtonCheck = this.sigmaRadioButton4.Text;
+                this.data.sigma = Convert.ToDouble(this.sigmaRadioButton4.Text);
 
                 this.Close();
             }
-            else if (this.radioButton11.Checked)
+            else if (this.sigmaRadioButton3.Checked)
             {
-                this.sigmaRadioButtonCheck = this.radioButton11.Text;
-                this.data.sigma = Convert.ToDouble(this.radioButton11.Text);
+                this.sigmaRadioButtonCheck = this.sigmaRadioButton3.Text;
+                this.data.sigma = Convert.ToDouble(this.sigmaRadioButton3.Text);
 
                 this.Close();
             }
-            else if (this.radioButton12.Checked)
+            else if (this.sigmaRadioButton2.Checked)
             {
-                this.sigmaRadioButtonCheck = this.radioButton12.Text;
-                this.data.sigma = Convert.ToDouble(this.radioButton12.Text);
+                this.sigmaRadioButtonCheck = this.sigmaRadioButton2.Text;
+                this.data.sigma = Convert.ToDouble(this.sigmaRadioButton2.Text);
+
+                this.Close();
+            }
+            else if (this.sigmaRadioButton1.Checked)
+            {
+                this.sigmaRadioButtonCheck = this.sigmaRadioButton1.Text;
+                this.data.sigma = Convert.ToDouble(this.sigmaRadioButton1.Text);
 
                 this.Close();
             }

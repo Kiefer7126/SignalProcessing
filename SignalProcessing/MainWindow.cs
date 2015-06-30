@@ -21,7 +21,7 @@ namespace SignalProcessing
         private GenerateWave generate;
         private WindowFunction window;
         private WaveletAnalysis wavelet;
-
+        private SoundTimeAnalysis soundTime;
         /**
          * MainWindow
          * 概要：コンストラクタ
@@ -39,6 +39,7 @@ namespace SignalProcessing
             this.generate = new GenerateWave();
             this.window = new WindowFunction();
             this.wavelet = new WaveletAnalysis();
+            this.soundTime = new SoundTimeAnalysis();
 
             // 初期表示時に、先頭の項目を選択
             this.waveKindComboBox.SelectedIndex = 0;
@@ -98,8 +99,8 @@ namespace SignalProcessing
 
             this.fourier.CalDFT(this.data, 0);
 
-            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
-            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
@@ -145,10 +146,11 @@ namespace SignalProcessing
             if (this.data.dBData != null && this.data.phaseData != null)
             {
                 //dB軸グラフ表示
-                this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+                //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
 
                 //位相軸グラフ表示
-                this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+                //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+                
                 //スペクトログラム表示
                 this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             }
@@ -281,8 +283,8 @@ namespace SignalProcessing
             this.fourier.CalSTFT(this.data);
 
             //グラフ描画
-            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
-            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
@@ -297,8 +299,8 @@ namespace SignalProcessing
 
             this.fourier.CalFFT(this.data, 0);
             
-            this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
-            this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
+            //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);
+            //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
@@ -339,6 +341,41 @@ namespace SignalProcessing
             this.graphic.PlotSpectrogramEdit(this.data.ofSmpf, this.spectrogramPictureBox, this.wavelet.wt, this.wavelet.numberOfWindow, this.data.shiftLen, this.wavelet.freqLen);
 
             //this.graphic.PlotLegend(this.legendPictureBox, this.data);
+        }
+
+        private void soundTimeAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             int numberOfWindow = data.originalLen / data.shiftLen;
+             double[] soundTimeData;
+             soundTimeData = new double[numberOfWindow + 1];
+
+            //0-125の発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 0, 125, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, soundTimeData, numberOfWindow + 1);
+
+             //125-250の発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 125, 250, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, soundTimeData, numberOfWindow + 1);
+
+             //250-500の発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 250, 500, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, soundTimeData, numberOfWindow + 1);
+
+             //500-1kの発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 500, 1000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, soundTimeData, numberOfWindow + 1);
+
+             //1k-2kの発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 1000, 2000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, soundTimeData, numberOfWindow + 1);
+
+             //2k-4kの発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 2000, 4000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, soundTimeData, numberOfWindow + 1);
+
+             //4k-11kの発音時間
+             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 4000, 11000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData, numberOfWindow + 1);
         }
     }
 }

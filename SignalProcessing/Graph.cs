@@ -416,7 +416,7 @@ namespace SignalProcessing
             Graphics g;
             Font myFont;
             int i, time, numberOfWindow, xZero, yZero, xMax, yMax, marginRight, marginLeft, marginTop, marginBottom, gramWidth, gramHeight, yScaleNumber, yScaleValue;
-
+            int spectroScale = 2; //大きくすると表示する周波数が減る
             int penSize = 15; //太くすると周波数が少ないときでも隙間なく描画される
             float xStep, yStep, xScale, yScale;
             float dataMax = 0;
@@ -452,19 +452,19 @@ namespace SignalProcessing
 
                 numberOfWindow = data.originalLen / data.shiftLen;
                 xStep = (float)gramWidth / (float)(numberOfWindow - 1);
-                yStep = System.Math.Abs((float)gramHeight * 2 / data.windowLen);
+                yStep = System.Math.Abs((float)gramHeight * 2 * spectroScale / data.windowLen);
 
                 //グラフの描画
 
                     for (time = 0; time < numberOfWindow - 1 ; time++)
                     {
-                        for (i = 0; i <= data.windowLen / 2; i++)
+                        for (i = 0; i <= data.windowLen / (2 * spectroScale); i++)
                         {
                             if (dataMax < data.stftData[time, i]) dataMax = (float)data.stftData[time, i];
                             if (dataMin > data.stftData[time, i]) dataMin = (float)data.stftData[time, i];
                         }
 
-                        for (i = 0; i <= data.windowLen / 2; i++)
+                        for (i = 0; i <= data.windowLen / (2 * spectroScale); i++)
                         {      
                             float bottomUp = System.Math.Abs(dataMin);
 
@@ -520,9 +520,9 @@ namespace SignalProcessing
                     //fMax_Hz = (data.fScale_Hz * data.windowLen) / 2;
                     //yScale = gramHeight / yScaleNumber;
 
-                    yScaleNumber = data.ofSmpf / 1000;
+                    yScaleNumber = data.ofSmpf / (1000 * spectroScale);
                     fMax_Hz = data.ofSmpf / 2;
-                    yScale = ((float)gramHeight / (float)data.ofSmpf) * 1000 * 2;   
+                    yScale = ((float)gramHeight / (float)data.ofSmpf) * 1000 * 2 * spectroScale;   
                 
                     for (i = 0; i <= yScaleNumber / 2; i++)
                     {
@@ -801,5 +801,113 @@ namespace SignalProcessing
                 Debug.ShowMessage("NewException", errorMessage);
             }
         }
+
+
+        /**
+         * PlotSoundTimeGraph
+         * 概要：発音時刻を示した時間軸のグラフを描画する
+         * @param soundTimeGraph 発音時刻を描画するPictureBox
+         * @param data      グラフ描画の対象データ
+         * @return なし
+         */
+
+        public void PlotSoundTimeGraph(PictureBox soundTimeGraph, double[] data, int dataLen)
+        {
+            PlotGraphEdit(soundTimeGraph, data, dataLen, 0);
+        }
+
+        private void PlotGraphEdit(PictureBox picture, double[] data, int dataLen, double samplingFreq)
+        {
+            Graphics g;
+            Font myFont;
+            int i, xZero, yZero, xMin, yMin, xMax, yMax, scale;
+            float xStep, yStep;
+            String xLabel = "";
+            String yMaxLabel = "";
+            String yMinLabel = "";
+            String xScaleLabel = "";
+            float dataMax = 0;
+            float dataMin = 0;
+
+            xMin = 0;
+            xMax = picture.Width;
+            yMax = 0;
+            yMin = picture.Height;
+
+            yZero = yMin;
+            xZero = xMin;
+            xStep = (float)(xMax - xMin) / (dataLen + 1);
+            yStep = 0;
+            scale = 0;
+
+            try
+            {
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                //dataMax = GetMax(data, windowLen);
+
+                for (i = 0; i < dataLen; i++)
+                {
+                    if (dataMax < data[i]) dataMax = (float)data[i];
+                    if (dataMin > data[i]) dataMin = (float)data[i];
+                }
+
+                //dataMin = GetMin(data, windowLen);
+
+                if (System.Math.Abs(dataMax) <= System.Math.Abs(dataMin))
+                {
+                    yStep = (float)(yMin - yMax) / System.Math.Abs(dataMin);
+                    yMaxLabel = System.Math.Abs(dataMin).ToString();
+                    yMinLabel = (-1 * System.Math.Abs(dataMin)).ToString();
+
+                }
+                else
+                {
+                    yStep = (float)(yMin - yMax) / System.Math.Abs(dataMax);
+
+                    yMaxLabel = System.Math.Abs(dataMax).ToString();
+                    yMinLabel = (-1 * System.Math.Abs(dataMax)).ToString();
+
+                }
+
+                for (i = 0; i < dataLen - 1; i++)
+                {
+                        g.DrawLine(Pens.Green,
+                             (float)((float)xZero + (float)i * xStep),
+                             (float)((float)yZero),
+                             (float)((float)xZero + (float)i * xStep),
+                             (float)((float)yZero - (float)data[i + 1] * yStep));
+                }
+                //Graphicsリソース解放
+                g.Dispose();
+
+            }
+            catch (NullReferenceException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NullReferenceException", errorMessage);
+            }
+            catch (OverflowException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("OverflowException", errorMessage);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
+            }
+            catch (Exception e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NewException", errorMessage);
+            }
+        }
     }
+
+
+
 }

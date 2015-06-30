@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SignalProcessing
 {
-    class WaveletAnalysis
+    public class WaveletAnalysis
     {
         private FourierAnalysis fourier;
         private const double freq0 = 110; //下限周波数

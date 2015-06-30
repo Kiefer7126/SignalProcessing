@@ -89,6 +89,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.sGFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
@@ -295,7 +296,8 @@
             // 
             this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fIRToolStripMenuItem,
-            this.iIRToolStripMenuItem});
+            this.iIRToolStripMenuItem,
+            this.sGFToolStripMenuItem});
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.filterToolStripMenuItem.Text = "Filter";
@@ -303,13 +305,13 @@
             // fIRToolStripMenuItem
             // 
             this.fIRToolStripMenuItem.Name = "fIRToolStripMenuItem";
-            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
+            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fIRToolStripMenuItem.Text = "FIR";
             // 
             // iIRToolStripMenuItem
             // 
             this.iIRToolStripMenuItem.Name = "iIRToolStripMenuItem";
-            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
+            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.iIRToolStripMenuItem.Text = "IIR";
             // 
             // beatTrackingToolStripMenuItem
@@ -650,6 +652,13 @@
             this.label13.TabIndex = 37;
             this.label13.Text = "4k-11k";
             // 
+            // sGFToolStripMenuItem
+            // 
+            this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
+            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sGFToolStripMenuItem.Text = "SGF";
+            this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -779,6 +788,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolStripMenuItem beatTrackingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem soundTimeAnalysisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sGFToolStripMenuItem;
     }
 }
 

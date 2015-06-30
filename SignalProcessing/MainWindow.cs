@@ -22,6 +22,15 @@ namespace SignalProcessing
         private WindowFunction window;
         private WaveletAnalysis wavelet;
         private SoundTimeAnalysis soundTime;
+
+        double[] soundTimeData1;
+        double[] soundTimeData2;
+        double[] soundTimeData3;
+        double[] soundTimeData4;
+        double[] soundTimeData5;
+        double[] soundTimeData6;
+        double[] soundTimeData7;
+
         /**
          * MainWindow
          * 概要：コンストラクタ
@@ -346,36 +355,74 @@ namespace SignalProcessing
         private void soundTimeAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
              int numberOfWindow = data.originalLen / data.shiftLen;
-             double[] soundTimeData;
-             soundTimeData = new double[numberOfWindow + 1];
+             soundTimeData1 = new double[numberOfWindow + 1];
+             soundTimeData2 = new double[numberOfWindow + 1];
+             soundTimeData3 = new double[numberOfWindow + 1];
+             soundTimeData4 = new double[numberOfWindow + 1];
+             soundTimeData5 = new double[numberOfWindow + 1];
+             soundTimeData6 = new double[numberOfWindow + 1];
+             soundTimeData7 = new double[numberOfWindow + 1];
 
             //0-125の発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 0, 125, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData1 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 0, 125, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, soundTimeData1, numberOfWindow + 1);
 
              //125-250の発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 125, 250, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData2 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 125, 250, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, soundTimeData2, numberOfWindow + 1);
 
              //250-500の発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 250, 500, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData3 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 250, 500, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, soundTimeData3, numberOfWindow + 1);
 
              //500-1kの発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 500, 1000, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData4 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 500, 1000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, soundTimeData4, numberOfWindow + 1);
 
              //1k-2kの発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 1000, 2000, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData5 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 1000, 2000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, soundTimeData5, numberOfWindow + 1);
 
              //2k-4kの発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 2000, 4000, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData6 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 2000, 4000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, soundTimeData6, numberOfWindow + 1);
 
              //4k-11kの発音時間
-             soundTimeData = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow, data.windowLen, 4000, 11000, this.data.ofSmpf);
-             this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData, numberOfWindow + 1);
+             soundTimeData7 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 4000, 11000, this.data.ofSmpf);
+             this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData7, numberOfWindow + 1);
+        }
+
+        private void sGFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numberOfWindow = data.originalLen / data.shiftLen;
+
+            //0-125の発音時間
+            soundTimeData1 = this.soundTime.SavitzkyGolayFilter(soundTimeData1, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, soundTimeData1, numberOfWindow + 1);
+
+            //125-250の発音時間
+            soundTimeData2 = this.soundTime.SavitzkyGolayFilter(soundTimeData2, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, soundTimeData2, numberOfWindow + 1);
+
+            //250-500の発音時間
+            soundTimeData3 = this.soundTime.SavitzkyGolayFilter(soundTimeData3, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, soundTimeData3, numberOfWindow + 1);
+
+            //500-1kの発音時間
+            soundTimeData4 = this.soundTime.SavitzkyGolayFilter(soundTimeData4, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, soundTimeData4, numberOfWindow + 1);
+
+            //1k-2kの発音時間
+            soundTimeData5 = this.soundTime.SavitzkyGolayFilter(soundTimeData5, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, soundTimeData5, numberOfWindow + 1);
+
+            //2k-4kの発音時間
+            soundTimeData6 = this.soundTime.SavitzkyGolayFilter(soundTimeData6, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, soundTimeData6, numberOfWindow + 1);
+
+            //4k-11kの発音時間
+            soundTimeData7 = this.soundTime.SavitzkyGolayFilter(soundTimeData7, 15, numberOfWindow + 1);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData7, numberOfWindow + 1);
         }
     }
 }

@@ -31,7 +31,6 @@ namespace SignalProcessing
             double[,] d;
             d = new double[numberOfWindow + 1, freqBand];
 
-
             //各時刻における立ち上がり成分の合計(指定された周波数帯域)
             double[] sumD;
             sumD = new double[numberOfWindow + 1];
@@ -57,13 +56,104 @@ namespace SignalProcessing
                     {
                         d[t, f] = 0;
                     }
-
                     sumD[t] = sumD[t] + d[t, f];
                 }
-                
             }
             return sumD;
         }
 
-    }
+        /**
+         * SavitzkyGolayFilter
+         * 概要：2次多項式適合による平滑化微分
+         * @param data            平滑化する対象データ
+         * @param smoothingNumber 平常化の時間幅
+         * @param dataLen         対象データの長さ
+         * @return newData        平滑化後のデータ
+         */
+        public double[] SavitzkyGolayFilter(double[] data, int smoothingNumber, int dataLen)
+        {
+            double[] newData;
+            newData = new double[dataLen];
+
+            int Nomalization = 0;
+            int[] W5  = { -3,  12, 17,  12,  -3};
+            int[] W7 = { -2, 3, 6, 7, 6, 3, -2 };
+            int[] W9 = { -21, 14, 39, 54, 59, 54, 39, 14, -21 };
+            int[] W11 = { -36, 9, 44, 69, 84, 89, 84, 69, 44, 9, -36 };
+            int[] W13 = { -11, 0, 9, 16, 21, 24, 25, 24, 21, 16, 9, 0, -11 };
+            int[] W15 = { -78, -13, 42, 87, 122, 147, 162, 167, 162, 147, 122, 87, 42, -13, -78 };
+
+
+            switch (smoothingNumber)
+            {
+                case 5:
+                    Nomalization = 35;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W5, Nomalization);
+                    break;
+
+                case 7:
+                    Nomalization = 21;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W7, Nomalization);
+                    break;
+
+                case 9:
+                    Nomalization = 231;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W9, Nomalization);
+                    break;
+
+                case 11:
+                    Nomalization = 429;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W11, Nomalization);
+                    break;
+
+                case 13:
+                    Nomalization = 143;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W13, Nomalization);
+                    break;
+
+                case 15:
+                    Nomalization = 1105;
+                    newData = SavitzkyGolayCalc(data, smoothingNumber, dataLen, W15, Nomalization);
+                    break;
+            }
+                 
+
+            return newData;
+        }
+
+        /**
+         * SavitzkyGolayCalc
+         * 概要：S-GFilterの計算部分
+         * @param data            平滑化する対象データ
+         * @param n               平常化の時間幅
+         * @param dataLen         対象データの長さ
+         * @param W               重みとなるS-G係数
+         * @param N               正規化定数
+         * @return newData        平滑化後のデータ
+         */
+        public double[] SavitzkyGolayCalc(double[] data, int n, int dataLen, int[] W, int N)
+        {
+            double[] newData;
+            newData = new double[dataLen];
+            
+            for (int i = 0; i < dataLen; i++)
+            {
+                for (int j = -(n - 1) / 2; j < (n - 1) / 20; j++)
+                {
+                    if (i + j < 0)
+                    {
+                        newData[i] = data[i];
+                    }
+                    else
+                    {
+                        newData[i] = newData[i] + W[(n-1)/2 + j] * data[i + j];
+                    }
+                }
+                newData[i] = newData[i] / N;
+            }
+
+            return newData;
+        }
+
+        }
 }

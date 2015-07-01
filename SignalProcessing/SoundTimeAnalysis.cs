@@ -170,17 +170,9 @@ namespace SignalProcessing
 
             for (int i = 0; i < dataLen - 1; i++)
             {
-                if (data[i] > 0)
+                if (data[i] > 0 && data[i + 1] < 0)
                 {
-                    if (data[i + 1] < 0)
-                    {
-
                         peekTime[i] = data[i];
-                    }
-                    else
-                    {
-                        peekTime[i] = 0.0;
-                    }
                 }
                 else
                 {

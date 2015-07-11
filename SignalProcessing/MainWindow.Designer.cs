@@ -43,8 +43,6 @@
             this.frequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iDFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iFFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hammingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +50,7 @@
             this.sTFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fWTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sGFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beatTrackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.soundTimeAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.samplingComboBox = new System.Windows.Forms.ComboBox();
@@ -89,7 +86,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.sGFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
@@ -212,40 +208,29 @@
             this.frequencyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dFTToolStripMenuItem,
             this.fFTToolStripMenuItem,
-            this.iDFTToolStripMenuItem,
-            this.iFFTToolStripMenuItem,
             this.windowToolStripMenuItem,
             this.sTFTToolStripMenuItem,
             this.fWTToolStripMenuItem});
+            this.frequencyToolStripMenuItem.Enabled = false;
             this.frequencyToolStripMenuItem.Name = "frequencyToolStripMenuItem";
             this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.frequencyToolStripMenuItem.Text = "Frequency";
             // 
             // dFTToolStripMenuItem
             // 
+            this.dFTToolStripMenuItem.Enabled = false;
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
             // fFTToolStripMenuItem
             // 
+            this.fFTToolStripMenuItem.Enabled = false;
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
-            // 
-            // iDFTToolStripMenuItem
-            // 
-            this.iDFTToolStripMenuItem.Name = "iDFTToolStripMenuItem";
-            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.iDFTToolStripMenuItem.Text = "IDFT";
-            // 
-            // iFFTToolStripMenuItem
-            // 
-            this.iFFTToolStripMenuItem.Name = "iFFTToolStripMenuItem";
-            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.iFFTToolStripMenuItem.Text = "IFFT";
             // 
             // windowToolStripMenuItem
             // 
@@ -253,8 +238,9 @@
             this.hammingToolStripMenuItem,
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
+            this.windowToolStripMenuItem.Enabled = false;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
@@ -281,43 +267,38 @@
             // sTFTToolStripMenuItem
             // 
             this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
-            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sTFTToolStripMenuItem.Text = "STFT";
             this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
             // 
             // fWTToolStripMenuItem
             // 
             this.fWTToolStripMenuItem.Name = "fWTToolStripMenuItem";
-            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fWTToolStripMenuItem.Text = "FWT";
             this.fWTToolStripMenuItem.Click += new System.EventHandler(this.fWTToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
             this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fIRToolStripMenuItem,
-            this.iIRToolStripMenuItem,
             this.sGFToolStripMenuItem});
+            this.filterToolStripMenuItem.Enabled = false;
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.filterToolStripMenuItem.Text = "Filter";
             // 
-            // fIRToolStripMenuItem
+            // sGFToolStripMenuItem
             // 
-            this.fIRToolStripMenuItem.Name = "fIRToolStripMenuItem";
-            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fIRToolStripMenuItem.Text = "FIR";
-            // 
-            // iIRToolStripMenuItem
-            // 
-            this.iIRToolStripMenuItem.Name = "iIRToolStripMenuItem";
-            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iIRToolStripMenuItem.Text = "IIR";
+            this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
+            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.sGFToolStripMenuItem.Text = "SGF";
+            this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
             // 
             // beatTrackingToolStripMenuItem
             // 
             this.beatTrackingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.soundTimeAnalysisToolStripMenuItem});
+            this.beatTrackingToolStripMenuItem.Enabled = false;
             this.beatTrackingToolStripMenuItem.Name = "beatTrackingToolStripMenuItem";
             this.beatTrackingToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.beatTrackingToolStripMenuItem.Text = "BeatTracking";
@@ -652,13 +633,6 @@
             this.label13.TabIndex = 37;
             this.label13.Text = "4k-11k";
             // 
-            // sGFToolStripMenuItem
-            // 
-            this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
-            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sGFToolStripMenuItem.Text = "SGF";
-            this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -742,15 +716,11 @@
         private System.Windows.Forms.ToolStripMenuItem frequencyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dFTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fFTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iDFTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iFFTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hammingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hanningToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gaussianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fIRToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iIRToolStripMenuItem;
         private System.Windows.Forms.ComboBox samplingComboBox;
         private System.Windows.Forms.Label samplingLabel;
         private System.Windows.Forms.PictureBox timeGraphPictureBox;

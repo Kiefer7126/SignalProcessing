@@ -133,6 +133,14 @@ namespace SignalProcessing
             //時間軸グラフ表示
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
 
+            //Menuの有効・無効
+            if (this.data.originalData != null)
+            {
+                frequencyToolStripMenuItem.Enabled = true;
+                filterToolStripMenuItem.Enabled = false;
+                beatTrackingToolStripMenuItem.Enabled = false;
+            }
+            
         }
 
         /**
@@ -296,6 +304,9 @@ namespace SignalProcessing
             //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
+
+            //beatTrackingを有効化
+            beatTrackingToolStripMenuItem.Enabled = true;
         }
 
         private void fFTToolStripMenuItem_Click(object sender, EventArgs e)
@@ -390,6 +401,9 @@ namespace SignalProcessing
              //4k-11kの発音時間
              soundTimeData7 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 4000, 11000, this.data.ofSmpf);
              this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData7, numberOfWindow + 1);
+
+             //Filterを有効化
+             filterToolStripMenuItem.Enabled = true;
         }
 
         private void sGFToolStripMenuItem_Click(object sender, EventArgs e)

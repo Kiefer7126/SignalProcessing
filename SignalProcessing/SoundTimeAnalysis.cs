@@ -8,14 +8,37 @@ namespace SignalProcessing
 {
     public class SoundTimeAnalysis
     {
+
         /**
-        * RisingComponentAnalysis
-        * 概要：立ち上がり成分を抽出する
-        * @param p 立ち上がり成分を抽出する対象であるFFT後の周波数成分
-        * @param numberOfWindow 窓の数
-        * @param freqBand
-        * @return p[t,f] パワーが増加し続けている周波数成分
-        */
+         * AutocorrelationFunction
+         * 概要：自己相関を求める
+         * @param data 自己相関を求める対象データ
+         * @param dataLen 対象データの大きさ
+         * @return R[] 自己相関配列
+         */
+        public double[] AutocorrelationFunction(int dataLen, double[] data)
+        {
+            double[] R = new double[dataLen];
+
+            for (int j = 0; j < dataLen; j++)
+            {
+                for (int i = 0; i < dataLen - j; i++)
+                {
+                    R[j] = R[j] + data[i] * data[i + j];
+                }
+                R[j] = R[j] / (dataLen - j);
+            }
+            return R;
+        }
+
+        /**
+         * RisingComponentAnalysis
+         * 概要：立ち上がり成分を抽出する
+         * @param p 立ち上がり成分を抽出する対象であるFFT後の周波数成分
+         * @param numberOfWindow 窓の数
+         * @param freqBand
+         * @return p[t,f] パワーが増加し続けている周波数成分
+         */
         public double[] RisingComponentAnalysis(double[,] p, int numberOfWindow, int windowLen, int freqFrom, int freqTo, int samplingFreq)
         {
             
@@ -40,17 +63,22 @@ namespace SignalProcessing
                 for (int f = 1; f < freqResolution; f++)
                 {
 
+                    //double ppTemp1 = Math.Max(p[t - 1, f + freqFromNumber], p[t - 1, f - 1 + freqFromNumber]);
+                    //double ppTemp2 = Math.Max(p[t - 1, f + 1 + freqFromNumber], p[t - 2, f + freqFromNumber]);
+                    //double pp = Math.Max(ppTemp1, ppTemp2);
+
                     double ppTemp1 = Math.Max(p[t - 1, f + freqFromNumber], p[t - 1, f - 1 + freqFromNumber]);
-                    double ppTemp2 = Math.Max(p[t - 1, f + 1 + freqFromNumber], p[t - 2, f + freqFromNumber]);
-                    double pp = Math.Max(ppTemp1, ppTemp2);
+                    double pp = Math.Max(ppTemp1, p[t - 1, f + 1 + freqFromNumber]);
 
                     double npTemp1 = Math.Min(p[t + 1, f - 1 + freqFromNumber], p[t + 1, f + 1 + freqFromNumber]);
-                    double np = Math.Min(p[t + 1, f], npTemp1);
+                    double np = Math.Min(p[t + 1, f + freqFromNumber], npTemp1);
 
 
-                    if (p[t, f] > pp && np > pp)
+                    //if (p[t, f] > pp && np > pp)
+                    if (Math.Min(p[t, f + freqFromNumber], p[t + 1, f + freqFromNumber]) > pp)
                     {
-                        d[t, f] = p[t, f] - pp + Math.Max(0, p[t + 1, f + freqFromNumber] - p[t, f + freqFromNumber]);
+                       //d[t, f] = p[t, f + freqFromNumber] - pp + Math.Max(0, p[t + 1, f + freqFromNumber] - p[t, f + freqFromNumber]);
+                        d[t, f] = Math.Max(p[t + 1, f + freqFromNumber], p[t, f + freqFromNumber]) - pp;
                     }
                     else
                     {
@@ -190,6 +218,5 @@ namespace SignalProcessing
             }
                 return peekTime;
         }
-
     }
 }

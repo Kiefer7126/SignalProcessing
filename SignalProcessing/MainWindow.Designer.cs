@@ -86,6 +86,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.autocorrelationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
@@ -130,7 +131,7 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -140,7 +141,7 @@
             this.textToolStripMenuItem,
             this.wavToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // textToolStripMenuItem
@@ -163,7 +164,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -199,7 +200,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -220,7 +221,7 @@
             // 
             this.dFTToolStripMenuItem.Enabled = false;
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
@@ -228,7 +229,7 @@
             // 
             this.fFTToolStripMenuItem.Enabled = false;
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
             // 
@@ -240,7 +241,7 @@
             this.gaussianToolStripMenuItem});
             this.windowToolStripMenuItem.Enabled = false;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
@@ -267,14 +268,14 @@
             // sTFTToolStripMenuItem
             // 
             this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
-            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.sTFTToolStripMenuItem.Text = "STFT";
             this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
             // 
             // fWTToolStripMenuItem
             // 
             this.fWTToolStripMenuItem.Name = "fWTToolStripMenuItem";
-            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.fWTToolStripMenuItem.Text = "FWT";
             this.fWTToolStripMenuItem.Click += new System.EventHandler(this.fWTToolStripMenuItem_Click);
             // 
@@ -290,14 +291,15 @@
             // sGFToolStripMenuItem
             // 
             this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
-            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sGFToolStripMenuItem.Text = "SGF";
             this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
             // 
             // beatTrackingToolStripMenuItem
             // 
             this.beatTrackingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.soundTimeAnalysisToolStripMenuItem});
+            this.soundTimeAnalysisToolStripMenuItem,
+            this.autocorrelationToolStripMenuItem});
             this.beatTrackingToolStripMenuItem.Enabled = false;
             this.beatTrackingToolStripMenuItem.Name = "beatTrackingToolStripMenuItem";
             this.beatTrackingToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
@@ -633,6 +635,14 @@
             this.label13.TabIndex = 37;
             this.label13.Text = "4k-11k";
             // 
+            // autocorrelationToolStripMenuItem
+            // 
+            this.autocorrelationToolStripMenuItem.Enabled = false;
+            this.autocorrelationToolStripMenuItem.Name = "autocorrelationToolStripMenuItem";
+            this.autocorrelationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.autocorrelationToolStripMenuItem.Text = "Autocorrelation";
+            this.autocorrelationToolStripMenuItem.Click += new System.EventHandler(this.autocorrelationToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -759,6 +769,7 @@
         private System.Windows.Forms.ToolStripMenuItem beatTrackingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem soundTimeAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sGFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autocorrelationToolStripMenuItem;
     }
 }
 

@@ -43,8 +43,6 @@
             this.frequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iDFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iFFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hammingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hanningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,10 +50,11 @@
             this.sTFTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fWTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iIRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sGFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beatTrackingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.soundTimeAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.correlationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chordChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.samplingComboBox = new System.Windows.Forms.ComboBox();
             this.samplingLabel = new System.Windows.Forms.Label();
             this.timeGraphPictureBox = new System.Windows.Forms.PictureBox();
@@ -89,7 +88,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.sGFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beatTimePictureBox = new System.Windows.Forms.PictureBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.soundTimeSumPictureBox = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeGraphPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spectrogramPictureBox)).BeginInit();
@@ -105,6 +107,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo125PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo4kPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo11kPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beatTimePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeSumPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -116,7 +120,7 @@
             this.beatTrackingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1044, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1213, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -128,13 +132,13 @@
             this.exportToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
@@ -144,20 +148,20 @@
             this.textToolStripMenuItem,
             this.wavToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // textToolStripMenuItem
             // 
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            this.textToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
+            this.textToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.textToolStripMenuItem.Text = "Text";
             this.textToolStripMenuItem.Click += new System.EventHandler(this.textToolStripMenuItem_Click);
             // 
             // wavToolStripMenuItem
             // 
             this.wavToolStripMenuItem.Name = "wavToolStripMenuItem";
-            this.wavToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
+            this.wavToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.wavToolStripMenuItem.Text = "Wav";
             this.wavToolStripMenuItem.Click += new System.EventHandler(this.wavToolStripMenuItem_Click);
             // 
@@ -167,7 +171,7 @@
             this.textToolStripMenuItem1,
             this.wavToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // textToolStripMenuItem1
@@ -176,34 +180,34 @@
             this.timeGraphToolStripMenuItem,
             this.dBGraphToolStripMenuItem});
             this.textToolStripMenuItem1.Name = "textToolStripMenuItem1";
-            this.textToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
+            this.textToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
             this.textToolStripMenuItem1.Text = "Text";
             // 
             // timeGraphToolStripMenuItem
             // 
             this.timeGraphToolStripMenuItem.Name = "timeGraphToolStripMenuItem";
-            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.timeGraphToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.timeGraphToolStripMenuItem.Text = "TimeGraph";
             this.timeGraphToolStripMenuItem.Click += new System.EventHandler(this.timeGraphToolStripMenuItem_Click);
             // 
             // dBGraphToolStripMenuItem
             // 
             this.dBGraphToolStripMenuItem.Name = "dBGraphToolStripMenuItem";
-            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.dBGraphToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.dBGraphToolStripMenuItem.Text = "dBGraph";
             this.dBGraphToolStripMenuItem.Click += new System.EventHandler(this.dBGraphToolStripMenuItem_Click);
             // 
             // wavToolStripMenuItem1
             // 
             this.wavToolStripMenuItem1.Name = "wavToolStripMenuItem1";
-            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
+            this.wavToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
             this.wavToolStripMenuItem1.Text = "Wav";
             this.wavToolStripMenuItem1.Click += new System.EventHandler(this.wavToolStripMenuItem1_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -212,40 +216,29 @@
             this.frequencyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dFTToolStripMenuItem,
             this.fFTToolStripMenuItem,
-            this.iDFTToolStripMenuItem,
-            this.iFFTToolStripMenuItem,
             this.windowToolStripMenuItem,
             this.sTFTToolStripMenuItem,
             this.fWTToolStripMenuItem});
+            this.frequencyToolStripMenuItem.Enabled = false;
             this.frequencyToolStripMenuItem.Name = "frequencyToolStripMenuItem";
-            this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.frequencyToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.frequencyToolStripMenuItem.Text = "Frequency";
             // 
             // dFTToolStripMenuItem
             // 
+            this.dFTToolStripMenuItem.Enabled = false;
             this.dFTToolStripMenuItem.Name = "dFTToolStripMenuItem";
-            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.dFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.dFTToolStripMenuItem.Text = "DFT";
             this.dFTToolStripMenuItem.Click += new System.EventHandler(this.dFTToolStripMenuItem_Click);
             // 
             // fFTToolStripMenuItem
             // 
+            this.fFTToolStripMenuItem.Enabled = false;
             this.fFTToolStripMenuItem.Name = "fFTToolStripMenuItem";
-            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.fFTToolStripMenuItem.Text = "FFT";
             this.fFTToolStripMenuItem.Click += new System.EventHandler(this.fFTToolStripMenuItem_Click);
-            // 
-            // iDFTToolStripMenuItem
-            // 
-            this.iDFTToolStripMenuItem.Name = "iDFTToolStripMenuItem";
-            this.iDFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.iDFTToolStripMenuItem.Text = "IDFT";
-            // 
-            // iFFTToolStripMenuItem
-            // 
-            this.iFFTToolStripMenuItem.Name = "iFFTToolStripMenuItem";
-            this.iFFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.iFFTToolStripMenuItem.Text = "IFFT";
             // 
             // windowToolStripMenuItem
             // 
@@ -253,81 +246,95 @@
             this.hammingToolStripMenuItem,
             this.hanningToolStripMenuItem,
             this.gaussianToolStripMenuItem});
+            this.windowToolStripMenuItem.Enabled = false;
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.windowToolStripMenuItem.Text = "Window";
             // 
             // hammingToolStripMenuItem
             // 
             this.hammingToolStripMenuItem.Name = "hammingToolStripMenuItem";
-            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.hammingToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.hammingToolStripMenuItem.Text = "Hamming";
             this.hammingToolStripMenuItem.Click += new System.EventHandler(this.hammingToolStripMenuItem_Click);
             // 
             // hanningToolStripMenuItem
             // 
             this.hanningToolStripMenuItem.Name = "hanningToolStripMenuItem";
-            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.hanningToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.hanningToolStripMenuItem.Text = "Hanning";
             this.hanningToolStripMenuItem.Click += new System.EventHandler(this.hanningToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
             this.gaussianToolStripMenuItem.Click += new System.EventHandler(this.gaussianToolStripMenuItem_Click);
             // 
             // sTFTToolStripMenuItem
             // 
             this.sTFTToolStripMenuItem.Name = "sTFTToolStripMenuItem";
-            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.sTFTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.sTFTToolStripMenuItem.Text = "STFT";
             this.sTFTToolStripMenuItem.Click += new System.EventHandler(this.sTFTToolStripMenuItem_Click);
             // 
             // fWTToolStripMenuItem
             // 
             this.fWTToolStripMenuItem.Name = "fWTToolStripMenuItem";
-            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.fWTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.fWTToolStripMenuItem.Text = "FWT";
             this.fWTToolStripMenuItem.Click += new System.EventHandler(this.fWTToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
             this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fIRToolStripMenuItem,
-            this.iIRToolStripMenuItem,
             this.sGFToolStripMenuItem});
+            this.filterToolStripMenuItem.Enabled = false;
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.filterToolStripMenuItem.Text = "Filter";
             // 
-            // fIRToolStripMenuItem
+            // sGFToolStripMenuItem
             // 
-            this.fIRToolStripMenuItem.Name = "fIRToolStripMenuItem";
-            this.fIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fIRToolStripMenuItem.Text = "FIR";
-            // 
-            // iIRToolStripMenuItem
-            // 
-            this.iIRToolStripMenuItem.Name = "iIRToolStripMenuItem";
-            this.iIRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iIRToolStripMenuItem.Text = "IIR";
+            this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
+            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.sGFToolStripMenuItem.Text = "SGF";
+            this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
             // 
             // beatTrackingToolStripMenuItem
             // 
             this.beatTrackingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.soundTimeAnalysisToolStripMenuItem});
+            this.soundTimeAnalysisToolStripMenuItem,
+            this.correlationToolStripMenuItem,
+            this.chordChangeToolStripMenuItem});
+            this.beatTrackingToolStripMenuItem.Enabled = false;
             this.beatTrackingToolStripMenuItem.Name = "beatTrackingToolStripMenuItem";
-            this.beatTrackingToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
-            this.beatTrackingToolStripMenuItem.Text = "BeatTracking";
+            this.beatTrackingToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.beatTrackingToolStripMenuItem.Text = "GTTM";
             // 
             // soundTimeAnalysisToolStripMenuItem
             // 
             this.soundTimeAnalysisToolStripMenuItem.Name = "soundTimeAnalysisToolStripMenuItem";
-            this.soundTimeAnalysisToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.soundTimeAnalysisToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.soundTimeAnalysisToolStripMenuItem.Text = "SoundTimeAnalysis";
             this.soundTimeAnalysisToolStripMenuItem.Click += new System.EventHandler(this.soundTimeAnalysisToolStripMenuItem_Click);
+            // 
+            // correlationToolStripMenuItem
+            // 
+            this.correlationToolStripMenuItem.Enabled = false;
+            this.correlationToolStripMenuItem.Name = "correlationToolStripMenuItem";
+            this.correlationToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.correlationToolStripMenuItem.Text = "Correlation";
+            this.correlationToolStripMenuItem.Click += new System.EventHandler(this.autocorrelationToolStripMenuItem_Click);
+            // 
+            // chordChangeToolStripMenuItem
+            // 
+            this.chordChangeToolStripMenuItem.Enabled = false;
+            this.chordChangeToolStripMenuItem.Name = "chordChangeToolStripMenuItem";
+            this.chordChangeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.chordChangeToolStripMenuItem.Text = "ChordChange";
+            this.chordChangeToolStripMenuItem.Click += new System.EventHandler(this.chordChangeToolStripMenuItem_Click);
             // 
             // samplingComboBox
             // 
@@ -338,7 +345,7 @@
             "16",
             "22.05",
             "44.1"});
-            this.samplingComboBox.Location = new System.Drawing.Point(798, 31);
+            this.samplingComboBox.Location = new System.Drawing.Point(1035, 31);
             this.samplingComboBox.Name = "samplingComboBox";
             this.samplingComboBox.Size = new System.Drawing.Size(121, 20);
             this.samplingComboBox.TabIndex = 1;
@@ -347,7 +354,7 @@
             // samplingLabel
             // 
             this.samplingLabel.AutoSize = true;
-            this.samplingLabel.Location = new System.Drawing.Point(684, 34);
+            this.samplingLabel.Location = new System.Drawing.Point(921, 34);
             this.samplingLabel.Name = "samplingLabel";
             this.samplingLabel.Size = new System.Drawing.Size(108, 12);
             this.samplingLabel.TabIndex = 2;
@@ -378,7 +385,7 @@
             this.spectrogramPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spectrogramPictureBox.Location = new System.Drawing.Point(348, 69);
             this.spectrogramPictureBox.Name = "spectrogramPictureBox";
-            this.spectrogramPictureBox.Size = new System.Drawing.Size(639, 342);
+            this.spectrogramPictureBox.Size = new System.Drawing.Size(808, 342);
             this.spectrogramPictureBox.TabIndex = 9;
             this.spectrogramPictureBox.TabStop = false;
             // 
@@ -399,7 +406,7 @@
             "Saw",
             "Square",
             "Sine2"});
-            this.waveKindComboBox.Location = new System.Drawing.Point(23, 26);
+            this.waveKindComboBox.Location = new System.Drawing.Point(628, 31);
             this.waveKindComboBox.Name = "waveKindComboBox";
             this.waveKindComboBox.Size = new System.Drawing.Size(121, 20);
             this.waveKindComboBox.TabIndex = 11;
@@ -407,7 +414,7 @@
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(150, 25);
+            this.generateButton.Location = new System.Drawing.Point(755, 29);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(75, 23);
             this.generateButton.TabIndex = 12;
@@ -419,7 +426,7 @@
             // 
             this.legendPictureBox.BackColor = System.Drawing.Color.White;
             this.legendPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.legendPictureBox.Location = new System.Drawing.Point(993, 69);
+            this.legendPictureBox.Location = new System.Drawing.Point(1162, 69);
             this.legendPictureBox.Name = "legendPictureBox";
             this.legendPictureBox.Size = new System.Drawing.Size(39, 342);
             this.legendPictureBox.TabIndex = 13;
@@ -428,7 +435,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1005, 51);
+            this.label1.Location = new System.Drawing.Point(1168, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 12);
             this.label1.TabIndex = 14;
@@ -438,9 +445,9 @@
             // 
             this.waveletGraphLevel1PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel1PictureBox.Location = new System.Drawing.Point(25, 224);
+            this.waveletGraphLevel1PictureBox.Location = new System.Drawing.Point(25, 215);
             this.waveletGraphLevel1PictureBox.Name = "waveletGraphLevel1PictureBox";
-            this.waveletGraphLevel1PictureBox.Size = new System.Drawing.Size(317, 97);
+            this.waveletGraphLevel1PictureBox.Size = new System.Drawing.Size(317, 120);
             this.waveletGraphLevel1PictureBox.TabIndex = 15;
             this.waveletGraphLevel1PictureBox.TabStop = false;
             // 
@@ -448,9 +455,9 @@
             // 
             this.waveletGraphLevel2PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel2PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel2PictureBox.Location = new System.Drawing.Point(25, 327);
+            this.waveletGraphLevel2PictureBox.Location = new System.Drawing.Point(25, 339);
             this.waveletGraphLevel2PictureBox.Name = "waveletGraphLevel2PictureBox";
-            this.waveletGraphLevel2PictureBox.Size = new System.Drawing.Size(317, 97);
+            this.waveletGraphLevel2PictureBox.Size = new System.Drawing.Size(317, 120);
             this.waveletGraphLevel2PictureBox.TabIndex = 16;
             this.waveletGraphLevel2PictureBox.TabStop = false;
             // 
@@ -458,16 +465,16 @@
             // 
             this.waveletGraphLevel3PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel3PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel3PictureBox.Location = new System.Drawing.Point(25, 430);
+            this.waveletGraphLevel3PictureBox.Location = new System.Drawing.Point(25, 463);
             this.waveletGraphLevel3PictureBox.Name = "waveletGraphLevel3PictureBox";
-            this.waveletGraphLevel3PictureBox.Size = new System.Drawing.Size(317, 97);
+            this.waveletGraphLevel3PictureBox.Size = new System.Drawing.Size(317, 120);
             this.waveletGraphLevel3PictureBox.TabIndex = 17;
             this.waveletGraphLevel3PictureBox.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 209);
+            this.label2.Location = new System.Drawing.Point(23, 199);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(151, 12);
             this.label2.TabIndex = 18;
@@ -485,7 +492,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 373);
+            this.label4.Location = new System.Drawing.Point(12, 389);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(11, 12);
             this.label4.TabIndex = 20;
@@ -494,7 +501,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 473);
+            this.label5.Location = new System.Drawing.Point(12, 509);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 21;
@@ -504,16 +511,16 @@
             // 
             this.waveletGraphLevel4PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.waveletGraphLevel4PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.waveletGraphLevel4PictureBox.Location = new System.Drawing.Point(25, 533);
+            this.waveletGraphLevel4PictureBox.Location = new System.Drawing.Point(25, 588);
             this.waveletGraphLevel4PictureBox.Name = "waveletGraphLevel4PictureBox";
-            this.waveletGraphLevel4PictureBox.Size = new System.Drawing.Size(317, 97);
+            this.waveletGraphLevel4PictureBox.Size = new System.Drawing.Size(317, 122);
             this.waveletGraphLevel4PictureBox.TabIndex = 22;
             this.waveletGraphLevel4PictureBox.TabStop = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 576);
+            this.label6.Location = new System.Drawing.Point(12, 645);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 12);
             this.label6.TabIndex = 23;
@@ -523,9 +530,9 @@
             // 
             this.soundTimeTo500PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo500PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo500PictureBox.Location = new System.Drawing.Point(413, 545);
+            this.soundTimeTo500PictureBox.Location = new System.Drawing.Point(413, 573);
             this.soundTimeTo500PictureBox.Name = "soundTimeTo500PictureBox";
-            this.soundTimeTo500PictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo500PictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo500PictureBox.TabIndex = 24;
             this.soundTimeTo500PictureBox.TabStop = false;
             // 
@@ -533,9 +540,9 @@
             // 
             this.soundTimeTo1kPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo1kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo1kPictureBox.Location = new System.Drawing.Point(413, 513);
+            this.soundTimeTo1kPictureBox.Location = new System.Drawing.Point(413, 541);
             this.soundTimeTo1kPictureBox.Name = "soundTimeTo1kPictureBox";
-            this.soundTimeTo1kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo1kPictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo1kPictureBox.TabIndex = 25;
             this.soundTimeTo1kPictureBox.TabStop = false;
             // 
@@ -543,9 +550,9 @@
             // 
             this.soundTimeTo2kPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo2kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo2kPictureBox.Location = new System.Drawing.Point(413, 481);
+            this.soundTimeTo2kPictureBox.Location = new System.Drawing.Point(413, 509);
             this.soundTimeTo2kPictureBox.Name = "soundTimeTo2kPictureBox";
-            this.soundTimeTo2kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo2kPictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo2kPictureBox.TabIndex = 26;
             this.soundTimeTo2kPictureBox.TabStop = false;
             // 
@@ -553,9 +560,9 @@
             // 
             this.soundTimeTo250PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo250PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo250PictureBox.Location = new System.Drawing.Point(413, 577);
+            this.soundTimeTo250PictureBox.Location = new System.Drawing.Point(413, 605);
             this.soundTimeTo250PictureBox.Name = "soundTimeTo250PictureBox";
-            this.soundTimeTo250PictureBox.Size = new System.Drawing.Size(574, 25);
+            this.soundTimeTo250PictureBox.Size = new System.Drawing.Size(743, 25);
             this.soundTimeTo250PictureBox.TabIndex = 27;
             this.soundTimeTo250PictureBox.TabStop = false;
             // 
@@ -563,9 +570,9 @@
             // 
             this.soundTimeTo125PictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo125PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo125PictureBox.Location = new System.Drawing.Point(413, 608);
+            this.soundTimeTo125PictureBox.Location = new System.Drawing.Point(413, 636);
             this.soundTimeTo125PictureBox.Name = "soundTimeTo125PictureBox";
-            this.soundTimeTo125PictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo125PictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo125PictureBox.TabIndex = 28;
             this.soundTimeTo125PictureBox.TabStop = false;
             // 
@@ -573,9 +580,9 @@
             // 
             this.soundTimeTo4kPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo4kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo4kPictureBox.Location = new System.Drawing.Point(413, 449);
+            this.soundTimeTo4kPictureBox.Location = new System.Drawing.Point(413, 477);
             this.soundTimeTo4kPictureBox.Name = "soundTimeTo4kPictureBox";
-            this.soundTimeTo4kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo4kPictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo4kPictureBox.TabIndex = 29;
             this.soundTimeTo4kPictureBox.TabStop = false;
             // 
@@ -583,16 +590,16 @@
             // 
             this.soundTimeTo11kPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.soundTimeTo11kPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.soundTimeTo11kPictureBox.Location = new System.Drawing.Point(413, 417);
+            this.soundTimeTo11kPictureBox.Location = new System.Drawing.Point(413, 445);
             this.soundTimeTo11kPictureBox.Name = "soundTimeTo11kPictureBox";
-            this.soundTimeTo11kPictureBox.Size = new System.Drawing.Size(574, 26);
+            this.soundTimeTo11kPictureBox.Size = new System.Drawing.Size(743, 26);
             this.soundTimeTo11kPictureBox.TabIndex = 30;
             this.soundTimeTo11kPictureBox.TabStop = false;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(372, 618);
+            this.label7.Location = new System.Drawing.Point(372, 645);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 12);
             this.label7.TabIndex = 31;
@@ -601,7 +608,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(360, 590);
+            this.label8.Location = new System.Drawing.Point(360, 614);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(47, 12);
             this.label8.TabIndex = 32;
@@ -610,7 +617,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(360, 559);
+            this.label9.Location = new System.Drawing.Point(360, 582);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 12);
             this.label9.TabIndex = 33;
@@ -619,7 +626,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(365, 527);
+            this.label10.Location = new System.Drawing.Point(365, 549);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(41, 12);
             this.label10.TabIndex = 34;
@@ -628,7 +635,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(370, 495);
+            this.label11.Location = new System.Drawing.Point(370, 518);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 12);
             this.label11.TabIndex = 35;
@@ -637,7 +644,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(370, 463);
+            this.label12.Location = new System.Drawing.Point(370, 485);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 12);
             this.label12.TabIndex = 36;
@@ -646,25 +653,60 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(370, 430);
+            this.label13.Location = new System.Drawing.Point(370, 454);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 12);
             this.label13.TabIndex = 37;
             this.label13.Text = "4k-11k";
             // 
-            // sGFToolStripMenuItem
+            // beatTimePictureBox
             // 
-            this.sGFToolStripMenuItem.Name = "sGFToolStripMenuItem";
-            this.sGFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.sGFToolStripMenuItem.Text = "SGF";
-            this.sGFToolStripMenuItem.Click += new System.EventHandler(this.sGFToolStripMenuItem_Click);
+            this.beatTimePictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.beatTimePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.beatTimePictureBox.Location = new System.Drawing.Point(413, 417);
+            this.beatTimePictureBox.Name = "beatTimePictureBox";
+            this.beatTimePictureBox.Size = new System.Drawing.Size(743, 22);
+            this.beatTimePictureBox.TabIndex = 38;
+            this.beatTimePictureBox.TabStop = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(378, 423);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(29, 12);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Beat";
+            // 
+            // soundTimeSumPictureBox
+            // 
+            this.soundTimeSumPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.soundTimeSumPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.soundTimeSumPictureBox.Location = new System.Drawing.Point(413, 668);
+            this.soundTimeSumPictureBox.Name = "soundTimeSumPictureBox";
+            this.soundTimeSumPictureBox.Size = new System.Drawing.Size(743, 26);
+            this.soundTimeSumPictureBox.TabIndex = 40;
+            this.soundTimeSumPictureBox.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(379, 676);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(19, 12);
+            this.label15.TabIndex = 41;
+            this.label15.Text = "All";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1044, 644);
+            this.ClientSize = new System.Drawing.Size(1213, 714);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.soundTimeSumPictureBox);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.beatTimePictureBox);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -720,6 +762,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo125PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo4kPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundTimeTo11kPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beatTimePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.soundTimeSumPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -742,15 +786,11 @@
         private System.Windows.Forms.ToolStripMenuItem frequencyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dFTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fFTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iDFTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iFFTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hammingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hanningToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gaussianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fIRToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iIRToolStripMenuItem;
         private System.Windows.Forms.ComboBox samplingComboBox;
         private System.Windows.Forms.Label samplingLabel;
         private System.Windows.Forms.PictureBox timeGraphPictureBox;
@@ -789,6 +829,12 @@
         private System.Windows.Forms.ToolStripMenuItem beatTrackingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem soundTimeAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sGFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem correlationToolStripMenuItem;
+        private System.Windows.Forms.PictureBox beatTimePictureBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.PictureBox soundTimeSumPictureBox;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ToolStripMenuItem chordChangeToolStripMenuItem;
     }
 }
 

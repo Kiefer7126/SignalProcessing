@@ -22,14 +22,13 @@ namespace SignalProcessing
         private WindowFunction window;
         private WaveletAnalysis wavelet;
         private SoundTimeAnalysis soundTime;
+        private ChangeOfChordWindow chordDialog;
 
-        double[] soundTimeData1;
-        double[] soundTimeData2;
-        double[] soundTimeData3;
-        double[] soundTimeData4;
-        double[] soundTimeData5;
-        double[] soundTimeData6;
-        double[] soundTimeData7;
+        double[] soundTimeData1, soundTimeData2, soundTimeData3, soundTimeData4, soundTimeData5, soundTimeData6, soundTimeData7;
+        double[] peekTime1, peekTime2, peekTime3, peekTime4, peekTime5, peekTime6, peekTime7, sumPeekTime;
+
+        int beatInterval;
+        int gap;
 
         /**
          * MainWindow
@@ -133,6 +132,16 @@ namespace SignalProcessing
             //時間軸グラフ表示
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
 
+            //Menuの有効・無効
+            if (this.data.originalData != null)
+            {
+                frequencyToolStripMenuItem.Enabled = true;
+                filterToolStripMenuItem.Enabled = false;
+                beatTrackingToolStripMenuItem.Enabled = false;
+                correlationToolStripMenuItem.Enabled = false;
+                chordChangeToolStripMenuItem.Enabled = false;
+            }
+            
         }
 
         /**
@@ -220,8 +229,25 @@ namespace SignalProcessing
             generate.Processing(this.data, this.data.waveKind);
             this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
 
+            //Menuの有効・無効
+            if (this.data.originalData != null)
+            {
+                frequencyToolStripMenuItem.Enabled = true;
+                filterToolStripMenuItem.Enabled = false;
+                beatTrackingToolStripMenuItem.Enabled = false;
+                correlationToolStripMenuItem.Enabled = false;
+            }
+
             //MessageBox.Show("waveKind: " + this.data.waveKind);
         }
+
+        /*
+         * wavToolStripMenuItem1_Click
+         * 概要：[File] -> [Export] -> [wav]
+         * @param sender 
+         * @param e 
+         * @return なし
+         */
 
         private void wavToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -296,8 +322,18 @@ namespace SignalProcessing
             //this.graphic.PlotPhaseChar(item, this.phaseGraphPictureBox, this.data);
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
+
+            //beatTrackingを有効化
+            beatTrackingToolStripMenuItem.Enabled = true;
         }
 
+        /*
+         * fFTToolStripMenuItem_Click
+         * 概要：[Frequency] -> [FFT]
+         * @param sender
+         * @param e
+         * @return なし
+         */
         private void fFTToolStripMenuItem_Click(object sender, EventArgs e)
         {
             double item;
@@ -313,6 +349,14 @@ namespace SignalProcessing
             this.graphic.PlotSpectrogram(item, this.spectrogramPictureBox, this.data);
             this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
+
+        /*
+         * fWTToolStripMenuItem_Click
+         * 概要：[Frequency] -> [FWT]
+         * @param sender
+         * @param e
+         * @return なし
+         */
 
         private void fWTToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -352,6 +396,14 @@ namespace SignalProcessing
             //this.graphic.PlotLegend(this.legendPictureBox, this.data);
         }
 
+        /*
+          * soundTimeAnalysisToolStripMenuItem_Click
+          * 概要：[BeatTracking] -> [SoundTimeAnalysis]
+          * @param sender
+          * @param e
+          * @return なし
+          */
+
         private void soundTimeAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
              int numberOfWindow = data.originalLen / data.shiftLen;
@@ -390,12 +442,23 @@ namespace SignalProcessing
              //4k-11kの発音時間
              soundTimeData7 = this.soundTime.RisingComponentAnalysis(data.stftData, numberOfWindow + 1, data.windowLen, 4000, 11000, this.data.ofSmpf);
              this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, soundTimeData7, numberOfWindow + 1);
+
+             //Filterを有効化
+             filterToolStripMenuItem.Enabled = true;
         }
+
+        /*
+         * sGFToolStripMenuItem_Click
+         * 概要：[Filter] -> [SGF]
+         * @param sender
+         * @param e
+         * @return なし
+         */
 
         private void sGFToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int smoothingNumber = 11;
             int numberOfWindow = data.originalLen / data.shiftLen;
-            double[] peekTime1, peekTime2, peekTime3, peekTime4, peekTime5, peekTime6, peekTime7;
             peekTime1 = new double[numberOfWindow + 1];
             peekTime2 = new double[numberOfWindow + 1];
             peekTime3 = new double[numberOfWindow + 1];
@@ -403,41 +466,142 @@ namespace SignalProcessing
             peekTime5 = new double[numberOfWindow + 1];
             peekTime6 = new double[numberOfWindow + 1];
             peekTime7 = new double[numberOfWindow + 1];
+            sumPeekTime = new double[numberOfWindow + 1];
 
             //0-125の発音時間
-            peekTime1 = this.soundTime.SavitzkyGolayFilter(soundTimeData1, 15, numberOfWindow + 1);
+            peekTime1 = this.soundTime.SavitzkyGolayFilter(soundTimeData1, smoothingNumber, numberOfWindow + 1);
             peekTime1 = this.soundTime.PeekDetection(peekTime1, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, peekTime1, numberOfWindow + 1);
 
             //125-250の発音時間
-            peekTime2 = this.soundTime.SavitzkyGolayFilter(soundTimeData2, 15, numberOfWindow + 1);
+            peekTime2 = this.soundTime.SavitzkyGolayFilter(soundTimeData2, smoothingNumber, numberOfWindow + 1);
             peekTime2 = this.soundTime.PeekDetection(peekTime2, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, peekTime2, numberOfWindow + 1);
 
             //250-500の発音時間
-            peekTime3 = this.soundTime.SavitzkyGolayFilter(soundTimeData3, 15, numberOfWindow + 1);
+            peekTime3 = this.soundTime.SavitzkyGolayFilter(soundTimeData3, smoothingNumber, numberOfWindow + 1);
             peekTime3 = this.soundTime.PeekDetection(peekTime3, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, peekTime3, numberOfWindow + 1);
 
             //500-1kの発音時間
-            peekTime4 = this.soundTime.SavitzkyGolayFilter(soundTimeData4, 15, numberOfWindow + 1);
+            peekTime4 = this.soundTime.SavitzkyGolayFilter(soundTimeData4, smoothingNumber, numberOfWindow + 1);
             peekTime4 = this.soundTime.PeekDetection(peekTime4, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, peekTime4, numberOfWindow + 1);
 
             //1k-2kの発音時間
-            peekTime5 = this.soundTime.SavitzkyGolayFilter(soundTimeData5, 15, numberOfWindow + 1);
+            peekTime5 = this.soundTime.SavitzkyGolayFilter(soundTimeData5, smoothingNumber, numberOfWindow + 1);
             peekTime5 = this.soundTime.PeekDetection(peekTime5, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, peekTime5, numberOfWindow + 1);
 
             //2k-4kの発音時間
-            peekTime6 = this.soundTime.SavitzkyGolayFilter(soundTimeData6, 15, numberOfWindow + 1);
+            peekTime6 = this.soundTime.SavitzkyGolayFilter(soundTimeData6, smoothingNumber, numberOfWindow + 1);
             peekTime6 = this.soundTime.PeekDetection(peekTime6, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, peekTime6, numberOfWindow + 1);
 
             //4k-11kの発音時間
-            peekTime7 = this.soundTime.SavitzkyGolayFilter(soundTimeData7, 5, numberOfWindow + 1);
+            peekTime7 = this.soundTime.SavitzkyGolayFilter(soundTimeData7, smoothingNumber, numberOfWindow + 1);
             peekTime7 = this.soundTime.PeekDetection(peekTime7, numberOfWindow + 1);
             this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, peekTime7, numberOfWindow + 1);
+        
+            //自己相関の有効化
+            correlationToolStripMenuItem.Enabled = true;
+
+
+            //発音時刻ベクトルの全次元の要素の和
+            for(int i = 0; i < sumPeekTime.Length; i++)
+            {
+                sumPeekTime[i] = (peekTime1[i] + peekTime2[i] + peekTime3[i] + peekTime4[i] + peekTime5[i] + peekTime6[i] + peekTime7[i])/7;
+            }
+
+            this.graphic.PlotSoundTimeGraph(this.soundTimeSumPictureBox, sumPeekTime, sumPeekTime.Length);
+        }
+
+        /*
+         * autocorrelationToolStripMenuItem_Click
+         * 概要：[BeatTracking] -> [Autocorrelation]
+         * @param sender
+         * @param e
+         * @return なし
+         */
+
+        private void autocorrelationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numberOfWindow = data.originalLen / data.shiftLen;
+            int smoothingNumber = 11;
+            double[] R1 = new double[numberOfWindow + 1];
+            double[] R2 = new double[numberOfWindow + 1];
+            double[] R3 = new double[numberOfWindow + 1];
+            double[] R4 = new double[numberOfWindow + 1];
+            double[] R5 = new double[numberOfWindow + 1];
+            double[] R6 = new double[numberOfWindow + 1];
+            double[] R7 = new double[numberOfWindow + 1];
+            double[] Rsum = new double[numberOfWindow + 1];
+            double[] beat4 = new double[numberOfWindow + 1];
+            double[] Rbeat4 = new double[numberOfWindow + 1];
+
+            R1 = this.soundTime.AutocorrelationFunction(R1.Length, peekTime1, peekTime1);
+            //R1 = this.soundTime.SavitzkyGolayFilter(R1, smoothingNumber, R1.Length);
+            //R1 = this.soundTime.PeekDetection(R1, R1.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo125PictureBox, R1, R1.Length);
+
+            R2 = this.soundTime.AutocorrelationFunction(R2.Length, peekTime2, peekTime2);
+            //R2 = this.soundTime.SavitzkyGolayFilter(R2, smoothingNumber, R2.Length);
+            //R2 = this.soundTime.PeekDetection(R2, R2.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo250PictureBox, R2, R2.Length);
+
+            R3 = this.soundTime.AutocorrelationFunction(R3.Length, peekTime3, peekTime3);
+            //R3 = this.soundTime.SavitzkyGolayFilter(R3, smoothingNumber, R3.Length);
+            //R3 = this.soundTime.PeekDetection(R3, R3.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo500PictureBox, R3, R3.Length);
+
+            R4 = this.soundTime.AutocorrelationFunction(R4.Length, peekTime4, peekTime4);
+            //R4 = this.soundTime.SavitzkyGolayFilter(R4, smoothingNumber, R4.Length);
+            //R4 = this.soundTime.PeekDetection(R4, R4.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo1kPictureBox, R4, R4.Length);
+
+            R5 = this.soundTime.AutocorrelationFunction(R5.Length, peekTime5, peekTime5);
+            //R5 = this.soundTime.SavitzkyGolayFilter(R5, smoothingNumber, R5.Length);
+            //R5 = this.soundTime.PeekDetection(R5, R5.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo2kPictureBox, R5, R5.Length);
+
+            R6 = this.soundTime.AutocorrelationFunction(R6.Length, peekTime6, peekTime6);
+            //R6 = this.soundTime.SavitzkyGolayFilter(R6, smoothingNumber, R6.Length);
+            //R7 = this.soundTime.PeekDetection(R6, R6.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo4kPictureBox, R6, R6.Length);
+
+            R7 = this.soundTime.AutocorrelationFunction(R7.Length, peekTime7, peekTime7);
+            //R7 = this.soundTime.SavitzkyGolayFilter(R7, smoothingNumber, R7.Length);
+            //R7 = this.soundTime.PeekDetection(R7, R7.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeTo11kPictureBox, R7, R7.Length);
+
+            Rsum = this.soundTime.AutocorrelationFunction(Rsum.Length, sumPeekTime, sumPeekTime);
+            Rsum = this.soundTime.SavitzkyGolayFilter(Rsum, smoothingNumber, Rsum.Length);
+            Rsum = this.soundTime.PeekDetection(Rsum, Rsum.Length);
+            this.graphic.PlotSoundTimeGraph(this.soundTimeSumPictureBox, Rsum, Rsum.Length);
+
+
+            //ビート時刻系列の作成
+            beatInterval = this.soundTime.BeetTimeDetection(Rsum);
+            beat4 = this.soundTime.makeBeat(beat4, 0, beatInterval);
+
+            //ビート時刻系列と全次元発音時刻ベクトルとのズレ
+            Rbeat4 = this.soundTime.AutocorrelationFunction(beat4.Length, beat4, sumPeekTime);
+            Rbeat4 = this.soundTime.SavitzkyGolayFilter(Rbeat4, smoothingNumber, Rbeat4.Length);
+            Rbeat4 = this.soundTime.PeekDetection(Rbeat4, Rbeat4.Length);
+            gap = this.soundTime.BeetTimeDetection(Rbeat4);
+
+            //ビート時刻系列の上書き
+            beat4 = this.soundTime.makeBeat(beat4, gap, beatInterval);
+            this.graphic.PlotSoundTimeGraph(this.beatTimePictureBox, beat4, beat4.Length);
+
+            //ChordChangeメニューの有効化
+            chordChangeToolStripMenuItem.Enabled = true;
+        }
+
+        private void chordChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.chordDialog = new ChangeOfChordWindow(this.gap, this.beatInterval, this.data.stftData);
+            this.chordDialog.ShowDialog();
         }
     }
 }

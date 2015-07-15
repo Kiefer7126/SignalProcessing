@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,37 @@ namespace SignalProcessing
 {
     public class SoundTimeAnalysis
     {
+
         /**
-        * RisingComponentAnalysis
-        * 概要：立ち上がり成分を抽出する
-        * @param p 立ち上がり成分を抽出する対象であるFFT後の周波数成分
-        * @param numberOfWindow 窓の数
-        * @param freqBand
-        * @return p[t,f] パワーが増加し続けている周波数成分
-        */
+         * AutocorrelationFunction
+         * 概要：自己相関を求める
+         * @param data 自己相関を求める対象データ
+         * @param dataLen 対象データの大きさ
+         * @return R[] 自己相関配列
+         */
+        public double[] AutocorrelationFunction(int dataLen, double[] data1, double[] data2)
+        {
+            double[] R = new double[dataLen];
+
+            for (int j = 0; j < dataLen; j++)
+            {
+                for (int i = 0; i < dataLen - j; i++)
+                {
+                    R[j] = R[j] + data1[i] * data2[i + j];
+                }
+                R[j] = R[j] / (dataLen - j);
+            }
+            return R;
+        }
+
+        /**
+         * RisingComponentAnalysis
+         * 概要：立ち上がり成分を抽出する
+         * @param p 立ち上がり成分を抽出する対象であるFFT後の周波数成分
+         * @param numberOfWindow 窓の数
+         * @param freqBand
+         * @return p[t,f] パワーが増加し続けている周波数成分
+         */
         public double[] RisingComponentAnalysis(double[,] p, int numberOfWindow, int windowLen, int freqFrom, int freqTo, int samplingFreq)
         {
             
@@ -40,17 +64,22 @@ namespace SignalProcessing
                 for (int f = 1; f < freqResolution; f++)
                 {
 
+                    //double ppTemp1 = Math.Max(p[t - 1, f + freqFromNumber], p[t - 1, f - 1 + freqFromNumber]);
+                    //double ppTemp2 = Math.Max(p[t - 1, f + 1 + freqFromNumber], p[t - 2, f + freqFromNumber]);
+                    //double pp = Math.Max(ppTemp1, ppTemp2);
+
                     double ppTemp1 = Math.Max(p[t - 1, f + freqFromNumber], p[t - 1, f - 1 + freqFromNumber]);
-                    double ppTemp2 = Math.Max(p[t - 1, f + 1 + freqFromNumber], p[t - 2, f + freqFromNumber]);
-                    double pp = Math.Max(ppTemp1, ppTemp2);
+                    double pp = Math.Max(ppTemp1, p[t - 1, f + 1 + freqFromNumber]);
 
                     double npTemp1 = Math.Min(p[t + 1, f - 1 + freqFromNumber], p[t + 1, f + 1 + freqFromNumber]);
-                    double np = Math.Min(p[t + 1, f], npTemp1);
+                    double np = Math.Min(p[t + 1, f + freqFromNumber], npTemp1);
 
 
-                    if (p[t, f] > pp && np > pp)
+                    //if (p[t, f] > pp && np > pp)
+                    if (Math.Min(p[t, f + freqFromNumber], p[t + 1, f + freqFromNumber]) > pp)
                     {
-                        d[t, f] = p[t, f] - pp + Math.Max(0, p[t + 1, f + freqFromNumber] - p[t, f + freqFromNumber]);
+                       //d[t, f] = p[t, f + freqFromNumber] - pp + Math.Max(0, p[t + 1, f + freqFromNumber] - p[t, f + freqFromNumber]);
+                        d[t, f] = Math.Max(p[t + 1, f + freqFromNumber], p[t, f + freqFromNumber]) - pp;
                     }
                     else
                     {
@@ -155,7 +184,6 @@ namespace SignalProcessing
             return newData;
         }
 
-
         /**
          * PeekDetection
          * 概要：ピークの検出
@@ -167,21 +195,101 @@ namespace SignalProcessing
         {
             double[] peekTime;
             peekTime = new double[dataLen];
+            double maxPeek;
+
+            //最近得られた最大のピーク値で正規化
+            maxPeek = 0;
 
             for (int i = 0; i < dataLen - 1; i++)
             {
                 if (data[i] > 0 && data[i + 1] < 0)
                 {
-                        peekTime[i] = data[i];
-                }
-                else
-                {
-                    peekTime[i] = 0.0;
-                }
-                
+                        if (maxPeek < data[i])
+                        {
+                            maxPeek = data[i];
+                        }
+
+                        peekTime[i] = data[i] / maxPeek;
+
+                 }
+                 else
+                 {
+                        peekTime[i] = 0.0;
+                 }  
             }
                 return peekTime;
         }
 
+        /**
+         * BeetTimeDetection
+         * 概要： ビート時刻の検出
+         * @param data            ビート時刻を求める対象データ
+         * @return beetTime       ビート時刻系列
+         */
+
+        public int BeetTimeDetection(double[] data)
+        {
+            double [] beetTime = new double[data.Length];
+            int oldBeet = 0;
+            int beatInterval;
+        
+            ArrayList beatIntervalArray = new ArrayList();
+
+            //ビート間隔を格納
+            for (int i = 0; i < data.Length; i++) 
+            {
+                if (data[i] > 0.0)
+                {
+                    beatInterval = i - oldBeet;
+
+                    oldBeet = i;
+
+                    beatIntervalArray.Add(beatInterval);
+    
+                }
+            }
+             
+            //最頻値を求める
+            int mode = 0;
+            int count = 0;
+            int tempCount;
+
+            for (int i = 0; i < beatIntervalArray.Count; i++)
+            {
+                tempCount = 1;
+                for (int j = i + 1; j < beatIntervalArray.Count; j++)
+                {
+                    if ((int)beatIntervalArray[i] == (int)beatIntervalArray[j])
+                    {
+                        tempCount++;
+                    }
+                }
+
+                if (tempCount > count)
+                {
+                    count = tempCount;
+                    mode = (int)beatIntervalArray[i];
+                }
+            }
+
+            beatInterval = mode;
+            
+          return beatInterval;
+        }
+
+        public double[] makeBeat(double[] beatTime, int gap, int beatInterval)
+        {
+            for (int i = 0; i < beatTime.Length; i++)
+            {
+                beatTime[i] = 0.0;
+            }
+
+            for (int i = gap; i < beatTime.Length; i = i + beatInterval)
+            {
+                beatTime[i] = 1.0;
+            }
+
+            return beatTime; 
+        }
     }
 }

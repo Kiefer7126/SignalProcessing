@@ -816,6 +816,122 @@ namespace SignalProcessing
             PlotGraphEdit(soundTimeGraph, data, dataLen, 0);
         }
 
+        /**
+         * PlotHistogram
+         * 概要：ビート間隔毎の周波数のヒストグラムを描画する
+         * @param picture      発音時刻を描画するPictureBox
+         * @param data         グラフ描画の対象データ
+         * @param gap          初期位置
+         * @param beatInterval ビート間隔
+         * @return なし
+         */
+
+        public void PlotHistogram(PictureBox picture, double[,] data, double gap, int beatInterval)
+        {
+            Graphics g;
+            Font myFont;
+            int numberOfWindow, xZero, yZero, xMax, yMax, marginRight, marginLeft, marginTop, marginBottom, gramWidth, gramHeight;
+            
+            int penSize = 1; //太くすると周波数が少ないときでも隙間なく描画される
+            float xStep, yStep;
+            float dataMax = 0;
+            float dataMin = 0;
+
+            double[,] chordData;
+
+            int dataLen = data.GetLength(0);
+            try
+            {
+                picture.Refresh();
+                picture.Image = new Bitmap(picture.Width, picture.Height);
+                g = Graphics.FromImage(picture.Image);
+                myFont = new Font("Arial", 9);
+
+                marginRight = 0;
+                marginLeft = (int)(gap * picture.Width);
+                marginTop = 0;
+                marginBottom = 0;
+                gramWidth = picture.Width - (marginRight + marginLeft);
+                gramHeight = picture.Height - (marginTop + marginBottom);
+
+                xZero = marginLeft;
+                yZero = picture.Height - marginBottom;
+                xMax = picture.Width - marginRight;
+                yMax = marginTop;
+
+                //numberOfWindow = data.GetLength(0) / beatInterval;
+                xStep = (float)gramWidth / (float)data.GetLength(0);
+                yStep = System.Math.Abs((float)gramHeight * 2 * 2 / data.GetLength(1));
+
+                    //グラフの描画
+
+                    for (int time = 0; time < data.GetLength(0); time++)
+                    {
+                        for (int i = 0; i < data.GetLength(1); i++)
+                        {
+                            if (dataMax < data[time, i]) dataMax = (float)data[time, i];
+                            if (dataMin > data[time, i]) dataMin = (float)data[time, i];
+                        }
+
+                        for (int i = 0; i < data.GetLength(1) ; i++)
+                        {
+                            float bottomUp = System.Math.Abs(dataMin);
+
+                            //plotData = (int)((chordData[time, i] + bottomUp) / (dataMax - dataMin));
+                            // ToHsv(plotData);
+
+                            float plotPeekData = 0;
+
+                            if (data[time, i] != 0)
+                            {
+                                plotPeekData = (float)((data[time, i] + bottomUp) / (dataMax - dataMin));
+                            }
+
+                            g.DrawLine(Pens.Green,
+                                 (float)(xZero + xStep * time),
+                                 (float)(yZero - i * yStep),
+                                 (float)(xZero + xStep * time + plotPeekData * xStep),
+                                 (float)(yZero - i * yStep));
+
+                        }
+                    }
+
+                //区切りの描画
+
+                    for (int time = 0; time < data.GetLength(0); time++)
+                    {
+                        g.DrawLine(Pens.Black,
+                           (float)(xZero + xStep * time),
+                           (float)(yZero),
+                           (float)(xZero + xStep * time),
+                           (float)(yMax));
+                    }
+
+                //Graphicsリソース解放
+                g.Dispose();
+            }
+            catch (NullReferenceException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NullReferenceException", errorMessage);
+            }
+            catch (OverflowException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("OverflowException", errorMessage);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
+            }
+            catch (Exception e)
+            {
+                String errorMessage = e.ToString();
+                Debug.ShowMessage("NewException", errorMessage);
+            }
+        }
+
         private void PlotGraphEdit(PictureBox picture, double[] data, int dataLen, double samplingFreq)
         {
             Graphics g;

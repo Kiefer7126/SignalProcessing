@@ -18,3 +18,5 @@ C:\Users\b1012046\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessin
 C:\Users\b1012046\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.SettingWindow.resources
 C:\Users\b1012046\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.csproj.GenerateResource.Cache
 C:\Users\b1012046\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.csprojResolveAssemblyReference.cache
+C:\Users\kiefer7126\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.ChangeOfChordWindow.resources
+C:\Users\b1012046\cs\SignalProcessing\SignalProcessing\obj\Debug\SignalProcessing.ChangeOfChordWindow.resources

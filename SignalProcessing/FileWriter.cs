@@ -19,8 +19,8 @@ namespace SignalProcessing
         private byte[] fChunkId = { (byte)'f', (byte)'m', (byte)'t', (byte)' ' };
         private int fChunkSize = 16;  //リニアPCM→16(10 00 00 00)
         private short fAudio = 1;     //リニアPCM(01 00)
-        private short fCh = 1;        //モノラル(01 00)
-        private short fBlockSize = 2; //16bit モノラル→2×1 = 2(02 00)
+        private short fCh = 2;        //ステレオ
+        private short fBlockSize = 4; //ステレオ
         private short fBits = 16;     //16bit→16(10 00)
         //dataチャンク
         private byte[] dChunkId = { (byte)'d', (byte)'a', (byte)'t', (byte)'a' };
@@ -130,6 +130,82 @@ namespace SignalProcessing
             }
         }
 
+        /**
+         * WriteClick
+         * 概要：wavファイルに書き込む
+         * @param samplingFreq サンプリング周波数
+         * @param data wavデータ格納用
+         * @return なし
+         */
+
+        public void WriteClick(double samplingFreq, double[] data)
+        {
+            //書き込むファイル名
+            string writeFileName = "";
+            int i = 0;
+            double wavemax = 0.0;
+
+            //ファイルサイズ、データ速度、dataチャンクのサイズ、サンプリング周波数(Hz)
+            int rChunkSize, fByteRate, dChunkSize, fSmpf;
+
+            //書き込むファイル名の取得
+            writeFileName = SaveFileDialog(DataRetention.WAVDATA);
+
+            if (writeFileName == "" || writeFileName == null)
+            {
+                //ファイル名が取得されていなければ、処理を続行しない
+            }
+            else
+            {
+                try
+                {
+                    using (FileStream fs = new FileStream(writeFileName, FileMode.Create, FileAccess.Write))
+                    {
+                        using (BinaryWriter bw = new BinaryWriter(fs))
+                        {
+                           
+                            //サンプリング周波数をkHzからHzに直す
+                            fSmpf = (int)(samplingFreq * 1000);
+                            //ファイルサイズの計算(チャンクサイズ[44byte] + windowLength * 2byte - 8)
+                            rChunkSize = 44 + (data.Length * 2) - 8;
+                            //データ速度の計算（サンプリング周波数[Hz]*16bit[2]*ステレオ[2]）
+                            fByteRate = fSmpf * 2 * 2;
+                            //dataチャンクのサイズ(windowLength * 2byte)
+                            dChunkSize = data.Length * 2;
+
+                            //RIFFチャンク
+                            bw.Write(this.rChunkId);
+                            bw.Write(rChunkSize);
+                            bw.Write(this.rFormat);
+                            //fmtチャンク
+                            bw.Write(this.fChunkId);
+                            bw.Write(this.fChunkSize);
+                            bw.Write(this.fAudio);
+                            bw.Write(this.fCh);
+                            bw.Write(fSmpf);
+                            bw.Write(fByteRate);
+                            bw.Write(this.fBlockSize);
+                            bw.Write(this.fBits);
+                            //dataチャンク
+                            bw.Write(this.dChunkId);
+                            bw.Write(dChunkSize);
+
+                            for (i = 0; i < data.Length; i++)
+                            {
+                                bw.Write(Convert.ToInt16(data[i]));
+                            }
+
+                            bw.Close();
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    //例外処理
+                }
+            }
+        }
+
         /*
          * WriteTextFile
          * 概要：テキスト形式で書き込む
@@ -139,7 +215,7 @@ namespace SignalProcessing
          * @return なし
          */
 
-        public void WriteTextFile(DataRetention data, int flag)
+        public void WriteTextFile(double[] data, int flag)
         {
             string writeFileName = "";
 
@@ -159,16 +235,16 @@ namespace SignalProcessing
                     {
                         if (flag == DataRetention.TIMEGRAPH)
                         {
-                            for (i = 0; i < data.windowLen; i++)
+                            for (i = 0; i < data.Length; i++)
                             {
-                                sw.WriteLine(data.timeData[i]);
+                                sw.WriteLine(data[i]);
                             }
                         }
                         else
                         {
-                            for (i = 0; i < data.windowLen; i++)
+                            for (i = 0; i < data.Length; i++)
                             {
-                                sw.WriteLine(data.dBData[i]);
+                                sw.WriteLine(data[i]);
                             }
                         }
                         sw.Close();

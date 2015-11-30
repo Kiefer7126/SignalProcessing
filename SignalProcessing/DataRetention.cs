@@ -17,7 +17,12 @@ namespace SignalProcessing
         public const int SAW = 301;
         public const int SQUARE = 302;
         public const int SINE2 = 303;
+        public const int CLICK = 304;
         public const int SPECTRO = 401;
+        public const int FIRSTMETRIC = 384;
+        public const int SECONDMETRIC = 48;
+        public const int THERDMETRIC = 96;
+        public const int FORTHMETRIC = 144;
 
         //注意：FFTの処理でFFTとIFFTの値を使用する
         public const int FFT = 1;
@@ -33,10 +38,13 @@ namespace SignalProcessing
         public int fileFormat;  
         //オリジナルデータ
         public double[] originalData;
-        //オリジナルデータの長さ[byte]
+        //オリジナルデータのサンプリング数
         public int originalLen;
         //オリジナルデータの長さ[s]
         public float originalTime_s;
+        //サンプリング毎の時間[ms/sampling]
+        public float msPerSampling;
+
         //周波数の間隔[Hz]
         public float fScale_Hz;
         //WindowLength分切り取ったデータ
@@ -77,12 +85,15 @@ namespace SignalProcessing
         //判定フラグ(SINE, SAW or SQUARE)
         public int waveKind;
         //振幅
-        public double amplitude = 500.0;
+        public double amplitude = 3000.0;
         //基本周波数
-        public double fundamentalFreq = 250.0;
+        public double fundamentalFreq = 100.0;
         //
         public double harmonic = 10000.0;
         //サンプリング周波数
         public double samplingFreq = 8000.0;
+
+        //拍節構造
+        public int[,] metricalData;
     }
 }

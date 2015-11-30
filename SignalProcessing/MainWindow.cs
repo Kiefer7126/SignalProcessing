@@ -75,7 +75,7 @@ namespace SignalProcessing
 
         /**
          * textToolStripMenuItem_Click
-         * 概要：[Frequency] -> [Import] -> [Text]
+         * 概要：[File] -> [Import] -> [Text]
          * @param sender
          * @param e
          * @return なし
@@ -89,8 +89,21 @@ namespace SignalProcessing
         }
 
         /**
+        * metricalStructureToolStripMenuItem_Click
+        * 概要：[File] -> [Import] -> [metricalStructure]
+        * @param sender
+        * @param e
+        * @return なし
+        */
+        private void metricalStructureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.data.fileFormat = DataRetention.TEXTDATA;
+            this.reader.ReadMetricalStructure(this.data);
+        }
+
+        /**
          * dFTToolStripMenuItem_Click
-         * 概要：[File] -> [DFT]
+         * 概要：[Frequency] -> [DFT]
          * @param sender
          * @param e
          * @return なし
@@ -174,14 +187,30 @@ namespace SignalProcessing
             }
         }
 
+        /**
+         * timeGraphToolStripMenuItem_Click
+         * 概要：[File] -> [Export] -> [text] -> [TimeGraph]
+         * @param sender 
+         * @param e 
+         * @return なし
+         */
+
         private void timeGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.writer.WriteTextFile(this.data, DataRetention.TIMEGRAPH);
+            this.writer.WriteTextFile(this.data.originalData, DataRetention.TIMEGRAPH);
         }
+
+        /**
+         * timeGraphToolStripMenuItem_Click
+         * 概要：[File] -> [Export] -> [text] -> [DbGraph]
+         * @param sender 
+         * @param e 
+         * @return なし
+         */
 
         private void dBGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.writer.WriteTextFile(this.data, DataRetention.FREQGRAPH);
+            this.writer.WriteTextFile(this.data.dBData, DataRetention.FREQGRAPH);
         }
 
         /**
@@ -211,6 +240,9 @@ namespace SignalProcessing
                 case 3:
                     this.data.waveKind = DataRetention.SINE2;
                     break;
+                case 4:
+                    this.data.waveKind = DataRetention.CLICK;
+                    break;
                 default:
                     break;
             }
@@ -226,16 +258,26 @@ namespace SignalProcessing
 
         private void generateButton_Click(object sender, EventArgs e)
         {
-            generate.Processing(this.data, this.data.waveKind);
-            this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
-
-            //Menuの有効・無効
-            if (this.data.originalData != null)
+            if (this.data.waveKind == DataRetention.CLICK)
             {
-                frequencyToolStripMenuItem.Enabled = true;
-                filterToolStripMenuItem.Enabled = false;
-                beatTrackingToolStripMenuItem.Enabled = false;
-                correlationToolStripMenuItem.Enabled = false;
+                double[] beatStructure = new double[data.metricalData.Length]; 
+                beatStructure = generate.beat(this.data);
+                this.writer.WriteClick(44.1, beatStructure);
+                this.writer.WriteTextFile(beatStructure, DataRetention.TIMEGRAPH);
+            }
+            else 
+            {
+                generate.Processing(this.data, this.data.waveKind);
+                this.graphic.PlotWaveForm(this.timeGraphPictureBox, this.data);
+
+                //Menuの有効・無効
+                if (this.data.originalData != null)
+                {
+                    frequencyToolStripMenuItem.Enabled = true;
+                    filterToolStripMenuItem.Enabled = false;
+                    beatTrackingToolStripMenuItem.Enabled = false;
+                    correlationToolStripMenuItem.Enabled = false;
+                }
             }
 
             //MessageBox.Show("waveKind: " + this.data.waveKind);
@@ -312,10 +354,13 @@ namespace SignalProcessing
             double item;
             item = System.Convert.ToDouble(samplingComboBox.SelectedItem);
             int numberOfWindow = data.originalLen / data.shiftLen;
-          
-            data.stftData = new double[numberOfWindow+1, data.windowLen];
 
-            this.fourier.CalSTFT(this.data);
+            if (data.stftData == null)
+            {
+                data.stftData = new double[numberOfWindow + 1, data.windowLen];
+
+                this.fourier.CalSTFT(this.data);
+            }
 
             //グラフ描画
             //this.graphic.PlotdBChar(item, this.dBGraphPictureBox, this.data);

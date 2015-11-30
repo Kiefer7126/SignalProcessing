@@ -88,6 +88,72 @@ namespace SignalProcessing
             }
         }
 
+        /**
+         * ReadMetricalStructure
+         * 概要：テキストファイルを読み込む
+         * @param data
+         * @return なし
+         */
+
+        public void ReadMetricalStructure(DataRetention data)
+        {
+            string loadFileName = "";
+
+            loadFileName = OpenFileDialog(DataRetention.TEXTDATA);
+            
+            if (loadFileName == "" || loadFileName == null)
+            {
+                //Do nothing
+            }
+            else
+            {
+                try
+                {
+                    using (StreamReader sr = new StreamReader(loadFileName))
+                    {
+                        
+                        string readData = "";
+                        string[] splitData;
+                        string[] splitElement;
+                        int i = 0;
+                        int j = 0;
+                        readData = sr.ReadToEnd();
+                        splitData = readData.Split(System.Environment.NewLine.ToCharArray());
+                                                
+                        data.metricalData = new int[splitData.Length-1, 3];
+
+                        for (i = 0; i < splitData.Length - 1; i++)
+                        {
+                            //System.Diagnostics.Debug.WriteLine(splitData[i]);
+                            splitElement = splitData[i].Split("\t".ToCharArray());
+                                                        
+                            for (j = 0; j < splitElement.Length; j++)
+                            {
+                                //System.Diagnostics.Debug.WriteLine(splitElement[j]);
+                                //splitElement[j] = splitElement[j].Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace("\0", "").Replace("\b", "").Replace(System.Environment.NewLine, "");
+                                data.metricalData[i, j] = Convert.ToInt32(splitElement[j]);
+                            }
+                             
+                        }
+                    }
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    String errorMessage = e.ToString();
+                    Debug.ShowMessage("IndexOutOfRangeException", errorMessage);
+                }
+                catch (FormatException e)
+                {
+                    String errorMessage = e.ToString();
+                    Debug.ShowMessage("FormatException", errorMessage);
+                }
+                catch (Exception e)
+                {
+                    String errorMessage = e.ToString();
+                    Debug.ShowMessage("NewException", errorMessage);
+                }
+            }
+        }
 
         /**
          * ReadWavFile
@@ -95,6 +161,7 @@ namespace SignalProcessing
          * @param data wavデータ格納用
          * @return なし
          */
+
         public void ReadWavFile(DataRetention data) 
         {
             string loadFileName = "";
@@ -124,22 +191,42 @@ namespace SignalProcessing
                             data.ofAudio = br.ReadInt16();
                             data.ofCh = br.ReadInt16();
                             data.ofSmpf = br.ReadInt32();
-                            data.ofByteRate = br.ReadInt32();
+                            data.ofByteRate = br.ReadInt32();  //データ速度( B / sec)
                             data.ofBlockSize = br.ReadInt16();
-                            data.ofBits = br.ReadInt16();
+                            data.ofBits = br.ReadInt16();      //サンプルあたりのビット数( bit / sample )
                             data.odChunkId = br.ReadBytes(4);
-                            data.odChunkSize = br.ReadInt32();
+                            data.odChunkSize = br.ReadInt32(); //波形データのバイト数 
 
-                            //2バイトでひとつのデータなので2で割る
-                            data.originalLen = data.odChunkSize / 2;
-                            //オリジナルデータの長さを時間変換
-                            //(RLで標本化一回のためofChで除算する)
+                            //データのサンプル数
+                            data.originalLen = data.odChunkSize / (data.ofBits / 8);
+
+                            //データのサンプル数を時間変換(RLで標本化一回のためofChで除算する)
                             data.originalTime_s = (float)data.originalLen / (float)data.ofSmpf / (float)data.ofCh; 
 
                             data.originalData = new double[data.originalLen];
-                            MessageBox.Show("originalLen = " + data.originalLen);
-                            MessageBox.Show("originalTime_s = " + data.originalTime_s);
-                           // MessageBox.Show("data.ofCh = " + data.ofCh);
+
+                            data.msPerSampling = (float)data.ofBits * 1000 / 8 / (float)data.ofByteRate;
+
+                            //Debug
+                            System.Diagnostics.Debug.WriteLine("Time / Sample [ms] = " + data.msPerSampling);
+                            System.Diagnostics.Debug.WriteLine("originalLen = " + data.originalLen);
+                            System.Diagnostics.Debug.WriteLine("originalTime_s = " + data.originalTime_s);
+                            
+                           
+                            System.Diagnostics.Debug.WriteLine("orChunkId = " + data.orChunkId);
+                            System.Diagnostics.Debug.WriteLine("orChunkSize = " + data.orChunkSize);
+                            System.Diagnostics.Debug.WriteLine("orForma = " + data.orFormat);
+                            System.Diagnostics.Debug.WriteLine("ofChunkId = " + data.ofChunkId);
+                            System.Diagnostics.Debug.WriteLine("ofChunkSize = " + data.ofChunkSize);
+                            System.Diagnostics.Debug.WriteLine("ofAudio = " + data.ofAudio);
+                            System.Diagnostics.Debug.WriteLine("ofCh = " + data.ofCh);
+                            System.Diagnostics.Debug.WriteLine("ofSmpf = " + data.ofSmpf);
+                            System.Diagnostics.Debug.WriteLine("ofByteRate = " + data.ofByteRate);
+                            System.Diagnostics.Debug.WriteLine("ofBlockSize = " + data.ofBlockSize);
+                            System.Diagnostics.Debug.WriteLine("ofBits = " + data.ofBits);
+                            System.Diagnostics.Debug.WriteLine("odChunkId = " + data.odChunkId);
+                            System.Diagnostics.Debug.WriteLine("odChunkSize = " + data.odChunkSize);
+
 
                             //ステレオファイルはRLRL…の順に入っているので一つ飛ばしで読み込む？
                             for (i = 0; i < data.originalLen ; i = i + 1)
